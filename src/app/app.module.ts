@@ -6,7 +6,6 @@ import { StoreModule } from '@ngrx/store';
 import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterModule } from '@angular/router';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 
@@ -26,7 +25,6 @@ import { routes } from './app.routes';
 		BrowserModule,
 		FormsModule,
 		HttpModule,
-		BrowserAnimationsModule,
 		FieldsetModule,
 		RouterModule.forRoot(routes),
 		StoreModule.provideStore(reducer),

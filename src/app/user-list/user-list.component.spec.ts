@@ -1,4 +1,4 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -12,7 +12,6 @@ describe('UserListComponent', () => {
 		TestBed.configureTestingModule({
 			declarations: [UserListComponent],
 			imports: [
-				BrowserAnimationsModule,
 				FieldsetModule
 			]
 		})
@@ -25,7 +24,7 @@ describe('UserListComponent', () => {
 		fixture.detectChanges();
 	});
 
-	it('should create', () => {
+	it('should create component', () => {
 		expect(component).toBeTruthy();
 	});
 });
