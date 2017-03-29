@@ -41,7 +41,7 @@ export interface State {
 }
 
 const reducers = {
-	user: usersReducer,
+	users: usersReducer,
 	router: routerReducer,
 };
 
