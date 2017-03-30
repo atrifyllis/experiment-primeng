@@ -1,5 +1,5 @@
 import { User } from './../store/users';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -14,7 +14,6 @@ export class UserListContainerComponent {
 	users$: Observable<User[]>;
 
 	constructor(store: Store<fromUsers.State>) {
-		this.users$ = store.select();
+		this.users$ = store.select('userState', 'users');
 	}
-
 }

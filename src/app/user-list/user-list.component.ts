@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { User } from './../store/users';
+import { Component, OnInit, Input } from '@angular/core';
 import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
+import { DataTableModule, SharedModule } from 'primeng/primeng';
+
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
+import * as fromUsers from '../store/users';
 
 @Component({
 	selector: 'user-list',
@@ -8,7 +15,10 @@ import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 })
 export class UserListComponent implements OnInit {
 
-	constructor() { }
+	@Input()
+	users: User[] = [];
+
+	constructor() {}
 
 	ngOnInit() {
 	}

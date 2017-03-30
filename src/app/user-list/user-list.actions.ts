@@ -1,3 +1,4 @@
+import { User } from './../store/users';
 import { Action } from '@ngrx/store';
 import { type } from '../util';
 
@@ -10,7 +11,8 @@ import { type } from '../util';
  * action types in the application are unique.
  */
 export const ActionTypes = {
-	LOAD_USERS: type('[User] Load')
+	LOAD_USERS: type('[User] Load'),
+	LOAD_USERS_SUCCESS: type('[User] Load Success')
 };
 
 /**
@@ -23,7 +25,14 @@ export const ActionTypes = {
 export class LoadUsersAction implements Action {
 	type = ActionTypes.LOAD_USERS;
 
-	constructor() { }
+	constructor(public payload?: any) { }
+}
+
+
+export class LoadUsersSuccessAction implements Action {
+	type = ActionTypes.LOAD_USERS_SUCCESS;
+
+	constructor(public payload: User[]) { }
 }
 
 /**
@@ -32,4 +41,5 @@ export class LoadUsersAction implements Action {
  */
 export type Actions
 	= LoadUsersAction
-  // | SearchCompleteAction
+	| LoadUsersSuccessAction
+	;

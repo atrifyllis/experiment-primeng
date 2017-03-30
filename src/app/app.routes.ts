@@ -1,9 +1,11 @@
-import { UserListComponent } from './user-list/user-list.component';
+import { UserListResolver } from './user-list/user-list.resolver';
+import { UserListContainerComponent } from './user-list/user-list-container.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
 	{
 		path: 'users',
-		component: UserListComponent
+		component: UserListContainerComponent,
+		canActivate: [UserListResolver]
 	}
 ];

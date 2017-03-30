@@ -31,22 +31,27 @@ import { storeFreeze } from 'ngrx-store-freeze';
  */
 import { combineReducers } from '@ngrx/store';
 
+/**
+ * storeLogger is a metareducer that logs out each time we dispatch an action.
+ */
+import { storeLogger } from 'ngrx-store-logger';
+
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
  */
-export interface State {
+export interface AppState {
 	users: fromUsers.State;
 }
 
 const reducers = {
-	users: usersReducer,
+	userState: usersReducer,
 	router: routerReducer,
 };
 
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
-const productionReducer: ActionReducer<State> = combineReducers(reducers);
+const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, storeLogger(), combineReducers)(reducers);
+const productionReducer: ActionReducer<AppState> = combineReducers(reducers);
 
 export function reducer(state: any, action: any) {
 	if (environment.production) {
