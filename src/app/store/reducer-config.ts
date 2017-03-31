@@ -42,7 +42,7 @@ import { storeLogger } from 'ngrx-store-logger';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface AppState {
-	users: fromUsers.State;
+	userState: fromUsers.State;
 }
 
 const reducers = {

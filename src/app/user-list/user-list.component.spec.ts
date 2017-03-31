@@ -1,3 +1,4 @@
+import { DataTableModule } from 'primeng/primeng';
 
 import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -12,6 +13,7 @@ describe('UserListComponent', () => {
 		TestBed.configureTestingModule({
 			declarations: [UserListComponent],
 			imports: [
+				DataTableModule,
 				FieldsetModule
 			]
 		})
