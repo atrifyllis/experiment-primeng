@@ -1,12 +1,10 @@
-<p>
-  user-list works!
+<md-card>
+  <md-card-title>Users</md-card-title>
 
-  <p-fieldset legend="PrimeNG components">
-
-    <p-dataTable [value]="users">
-      <p-column field="id" header="Id"></p-column>
-      <p-column field="username" header="Username"></p-column>
-      <p-column field="email" header="Email"></p-column>
-    </p-dataTable>
-  </p-fieldset>
-</p>
+  <p-dataTable [value]="users" [responsive]="true">
+    <p-column field="id" header="Id"></p-column>
+    <p-column field="username" header="Username"></p-column>
+    <p-column field="email" header="Email"></p-column>
+  </p-dataTable>
+  
+</md-card>

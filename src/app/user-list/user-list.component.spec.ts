@@ -1,3 +1,4 @@
+import { MaterialModule } from '@angular/material';
 import { DataTableModule } from 'primeng/primeng';
 
 import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
@@ -14,7 +15,8 @@ describe('UserListComponent', () => {
 			declarations: [UserListComponent],
 			imports: [
 				DataTableModule,
-				FieldsetModule
+				FieldsetModule,
+				MaterialModule
 			]
 		})
 			.compileComponents();

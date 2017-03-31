@@ -1,5 +1,6 @@
+import { MaterialModule } from '@angular/material';
 import { TestBed, async } from '@angular/core/testing';
-import {Route} from '@angular/router';
+import { Route } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
@@ -13,7 +14,10 @@ describe('AppComponent', () => {
 			declarations: [
 				AppComponent
 			],
-			imports: [RouterTestingModule.withRoutes(config)]
+			imports: [
+				RouterTestingModule.withRoutes(config),
+				MaterialModule
+			]
 		}).compileComponents();
 	}));
 
@@ -33,6 +37,6 @@ describe('AppComponent', () => {
 		const fixture = TestBed.createComponent(AppComponent);
 		fixture.detectChanges();
 		const compiled = fixture.debugElement.nativeElement;
-		expect(compiled.querySelector('h1').textContent).toContain('PrimeNG/ngrx-store integrated');
+		expect(compiled.querySelector('span').textContent).toContain('PrimeNG/ngrx-store integrated');
 	}));
 });

@@ -24,7 +24,11 @@ import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { routes } from './app.routes';
-
+import { MaterialModule } from '@angular/material';
+/**
+ * used by material
+ */
+import 'hammerjs';
 
 @NgModule({
 	declarations: [
@@ -41,6 +45,7 @@ import { routes } from './app.routes';
 		SharedModule,
 		RouterModule.forRoot(routes),
 		StoreModule.provideStore(reducer),
+		MaterialModule,
 
 		/**
 		 * @ngrx/router-store keeps router state up-to-date in the store and uses
