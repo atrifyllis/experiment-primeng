@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot, CanActivate } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
 
 import * as user from './user-list.actions';
 import * as fromUsers from '../store/users';

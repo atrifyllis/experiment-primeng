@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import * as fromUser from './user-list.actions';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';

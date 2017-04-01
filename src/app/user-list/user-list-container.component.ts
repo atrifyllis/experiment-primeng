@@ -1,9 +1,8 @@
 import { AppState } from './../store/reducer-config';
-import { User, State } from './../store/users';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { User } from './../store/users';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { createSelector } from 'reselect';
 
 const getUsers = (state: AppState) => state.userState.users;
 

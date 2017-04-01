@@ -1,12 +1,5 @@
 import { User } from './../store/users';
-import { Component, OnInit, Input } from '@angular/core';
-import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
-import { DataTableModule, SharedModule } from 'primeng/primeng';
-
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-
-import * as fromUsers from '../store/users';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'user-list',

@@ -13,11 +13,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { reducer } from './store/reducer-config';
-
 /**
  * storeLogger is a metareducer that logs out each time we dispatch an action.
  */
-import { storeLogger } from 'ngrx-store-logger';
 
 import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 
@@ -66,16 +64,17 @@ import 'hammerjs';
 		StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
 		/**
-	* EffectsModule.run() sets up the effects class to be initialized
-	* immediately when the application starts.
-	*
-	* See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
-	*/
+		 * EffectsModule.run() sets up the effects class to be initialized
+		 * immediately when the application starts.
+		 *
+		 * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
+		 */
 		EffectsModule.run(UserListEffects),
 	],
 	providers: [UserService, UserListResolver],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 
 

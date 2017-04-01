@@ -1,4 +1,4 @@
-import { State, User } from '../store/users';
+import { State } from '../store/users';
 import * as user from './user-list.actions';
 
 export const initialState: State = {
