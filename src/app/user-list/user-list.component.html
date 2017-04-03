@@ -1,10 +1,16 @@
 <md-card>
   <md-card-title>Users</md-card-title>
 
-  <p-dataTable [value]="users" [responsive]="true">
-    <p-column field="id" header="Id"></p-column>
-    <p-column field="username" header="Username"></p-column>
-    <p-column field="email" header="Email"></p-column>
-  </p-dataTable>
+  <div class="ui-grid ui-grid-responsive ui-grid-pad">
+    <div class="ui-widget-header">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input #gb type="text" pInputText placeholder="Global Filter">
+    </div>
 
+    <p-dataTable [value]="users" [responsive]="true" [globalFilter]="gb">
+      <p-column field="id" header="Id"></p-column>
+      <p-column field="username" header="Username"></p-column>
+      <p-column field="email" header="Email"></p-column>
+    </p-dataTable>
+  </div>
 </md-card>
