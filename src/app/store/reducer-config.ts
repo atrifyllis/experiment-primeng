@@ -55,3 +55,20 @@ export function reducer(state: any, action: any) {
 		return developmentReducer(state, action);
 	}
 }
+
+/**
+ * A selector function is a map function factory. We pass it parameters and it
+ * returns a function that maps from the larger state tree into a smaller
+ * piece of state. This selector simply selects the `users` state.
+ *
+ * Selectors are used with the `select` operator.
+ *
+ * ```ts
+ * class MyComponent {
+ * 	constructor(state$: Observable<State>) {
+ * 	  this.booksState$ = state$.select(getUsersState);
+ * 	}
+ * }
+ * ```
+ */
+export const getUsersState = (state: AppState) => state.userState.users;
