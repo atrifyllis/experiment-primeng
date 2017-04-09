@@ -3,8 +3,10 @@
 
   <div class="ui-grid ui-grid-responsive ui-grid-pad">
     <div class="ui-widget-header">
-      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-      <input #gb type="text" pInputText placeholder="Global Filter">
+      <md-input-container>
+        <input #gb type="text" mdInput placeholder="Global Filter">
+        <md-icon mdPrefix>search</md-icon>
+      </md-input-container>
     </div>
 
     <p-dataTable [value]="users" [responsive]="true" [globalFilter]="gb">

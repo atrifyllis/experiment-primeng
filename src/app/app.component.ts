@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 	]
 })
 export class AppComponent {
-	title = 'PrimeNG/ngrx-store integrated';
+	title = 'PrimeNG/Ngrx/Material integrated';
 }
