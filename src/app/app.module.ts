@@ -27,12 +27,14 @@ import { MaterialModule } from '@angular/material';
  * used by material
  */
 import 'hammerjs';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		UserListComponent,
-		UserListContainerComponent
+		UserListContainerComponent,
+		HomeComponent
 	],
 	imports: [
 		BrowserModule,
