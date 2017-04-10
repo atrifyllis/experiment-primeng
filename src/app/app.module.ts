@@ -28,6 +28,7 @@ import { MaterialModule } from '@angular/material';
  */
 import 'hammerjs';
 import { HomeComponent } from './home/home.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
 	declarations: [
@@ -46,6 +47,7 @@ import { HomeComponent } from './home/home.component';
 		RouterModule.forRoot(routes),
 		StoreModule.provideStore(reducer),
 		MaterialModule,
+		FlexLayoutModule,
 
 		/**
 		 * @ngrx/router-store keeps router state up-to-date in the store and uses
