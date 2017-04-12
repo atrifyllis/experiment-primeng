@@ -14,11 +14,11 @@
       <p-column field="username" header="Username"></p-column>
       <p-column field="email" header="Email"></p-column>
       <p-column header="Action" styleClass="col-button">
-        <template pTemplate="body">
+        <template let-user="rowData" pTemplate="body">
           <button md-mini-fab>
             <md-icon>edit</md-icon>
           </button>
-          <button md-mini-fab color="warn">
+          <button md-mini-fab color="warn" (click)="remove.emit(user)">
             <md-icon>delete</md-icon>
           </button>
         </template>

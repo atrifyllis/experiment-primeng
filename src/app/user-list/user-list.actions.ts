@@ -12,7 +12,10 @@ import { type } from '../util';
  */
 export const ActionTypes = {
 	LOAD_USERS: type('[User] Load'),
-	LOAD_USERS_SUCCESS: type('[User] Load Success')
+	LOAD_USERS_SUCCESS: type('[User] Load Success'),
+	DELETE_USER: type('[User] Delete'),
+	DELETE_USER_SUCCESS: type('[User] Delete Success'),
+	DELETE_USER_FAILED: type('[User] Delete Failed')
 };
 
 /**
@@ -29,6 +32,24 @@ export class LoadUsersAction implements Action {
 }
 
 
+export class DeleteUserAction implements Action {
+	type = ActionTypes.DELETE_USER;
+
+	constructor(public payload: number) { }
+}
+
+export class DeleteUserSuccessAction implements Action {
+	type = ActionTypes.DELETE_USER_SUCCESS;
+
+	constructor(public payload: number) { }
+}
+
+export class DeleteUserFailedAction implements Action {
+	type = ActionTypes.DELETE_USER_FAILED;
+
+	constructor(public payload: number) { }
+}
+
 export class LoadUsersSuccessAction implements Action {
 	type = ActionTypes.LOAD_USERS_SUCCESS;
 
@@ -42,4 +63,7 @@ export class LoadUsersSuccessAction implements Action {
 export type Actions
 	= LoadUsersAction
 	| LoadUsersSuccessAction
+	| DeleteUserAction
+	| DeleteUserSuccessAction
+	| DeleteUserFailedAction
 	;

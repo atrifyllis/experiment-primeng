@@ -1,5 +1,5 @@
 import { User } from './../store/users';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'user-list',
@@ -10,6 +10,8 @@ export class UserListComponent implements OnInit {
 
 	@Input()
 	users: User[] = [];
+
+	@Output() remove = new EventEmitter<User>();
 
 	constructor() {}
 
