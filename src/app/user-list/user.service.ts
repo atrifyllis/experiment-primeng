@@ -19,7 +19,7 @@ export class UserService {
 	}
 
 	deleteUser(userId: number): Observable<number> {
-		const index = sampleUsers.findIndex((user: User) => user.id === userId);
+		const index = this.users.findIndex((user: User) => user.id === userId);
 		this.users = [
 			...this.users.slice(0, index),
 			...this.users.slice(index + 1)
