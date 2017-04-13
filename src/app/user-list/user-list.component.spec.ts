@@ -42,4 +42,27 @@ describe('UserListComponent', () => {
 		expect(headerRow).toBeDefined();
 		expect(userRows.length).toBe(5);
 	});
+
+	it('should have action buttons displaying for each user', () => {
+		const compiled = fixture.debugElement.nativeElement;
+		const userRows = compiled.querySelectorAll('tr.ui-widget-content');
+		getAllLastColumns(userRows).forEach(td => {
+			const buttons = td.querySelectorAll('.material-icons');
+			expect(buttons.length).toBe(2);
+			expect(buttons[0].textContent).toBe('edit');
+			expect(buttons[1].textContent).toBe('delete');
+		});
+	});
+
+	it('should remove user row when deleting user', () => {
+		const compiled = fixture.debugElement.nativeElement;
+		const userRows: any[] = compiled.querySelectorAll('tr.ui-widget-content');
+		const buttons = getAllLastColumns(userRows)[0].querySelectorAll('.material-icons');
+		buttons[1].click();
+		// TODO should we check ui interaction?
+	});
 });
+
+export function getAllLastColumns(listOfRows: any[]): any[] {
+	return Array.from(listOfRows, row => row.querySelector('td:last-child'));
+}

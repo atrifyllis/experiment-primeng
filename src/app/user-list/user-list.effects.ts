@@ -20,7 +20,7 @@ export class UserListEffects {
 			.map((users: User[]) => new fromUser.LoadUsersSuccessAction(users))
 		);
 
-@Effect()
+	@Effect()
 	deleteUser$: Observable<Action> = this.actions$
 		.ofType(fromUser.ActionTypes.DELETE_USER)
 		.map((action: fromUser.DeleteUserAction) => action.payload)
