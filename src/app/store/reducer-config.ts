@@ -9,7 +9,7 @@ import { environment } from './../../environments/environment';
  */
 import { ActionReducer, combineReducers } from '@ngrx/store';
 import { routerReducer } from '@ngrx/router-store';
-import { usersReducer } from '../user-list/users.reducer';
+import { usersReducer } from '../user-list/user-list.reducer';
 import * as fromUsers from './users';
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
