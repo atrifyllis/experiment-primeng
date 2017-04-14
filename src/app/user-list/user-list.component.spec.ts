@@ -6,10 +6,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserListComponent } from './user-list.component';
 import { sampleUsers } from '../store/sampleData';
+import { User } from '../store/users';
 
 describe('UserListComponent', () => {
 	let component: UserListComponent;
 	let fixture: ComponentFixture<UserListComponent>;
+	let compiled: any;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
@@ -27,6 +29,7 @@ describe('UserListComponent', () => {
 		fixture = TestBed.createComponent(UserListComponent);
 		component = fixture.componentInstance;
 		component.users = sampleUsers;
+		compiled = fixture.debugElement.nativeElement;
 		fixture.detectChanges();
 	});
 
@@ -35,7 +38,6 @@ describe('UserListComponent', () => {
 	});
 
 	it('should have users displaying in a table', () => {
-		const compiled = fixture.debugElement.nativeElement;
 		const headerRow = compiled.querySelector('thead tr');
 		const userRows = compiled.querySelectorAll('tr.ui-widget-content');
 
@@ -44,7 +46,6 @@ describe('UserListComponent', () => {
 	});
 
 	it('should have action buttons displaying for each user', () => {
-		const compiled = fixture.debugElement.nativeElement;
 		const userRows = compiled.querySelectorAll('tr.ui-widget-content');
 		getAllLastColumns(userRows).forEach(td => {
 			const buttons = td.querySelectorAll('.material-icons');
@@ -54,12 +55,13 @@ describe('UserListComponent', () => {
 		});
 	});
 
-	it('should remove user row when deleting user', () => {
-		const compiled = fixture.debugElement.nativeElement;
+	fit('should raise remove event with correct user as argument', () => {
 		const userRows: any[] = compiled.querySelectorAll('tr.ui-widget-content');
 		const buttons = getAllLastColumns(userRows)[0].querySelectorAll('.material-icons');
+		let selectedUser: User;
+		component.remove.subscribe((user: User) => selectedUser = user);
 		buttons[1].click();
-		// TODO should we check ui interaction?
+		expect(selectedUser.id).toBe(1);
 	});
 });
 
