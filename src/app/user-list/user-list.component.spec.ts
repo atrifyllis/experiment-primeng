@@ -55,7 +55,7 @@ describe('UserListComponent', () => {
 		});
 	});
 
-	fit('should raise remove event with correct user as argument', () => {
+	it('should raise remove event with correct user as argument', () => {
 		const userRows: any[] = compiled.querySelectorAll('tr.ui-widget-content');
 		const buttons = getAllLastColumns(userRows)[0].querySelectorAll('.material-icons');
 		let selectedUser: User;
