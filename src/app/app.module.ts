@@ -1,4 +1,4 @@
-import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { DataTableModule, DialogModule, SharedModule } from 'primeng/primeng';
 import { UserListResolver } from './user-list/user-list.resolver';
 import { UserService } from './user-list/user.service';
 import { UserListEffects } from './user-list/user-list.effects';
@@ -13,6 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { reducer } from './store/reducer-config';
+import { ReactiveFormsModule } from '@angular/forms';
 /**
  * storeLogger is a metareducer that logs out each time we dispatch an action.
  */
@@ -41,11 +42,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 	imports: [
 		BrowserModule,
 		FormsModule,
+		ReactiveFormsModule,
 		HttpModule,
 		BrowserAnimationsModule,
 		FieldsetModule,
 		DataTableModule,
 		SharedModule,
+		DialogModule,
 		RouterModule.forRoot(routes),
 		StoreModule.provideStore(reducer),
 		MaterialModule,

@@ -1,13 +1,19 @@
 import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
-import { fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { UserListEffects } from './user-list.effects';
 import {
-	DeleteUserAction, DeleteUserSuccessAction, LoadUsersAction,
-	LoadUsersSuccessAction
+	DeleteUserAction,
+	DeleteUserSuccessAction,
+	LoadUsersAction,
+	LoadUsersSuccessAction,
+	UpdateUserAction,
+	UpdateUserSuccessAction,
+	CloseUpdateUserDialogAction
 } from './user-list.actions';
 import { sampleUsers } from '../store/sampleData';
 import { UserService } from './user.service';
 import { Observable } from 'rxjs/Observable';
+import { User } from '../store/users';
 
 
 describe('User List Effects', () => {
@@ -25,7 +31,7 @@ describe('User List Effects', () => {
 			UserListEffects,
 			{
 				provide: UserService,
-				useValue: jasmine.createSpyObj('userService', ['getUsers', 'deleteUser'])
+				useValue: jasmine.createSpyObj('userService', ['getUsers', 'deleteUser', 'updateUser'])
 			}
 
 		]
@@ -44,6 +50,7 @@ describe('User List Effects', () => {
 		userService = TestBed.get(UserService);
 		userService.getUsers.and.returnValue(Observable.of(sampleUsers));
 		userService.deleteUser.and.returnValue(Observable.of(userId));
+		userService.updateUser.and.returnValue(Observable.of(userId));
 	});
 
 	it('should load a list of users', () => {
@@ -60,6 +67,31 @@ describe('User List Effects', () => {
 		userListEffects.deleteUser$.subscribe(result => fakeAsync(() => {
 			expect(result).toEqual(new DeleteUserSuccessAction(userId));
 			expect(userService.deleteUser).toHaveBeenCalledWith(userId);
+		}));
+	});
+
+	it('should return an UpdateUserSuccessAction with specified user, on success', () => {
+		const user: User = {
+			id: 1,
+			username: 'test-new',
+			email: 'test@test.com'
+		};
+		runner.queue(new UpdateUserAction(user));
+		userListEffects.updateUser$.subscribe(result => fakeAsync(() => {
+			expect(result).toEqual(new UpdateUserSuccessAction(user));
+			expect(userService.updateUser).toHaveBeenCalledWith(user);
+		}));
+	});
+
+	it('should return an CloseUpdateUserDialogAction when user is updated successfully', () => {
+		const user: User = {
+			id: 1,
+			username: 'test-new',
+			email: 'test@test.com'
+		};
+		runner.queue(new UpdateUserSuccessAction(user));
+		userListEffects.closeDialog$.subscribe(result => fakeAsync(() => {
+			expect(result).toEqual(new CloseUpdateUserDialogAction());
 		}));
 	});
 });

@@ -26,4 +26,14 @@ export class UserService {
 		];
 		return Observable.of(userId);
 	}
+
+	updateUser(user: User): Observable<number> {
+		const index = this.users.findIndex((u: User) => u.id === user.id);
+		this.users = [
+			...this.users.slice(0, index),
+			user,
+			...this.users.slice(index + 1)
+		];
+		return Observable.of(user.id);
+	}
 }

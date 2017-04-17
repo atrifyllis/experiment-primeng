@@ -1,5 +1,6 @@
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
-import { DataTableModule } from 'primeng/primeng';
+import { DataTableModule, DialogModule } from 'primeng/primeng';
 
 import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -7,6 +8,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserListComponent } from './user-list.component';
 import { sampleUsers } from '../store/sampleData';
 import { User } from '../store/users';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UserListComponent', () => {
 	let component: UserListComponent;
@@ -17,9 +19,15 @@ describe('UserListComponent', () => {
 		TestBed.configureTestingModule({
 			declarations: [UserListComponent],
 			imports: [
+				ReactiveFormsModule,
+				NoopAnimationsModule,
 				DataTableModule,
 				FieldsetModule,
+				DialogModule,
 				MaterialModule
+			],
+			providers: [
+				FormBuilder
 			]
 		})
 			.compileComponents();
@@ -29,6 +37,11 @@ describe('UserListComponent', () => {
 		fixture = TestBed.createComponent(UserListComponent);
 		component = fixture.componentInstance;
 		component.users = sampleUsers;
+		component.userForm = new FormBuilder().group(<User>{
+			id: null,
+			username: '',
+			email: ''
+		});
 		compiled = fixture.debugElement.nativeElement;
 		fixture.detectChanges();
 	});
