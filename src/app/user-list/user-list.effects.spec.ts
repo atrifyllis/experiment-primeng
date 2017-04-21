@@ -55,19 +55,18 @@ describe('User List Effects', () => {
 
 	it('should load a list of users', () => {
 		runner.queue(new LoadUsersAction());
-		// fake async service call
-		userListEffects.loadUsers$.subscribe(result => fakeAsync(() => {
+
+		userListEffects.loadUsers$.subscribe(result => {
 			expect(result).toEqual(new LoadUsersSuccessAction(sampleUsers));
-		}));
+		});
 	});
 
 	it('should return a DeleteUserSuccessAction with specified user id, on success', () => {
 		runner.queue(new DeleteUserAction(userId));
-		// fake async service call
-		userListEffects.deleteUser$.subscribe(result => fakeAsync(() => {
+		userListEffects.deleteUser$.subscribe(result => {
 			expect(result).toEqual(new DeleteUserSuccessAction(userId));
 			expect(userService.deleteUser).toHaveBeenCalledWith(userId);
-		}));
+		});
 	});
 
 	it('should return an UpdateUserSuccessAction with specified user, on success', () => {
@@ -77,10 +76,10 @@ describe('User List Effects', () => {
 			email: 'test@test.com'
 		};
 		runner.queue(new UpdateUserAction(user));
-		userListEffects.updateUser$.subscribe(result => fakeAsync(() => {
+		userListEffects.updateUser$.subscribe(result => {
 			expect(result).toEqual(new UpdateUserSuccessAction(user));
 			expect(userService.updateUser).toHaveBeenCalledWith(user);
-		}));
+		});
 	});
 
 	it('should return an CloseUpdateUserDialogAction when user is updated successfully', () => {
@@ -90,8 +89,8 @@ describe('User List Effects', () => {
 			email: 'test@test.com'
 		};
 		runner.queue(new UpdateUserSuccessAction(user));
-		userListEffects.closeDialog$.subscribe(result => fakeAsync(() => {
+		userListEffects.closeDialog$.subscribe(result => {
 			expect(result).toEqual(new CloseUpdateUserDialogAction());
-		}));
+		});
 	});
 });
