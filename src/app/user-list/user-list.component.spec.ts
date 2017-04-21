@@ -76,6 +76,23 @@ describe('UserListComponent', () => {
 		buttons[1].click();
 		expect(selectedUser.id).toBe(1);
 	});
+
+	it('should raise update event with correct user as argument', () => {
+		const userRows: any[] = compiled.querySelectorAll('tr.ui-widget-content');
+		const buttons = getAllLastColumns(userRows)[0].querySelectorAll('.material-icons');
+		let selectedUser: User;
+		component.edit.subscribe((user: User) => selectedUser = user);
+		buttons[0].click();
+		expect(selectedUser.id).toBe(1);
+	});
+
+	it('should raise create event', () => {
+		const newUserButton = compiled.querySelector('#filterRow button');
+		let isEmitted: boolean;
+		component.create.subscribe(() => isEmitted = true);
+		newUserButton.click();
+		expect(isEmitted).toBeTruthy();
+	});
 });
 
 export function getAllLastColumns(listOfRows: any[]): any[] {

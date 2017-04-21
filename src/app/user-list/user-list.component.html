@@ -1,48 +1,55 @@
 <md-card>
-  <md-card-title>Users</md-card-title>
+	<md-card-title>Users</md-card-title>
 
-  <div class="ui-grid ui-grid-responsive ui-grid-pad">
-    <div class="ui-widget-header">
-      <md-input-container>
-        <input #gb type="text" mdInput placeholder="Global Filter">
-        <md-icon mdPrefix>search</md-icon>
-      </md-input-container>
-    </div>
+	<div>
+		<div fxLayout="row" id="filterRow">
+			<div fxFlex="1 1 auto">
+				<md-input-container>
+					<input #gb type="text" mdInput placeholder="Global Filter">
+					<md-icon mdPrefix>search</md-icon>
+				</md-input-container>
+			</div>
+			<div  fxFlex="0 1 auto">
+				<button md-fab (click)="create.emit()">
+					<md-icon>add</md-icon>
+				</button>
+			</div>
+		</div>
 
     <p-dataTable [value]="users" [responsive]="true" [globalFilter]="gb" rowHover="true"
                  [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-      <p-column field="id" header="Id"></p-column>
-      <p-column field="username" header="Username"></p-column>
-      <p-column field="email" header="Email"></p-column>
-      <p-column header="Action" styleClass="col-button">
-        <ng-template let-user="rowData" pTemplate="body">
-          <button md-mini-fab (click)="edit.emit(user)">
-            <md-icon>edit</md-icon>
-          </button>
-          <button md-mini-fab color="warn" (click)="remove.emit(user)">
-            <md-icon>delete</md-icon>
-          </button>
-        </ng-template>
-      </p-column>
-    </p-dataTable>
-  </div>
+			<p-column field="id" header="Id"></p-column>
+			<p-column field="username" header="Username"></p-column>
+			<p-column field="email" header="Email"></p-column>
+			<p-column header="Action" styleClass="col-button">
+				<ng-template let-user="rowData" pTemplate="body">
+					<button md-mini-fab (click)="edit.emit(user)">
+						<md-icon>edit</md-icon>
+					</button>
+					<button md-mini-fab color="warn" (click)="remove.emit(user)">
+						<md-icon>delete</md-icon>
+					</button>
+				</ng-template>
+			</p-column>
+		</p-dataTable>
+	</div>
 </md-card>
 
 <p-dialog header="User form" [visible]="!!selectedUser" [modal]="true"
 		[closable]="false" [responsive]="true" [closeOnEscape]="false"
-		[resizable]="false" [draggable]="false" width="300">
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-	<md-input-container>
-		<input mdInput placeholder="Username" formControlName="username">
-	</md-input-container>
-	<md-input-container>
-		<input mdInput placeholder="Email" formControlName="email">
-	</md-input-container>
-	<p-footer>
-		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-			<button md-button type="submit">Save</button>
-			<button type="reset" md-button (click)="close.emit()">Cancel</button>
-		</div>
-	</p-footer>
-</form>
+  [resizable]="false" [draggable]="false" width="300">
+	<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+		<md-input-container>
+			<input mdInput placeholder="Username" formControlName="username">
+		</md-input-container>
+		<md-input-container>
+			<input mdInput placeholder="Email" formControlName="email">
+		</md-input-container>
+		<p-footer>
+			<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+				<button md-button type="submit">Save</button>
+				<button type="reset" md-button (click)="close.emit()">Cancel</button>
+			</div>
+		</p-footer>
+	</form>
 </p-dialog>

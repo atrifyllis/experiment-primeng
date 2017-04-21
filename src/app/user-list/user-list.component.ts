@@ -26,6 +26,8 @@ export class UserListComponent implements OnInit, OnChanges {
 
 	@Output() update = new EventEmitter<User>();
 
+	@Output() create = new EventEmitter();
+
 	constructor() {
 
 	}
@@ -38,8 +40,7 @@ export class UserListComponent implements OnInit, OnChanges {
 	}
 
 	onSubmit() {
-		const newUser = this.userForm.value;
-		this.update.emit(newUser);
+		this.update.emit(this.userForm.value);
 	}
 
 }

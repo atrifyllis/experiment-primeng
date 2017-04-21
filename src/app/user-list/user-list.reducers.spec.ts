@@ -58,7 +58,7 @@ describe('UserListReducer', () => {
 	});
 
 	describe('Update User', () => {
-		it('should update user in state', () => {
+		it('should update user in state if updating existing user', () => {
 			const initialState = deepFreeze({ users: [...sampleUsers] });
 			const user: User = {
 				id: 1,
@@ -69,6 +69,19 @@ describe('UserListReducer', () => {
 			const result = usersReducer(initialState, action);
 			const updatedUser = result.users[0];
 			expect(updatedUser).toEqual(user);
+		});
+
+		it('should add user in state if creating new user', () => {
+			const initialState = deepFreeze({ users: [...sampleUsers] });
+			const user: User = {
+				id: -1,
+				username: 'test-new',
+				email: 'mail@test.com'
+			};
+			const action = new UpdateUserSuccessAction(user);
+			const result = usersReducer(initialState, action);
+			const updatedUser = result.users[10];
+			expect(updatedUser).toEqual(jasmine.objectContaining({username: user.username, email: user.email}));
 		});
 	});
 });

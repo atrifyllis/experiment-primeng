@@ -1,6 +1,7 @@
 import { User } from './../store/users';
 import { State } from '../store/users';
 import * as user from './user-list.actions';
+import {calculateNewId} from './id.calculator';
 
 export const initialState: State = {
 	users: []
@@ -31,11 +32,20 @@ export function usersReducer(state: State = initialState, action: user.Actions):
 		case user.ActionTypes.UPDATE_USER_SUCCESS: {
 			const updatedUser: User = action.payload;
 			const index = state.users.findIndex((user: User) => user.id === updatedUser.id);
-			const users = [
+			let users: User[];
+			if (index === -1) {
+				// TODO this won't be needed when database is included
+				const newUser: User = Object.assign({}, updatedUser, {id: calculateNewId(state.users)});
+				users = [
+					...state.users, newUser
+				];
+			} else {
+				users = [
 				...state.users.slice(0, index),
 				updatedUser,
 				... state.users.slice(index + 1)
-			];
+				];
+			}
 			return Object.assign({}, state, {users});
 		}
 		default: {

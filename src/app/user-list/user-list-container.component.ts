@@ -17,7 +17,8 @@ import * as fromUser from './user-list.actions';
       <user-list [users]="users$ | async"
                  [selectedUser]="selectedUser$ | async" [userForm]="userForm"
                  (remove)="removeUser($event)" (edit)="editUser($event)"
-				 (update)="updateUser($event)" (close)="closeDialog($event)">
+				 (update)="updateUser($event)" (close)="closeDialog($event)"
+				 (create)="createUser($event)">
       </user-list>`
 })
 export class UserListContainerComponent {
@@ -50,8 +51,20 @@ export class UserListContainerComponent {
 		this.store.dispatch(new fromUser.UpdateUserAction(user));
 	}
 
+	createUser() {
+		this.store.dispatch(new fromUser.OpenUpdateUserDialogAction(this.newUser()));
+	}
+
 	closeDialog() {
 		this.store.dispatch(new fromUser.CloseUpdateUserDialogAction());
+	}
+
+	newUser(): User {
+		return {
+			id: -1,
+			username: '',
+			email: ''
+		};
 	}
 }
 
