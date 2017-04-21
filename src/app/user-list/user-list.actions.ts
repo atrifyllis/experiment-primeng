@@ -15,7 +15,15 @@ export const ActionTypes = {
 	LOAD_USERS_SUCCESS: type('[User] Load Success'),
 	DELETE_USER: type('[User] Delete'),
 	DELETE_USER_SUCCESS: type('[User] Delete Success'),
-	DELETE_USER_FAILED: type('[User] Delete Failed')
+	DELETE_USER_FAILED: type('[User] Delete Failed'),
+	OPEN_UPDATE_USER_DIALOG: type('[User] Open Update User Dialog'),
+	CLOSE_UPDATE_USER_DIALOG: type('[User] Close Update User Dialog'),
+	UPDATE_USER: type('[User] Update User'),
+	UPDATE_USER_SUCCESS: type('[User] Update User Success'),
+	UPDATE_USER_FAILED: type('[User] Update User Failed'),
+	CREATE_USER: type('[User] Create User'),
+	CREATE_USER_SUCCESS: type('[User] Create User Success'),
+	CREATE_USER_FAILED: type('[User] Create User Failed')
 };
 
 /**
@@ -56,6 +64,54 @@ export class LoadUsersSuccessAction implements Action {
 	constructor(public payload: User[]) { }
 }
 
+export class OpenUpdateUserDialogAction implements Action {
+	type = ActionTypes.OPEN_UPDATE_USER_DIALOG;
+
+	constructor(public payload: User) { }
+}
+
+export class CloseUpdateUserDialogAction implements Action {
+	type = ActionTypes.CLOSE_UPDATE_USER_DIALOG;
+
+	constructor(public payload?: any) { }
+}
+
+export class UpdateUserAction implements Action {
+	type = ActionTypes.UPDATE_USER;
+
+	constructor(public payload: User) {}
+}
+
+export class UpdateUserSuccessAction implements Action {
+	type = ActionTypes.UPDATE_USER_SUCCESS;
+
+	constructor(public payload: User) {}
+}
+
+export class UpdateUserFailedAction implements Action {
+	type = ActionTypes.UPDATE_USER_FAILED;
+
+	constructor(public payload: User) {}
+}
+
+export class CreateUserAction implements Action {
+	type = ActionTypes.CREATE_USER;
+
+	constructor(public payload: User) {}
+}
+
+export class CreateUseSuccessAction implements Action {
+	type = ActionTypes.CREATE_USER_SUCCESS;
+
+	constructor(public payload: User) {}
+}
+
+export class CreateUserFailedAction implements Action {
+	type = ActionTypes.CREATE_USER_FAILED;
+
+	constructor(public payload: User) {}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -66,4 +122,12 @@ export type Actions
 	| DeleteUserAction
 	| DeleteUserSuccessAction
 	| DeleteUserFailedAction
+	| OpenUpdateUserDialogAction
+	| CloseUpdateUserDialogAction
+	| UpdateUserAction
+	| UpdateUserSuccessAction
+	| UpdateUserFailedAction
+	| CreateUserAction
+	| CreateUseSuccessAction
+	| CreateUserFailedAction
 	;

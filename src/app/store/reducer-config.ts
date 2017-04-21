@@ -72,3 +72,5 @@ export function reducer(state: any, action: any) {
  * ```
  */
 export const getUsersState = (state: AppState) => state.userState.users;
+
+export const getSelectedUserState = (state: AppState) => state.userState.selectedUser;

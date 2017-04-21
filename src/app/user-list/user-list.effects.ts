@@ -29,5 +29,19 @@ export class UserListEffects {
 			.catch(() => of(new fromUser.DeleteUserFailedAction(userId)))
 		);
 
+	@Effect()
+	updateUser$: Observable<Action> = this.actions$
+		.ofType(fromUser.ActionTypes.UPDATE_USER)
+		.map((action: fromUser.UpdateUserAction) => action.payload)
+		.mergeMap((user: User) => this.userService.updateUser(user)
+			.map(() => new fromUser.UpdateUserSuccessAction(user))
+			.catch(() => of(new fromUser.UpdateUserFailedAction(user)))
+		);
+
+	@Effect()
+	closeDialog$: Observable<Action> = this.actions$
+		.ofType(fromUser.ActionTypes.UPDATE_USER_SUCCESS)
+		.map((action: fromUser.UpdateUserSuccessAction) => new fromUser.CloseUpdateUserDialogAction());
+
 	constructor(private actions$: Actions, private userService: UserService) { }
 }
