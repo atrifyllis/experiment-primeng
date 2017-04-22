@@ -29,14 +29,14 @@ export class UserListContainerComponent {
 		this.selectedUser$ = store.select(getSelectedUserState);
 
 		this.userForm = this.fb.group(<User>{
-			id: null,
+			$key: null,
 			username: '',
 			email: ''
 		});
 	}
 
 	removeUser(user: User) {
-		this.store.dispatch(new fromUser.DeleteUserAction(user.id));
+		this.store.dispatch(new fromUser.DeleteUserAction(user.$key));
 	}
 
 	editUser(user: User) {
@@ -57,7 +57,7 @@ export class UserListContainerComponent {
 
 	newUser(): User {
 		return {
-			id: -1,
+			$key: null,
 			username: '',
 			email: ''
 		};

@@ -26,6 +26,17 @@ import 'hammerjs';
 import { HomeComponent } from './home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from 'angularfire2';
+
+export const firebaseConfig = {
+	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
+	authDomain: 'experiment-primeng.firebaseapp.com',
+	databaseURL: 'https://experiment-primeng.firebaseio.com',
+	projectId: 'experiment-primeng',
+	storageBucket: 'experiment-primeng.appspot.com',
+	messagingSenderId: '980944123988'
+};
+
 
 @NgModule({
 	declarations: [
@@ -48,6 +59,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		StoreModule.provideStore(reducer),
 		MaterialModule,
 		FlexLayoutModule,
+
+		AngularFireModule.initializeApp(firebaseConfig),
 
 		/**
 		 * @ngrx/router-store keeps router state up-to-date in the store and uses

@@ -40,19 +40,19 @@ export class LoadUsersAction implements Action {
 export class DeleteUserAction implements Action {
 	type = ActionTypes.DELETE_USER;
 
-	constructor(public payload: number) { }
+	constructor(public payload: string) { }
 }
 
 export class DeleteUserSuccessAction implements Action {
 	type = ActionTypes.DELETE_USER_SUCCESS;
 
-	constructor(public payload: number) { }
+	constructor(public payload: string) { }
 }
 
 export class DeleteUserFailedAction implements Action {
 	type = ActionTypes.DELETE_USER_FAILED;
 
-	constructor(public payload: number) { }
+	constructor(public payload: string) { }
 }
 
 export class LoadUsersSuccessAction implements Action {

@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 export class UserListComponent implements OnInit, OnChanges {
 
 	@Input()
-	users: User[] = [];
+	users: any[] = [];
 
 	@Input()
 	userForm: FormGroup;
@@ -29,7 +29,6 @@ export class UserListComponent implements OnInit, OnChanges {
 	@Output() create = new EventEmitter();
 
 	constructor() {
-
 	}
 
 	ngOnInit() {

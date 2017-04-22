@@ -3,49 +3,51 @@ import { User } from './../store/users';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
-
-import { calculateNewId } from './id.calculator';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 
 @Injectable()
 export class UserService {
 
-	users: User[];
+	dbUsers: FirebaseListObservable<any[]>;
 
-	constructor() {
-		this.users = sampleUsers;
+	constructor(private af: AngularFire) {
+		this.dbUsers = af.database.list('/users');
+		// TODO: uncomment if you need sample data
+		// this.insertUsers(af);
 	}
 
-	getUsers(): Observable<User[]> {
-		return Observable.of(this.users);
+	getUsers(): FirebaseListObservable<User[]> {
+		return this.dbUsers;
 	}
 
-	deleteUser(userId: number): Observable<number> {
-		const index = this.users.findIndex((user: User) => user.id === userId);
-		this.users = [
-			...this.users.slice(0, index),
-			...this.users.slice(index + 1)
-		];
+	deleteUser(userId: string): Observable<string> {
+		this.af.database.object('/users/' + userId).remove();
 		return Observable.of(userId);
 	}
 
-	updateUser(user: User): Observable<number> {
-		const index = this.users.findIndex((u: User) => u.id === user.id);
-		let id: number;
-		if (index === -1) {
-			const newUser = Object.assign({}, user, { id: calculateNewId(this.users) });
-			this.users = [
-				...this.users, newUser
-			];
-			id = newUser.id;
+	updateUser(user: User): Observable<User> {
+		let newUser: User;
+		if (user.$key === null) {
+			const id = this.af.database.list('/users').push({
+				username: user.username,
+				email: user.email
+			}).key;
+			newUser = Object.assign({}, user, { $key: id });
 		} else {
-			this.users = [
-				...this.users.slice(0, index),
-				user,
-				...this.users.slice(index + 1)
-			];
-			id = user.id;
+			this.af.database.list('/users').update(user.$key, {
+				username: user.username,
+				email: user.email
+			});
+			newUser = Object.assign({}, user);
 		}
-		return Observable.of(id);
+		return Observable.of(newUser);
+	}
+
+	private insertUsers(af: AngularFire) {
+		sampleUsers.forEach(user => {
+			const usersDb = af.database.object('/users/' + user.$key);
+			usersDb.set(user);
+		});
 	}
 }
