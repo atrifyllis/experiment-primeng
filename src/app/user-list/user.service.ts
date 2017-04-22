@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
 
-import {calculateNewId} from './id.calculator';
+import { calculateNewId } from './id.calculator';
 
 
 @Injectable()
@@ -33,7 +33,7 @@ export class UserService {
 		const index = this.users.findIndex((u: User) => u.id === user.id);
 		let id: number;
 		if (index === -1) {
-			const newUser = Object.assign({}, user, {id: calculateNewId(this.users)});
+			const newUser = Object.assign({}, user, { id: calculateNewId(this.users) });
 			this.users = [
 				...this.users, newUser
 			];

@@ -1,11 +1,11 @@
 import { sampleUsers } from './../store/sampleData';
 import { initialState, usersReducer } from 'app/user-list/user-list.reducer';
 import {
+	CloseUpdateUserDialogAction,
 	DeleteUserSuccessAction,
 	LoadUsersSuccessAction,
 	OpenUpdateUserDialogAction,
-	UpdateUserSuccessAction,
-	CloseUpdateUserDialogAction
+	UpdateUserSuccessAction
 } from './user-list.actions';
 import { User } from '../store/users';
 import * as deepFreeze from 'deep-freeze-strict';
@@ -34,7 +34,7 @@ describe('UserListReducer', () => {
 			const initialState = deepFreeze({ users: [...sampleUsers] });
 			const action = new DeleteUserSuccessAction(userId);
 			const result = usersReducer(initialState, action);
-			const expectedUsers = sampleUsers.slice(1, sampleUsers.length)
+			const expectedUsers = sampleUsers.slice(1, sampleUsers.length);
 			expect(result).toEqual({ users: expectedUsers });
 		});
 	});
@@ -50,7 +50,10 @@ describe('UserListReducer', () => {
 
 	describe('Close User Dialog', () => {
 		it('should remove selectedUser from state', () => {
-			const initialState = deepFreeze({ users: [...sampleUsers], selectedUser: Object.assign({}, sampleUsers[0]) });
+			const initialState = deepFreeze({
+				users: [...sampleUsers],
+				selectedUser: Object.assign({}, sampleUsers[0])
+			});
 			const action = new CloseUpdateUserDialogAction();
 			const result = usersReducer(initialState, action);
 			expect(result.selectedUser).toBeNull();
@@ -81,7 +84,10 @@ describe('UserListReducer', () => {
 			const action = new UpdateUserSuccessAction(user);
 			const result = usersReducer(initialState, action);
 			const updatedUser = result.users[10];
-			expect(updatedUser).toEqual(jasmine.objectContaining({username: user.username, email: user.email}));
+			expect(updatedUser).toEqual(jasmine.objectContaining({
+				username: user.username,
+				email: user.email
+			}));
 		});
 	});
 });

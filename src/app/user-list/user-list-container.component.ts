@@ -1,9 +1,5 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
-import {
-	AppState,
-	getSelectedUserState,
-	getUsersState
-} from './../store/reducer-config';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AppState, getSelectedUserState, getUsersState } from './../store/reducer-config';
 import { User } from './../store/users';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -14,12 +10,12 @@ import * as fromUser from './user-list.actions';
 @Component({
 	selector: 'user-list-container',
 	template: `
-      <user-list [users]="users$ | async"
-                 [selectedUser]="selectedUser$ | async" [userForm]="userForm"
-                 (remove)="removeUser($event)" (edit)="editUser($event)"
-				 (update)="updateUser($event)" (close)="closeDialog($event)"
-				 (create)="createUser($event)">
-      </user-list>`
+		<user-list [users]="users$ | async"
+				   [selectedUser]="selectedUser$ | async" [userForm]="userForm"
+				   (remove)="removeUser($event)" (edit)="editUser($event)"
+				   (update)="updateUser($event)" (close)="closeDialog($event)"
+				   (create)="createUser($event)">
+		</user-list>`
 })
 export class UserListContainerComponent {
 

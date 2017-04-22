@@ -1,14 +1,14 @@
 import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
-import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { UserListEffects } from './user-list.effects';
 import {
+	CloseUpdateUserDialogAction,
 	DeleteUserAction,
 	DeleteUserSuccessAction,
 	LoadUsersAction,
 	LoadUsersSuccessAction,
 	UpdateUserAction,
-	UpdateUserSuccessAction,
-	CloseUpdateUserDialogAction
+	UpdateUserSuccessAction
 } from './user-list.actions';
 import { sampleUsers } from '../store/sampleData';
 import { UserService } from './user.service';

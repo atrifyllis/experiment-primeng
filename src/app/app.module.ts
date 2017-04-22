@@ -5,7 +5,7 @@ import { UserListEffects } from './user-list/user-list.effects';
 import { UserListContainerComponent } from './user-list/user-list-container.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { RouterStoreModule } from '@ngrx/router-store';
@@ -13,11 +13,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { reducer } from './store/reducer-config';
-import { ReactiveFormsModule } from '@angular/forms';
-/**
- * storeLogger is a metareducer that logs out each time we dispatch an action.
- */
-
 import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 
 import { AppComponent } from './app.component';

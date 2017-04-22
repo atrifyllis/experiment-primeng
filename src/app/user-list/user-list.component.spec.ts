@@ -1,4 +1,4 @@
-import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { DataTableModule, DialogModule } from 'primeng/primeng';
 
