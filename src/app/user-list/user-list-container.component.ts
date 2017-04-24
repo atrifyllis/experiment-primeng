@@ -13,8 +13,8 @@ import * as fromUser from './user-list.actions';
 		<user-list [users]="users$ | async"
 				   [selectedUser]="selectedUser$ | async" [userForm]="userForm"
 				   (remove)="removeUser($event)" (edit)="editUser($event)"
-				   (update)="updateUser($event)" (close)="closeDialog($event)"
-				   (create)="createUser($event)">
+				   (update)="updateUser($event)" (close)="closeDialog()"
+				   (create)="createUser()">
 		</user-list>`
 })
 export class UserListContainerComponent {

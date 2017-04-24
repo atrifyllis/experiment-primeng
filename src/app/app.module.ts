@@ -1,4 +1,6 @@
-import { DataTableModule, DialogModule, SharedModule } from 'primeng/primeng';
+import { DataTableModule } from 'primeng/components/datatable/datatable';
+import { DialogModule } from 'primeng/components/dialog/dialog';
+
 import { UserListResolver } from './user-list/user-list.resolver';
 import { UserService } from './user-list/user.service';
 import { UserListEffects } from './user-list/user-list.effects';
@@ -53,7 +55,6 @@ export const firebaseConfig = {
 		BrowserAnimationsModule,
 		FieldsetModule,
 		DataTableModule,
-		SharedModule,
 		DialogModule,
 		RouterModule.forRoot(routes),
 		StoreModule.provideStore(reducer),
