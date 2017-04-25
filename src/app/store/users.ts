@@ -4,7 +4,7 @@ export interface State {
 }
 
 export interface User {
-	id: number;
+	$key: string;
 	username: string;
 	email: string;
 }

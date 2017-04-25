@@ -1,14 +1,14 @@
 import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
-import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { UserListEffects } from './user-list.effects';
 import {
+	CloseUpdateUserDialogAction,
 	DeleteUserAction,
 	DeleteUserSuccessAction,
 	LoadUsersAction,
 	LoadUsersSuccessAction,
 	UpdateUserAction,
-	UpdateUserSuccessAction,
-	CloseUpdateUserDialogAction
+	UpdateUserSuccessAction
 } from './user-list.actions';
 import { sampleUsers } from '../store/sampleData';
 import { UserService } from './user.service';
@@ -21,7 +21,12 @@ describe('User List Effects', () => {
 	let runner: EffectsRunner;
 	let userListEffects: UserListEffects;
 	let userService;
-	const userId = 1;
+	const userId = '1';
+	const user: User = {
+		$key: '1',
+		username: 'test-new',
+		email: 'test@test.com'
+	};
 
 	beforeEach(() => TestBed.configureTestingModule({
 		imports: [
@@ -50,7 +55,7 @@ describe('User List Effects', () => {
 		userService = TestBed.get(UserService);
 		userService.getUsers.and.returnValue(Observable.of(sampleUsers));
 		userService.deleteUser.and.returnValue(Observable.of(userId));
-		userService.updateUser.and.returnValue(Observable.of(userId));
+		userService.updateUser.and.returnValue(Observable.of(user));
 	});
 
 	it('should load a list of users', () => {
@@ -70,11 +75,6 @@ describe('User List Effects', () => {
 	});
 
 	it('should return an UpdateUserSuccessAction with specified user, on success', () => {
-		const user: User = {
-			id: 1,
-			username: 'test-new',
-			email: 'test@test.com'
-		};
 		runner.queue(new UpdateUserAction(user));
 		userListEffects.updateUser$.subscribe(result => {
 			expect(result).toEqual(new UpdateUserSuccessAction(user));
@@ -83,11 +83,6 @@ describe('User List Effects', () => {
 	});
 
 	it('should return an CloseUpdateUserDialogAction when user is updated successfully', () => {
-		const user: User = {
-			id: 1,
-			username: 'test-new',
-			email: 'test@test.com'
-		};
 		runner.queue(new UpdateUserSuccessAction(user));
 		userListEffects.closeDialog$.subscribe(result => {
 			expect(result).toEqual(new CloseUpdateUserDialogAction());

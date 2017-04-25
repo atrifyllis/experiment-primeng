@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 	]
 })
 export class AppComponent {
-	title = 'PrimeNG/Ngrx/Material integrated';
+	title = 'PrimeNG/Ngrx/Firebase/Material integrated';
 }

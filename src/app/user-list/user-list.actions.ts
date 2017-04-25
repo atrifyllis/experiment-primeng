@@ -21,9 +21,6 @@ export const ActionTypes = {
 	UPDATE_USER: type('[User] Update User'),
 	UPDATE_USER_SUCCESS: type('[User] Update User Success'),
 	UPDATE_USER_FAILED: type('[User] Update User Failed'),
-	CREATE_USER: type('[User] Create User'),
-	CREATE_USER_SUCCESS: type('[User] Create User Success'),
-	CREATE_USER_FAILED: type('[User] Create User Failed')
 };
 
 /**
@@ -43,19 +40,19 @@ export class LoadUsersAction implements Action {
 export class DeleteUserAction implements Action {
 	type = ActionTypes.DELETE_USER;
 
-	constructor(public payload: number) { }
+	constructor(public payload: string) { }
 }
 
 export class DeleteUserSuccessAction implements Action {
 	type = ActionTypes.DELETE_USER_SUCCESS;
 
-	constructor(public payload: number) { }
+	constructor(public payload: string) { }
 }
 
 export class DeleteUserFailedAction implements Action {
 	type = ActionTypes.DELETE_USER_FAILED;
 
-	constructor(public payload: number) { }
+	constructor(public payload: string) { }
 }
 
 export class LoadUsersSuccessAction implements Action {
@@ -94,24 +91,6 @@ export class UpdateUserFailedAction implements Action {
 	constructor(public payload: User) {}
 }
 
-export class CreateUserAction implements Action {
-	type = ActionTypes.CREATE_USER;
-
-	constructor(public payload: User) {}
-}
-
-export class CreateUseSuccessAction implements Action {
-	type = ActionTypes.CREATE_USER_SUCCESS;
-
-	constructor(public payload: User) {}
-}
-
-export class CreateUserFailedAction implements Action {
-	type = ActionTypes.CREATE_USER_FAILED;
-
-	constructor(public payload: User) {}
-}
-
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -127,7 +106,4 @@ export type Actions
 	| UpdateUserAction
 	| UpdateUserSuccessAction
 	| UpdateUserFailedAction
-	| CreateUserAction
-	| CreateUseSuccessAction
-	| CreateUserFailedAction
 	;

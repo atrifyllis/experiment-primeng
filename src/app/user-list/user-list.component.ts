@@ -1,6 +1,6 @@
 import { User } from './../store/users';
-import { Component, EventEmitter, Input, OnInit, OnChanges, Output } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder} from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
 	selector: 'user-list',
@@ -10,7 +10,7 @@ import { FormControl, FormGroup, FormBuilder} from '@angular/forms';
 export class UserListComponent implements OnInit, OnChanges {
 
 	@Input()
-	users: User[] = [];
+	users: any[] = [];
 
 	@Input()
 	userForm: FormGroup;
@@ -29,14 +29,13 @@ export class UserListComponent implements OnInit, OnChanges {
 	@Output() create = new EventEmitter();
 
 	constructor() {
-
 	}
 
 	ngOnInit() {
 	}
 
 	ngOnChanges() {
-			this.userForm.reset(this.selectedUser !== null ? this.selectedUser : {});
+		this.userForm.reset(this.selectedUser !== null ? this.selectedUser : {});
 	}
 
 	onSubmit() {

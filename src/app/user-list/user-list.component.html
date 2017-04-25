@@ -9,16 +9,16 @@
 					<md-icon mdPrefix>search</md-icon>
 				</md-input-container>
 			</div>
-			<div  fxFlex="0 1 auto">
+			<div fxFlex="0 1 auto">
 				<button md-fab (click)="create.emit()">
 					<md-icon>add</md-icon>
 				</button>
 			</div>
 		</div>
 
-    <p-dataTable [value]="users" [responsive]="true" [globalFilter]="gb" rowHover="true"
-                 [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-			<p-column field="id" header="Id"></p-column>
+		<p-dataTable [value]="users" [responsive]="true" [globalFilter]="gb" rowHover="true"
+					 [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+			<p-column field="$key" header="Id"></p-column>
 			<p-column field="username" header="Username"></p-column>
 			<p-column field="email" header="Email"></p-column>
 			<p-column header="Action" styleClass="col-button">
@@ -36,8 +36,8 @@
 </md-card>
 
 <p-dialog header="User form" [visible]="!!selectedUser" [modal]="true"
-		[closable]="false" [responsive]="true" [closeOnEscape]="false"
-  [resizable]="false" [draggable]="false" width="300">
+		  [closable]="false" [responsive]="true" [closeOnEscape]="false"
+		  [resizable]="false" [draggable]="false" width="300">
 	<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 		<md-input-container>
 			<input mdInput placeholder="Username" formControlName="username">

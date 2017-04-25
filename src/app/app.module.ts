@@ -1,11 +1,13 @@
-import { DataTableModule, DialogModule, SharedModule } from 'primeng/primeng';
+import { DataTableModule } from 'primeng/components/datatable/datatable';
+import { DialogModule } from 'primeng/components/dialog/dialog';
+
 import { UserListResolver } from './user-list/user-list.resolver';
 import { UserService } from './user-list/user.service';
 import { UserListEffects } from './user-list/user-list.effects';
 import { UserListContainerComponent } from './user-list/user-list-container.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { RouterStoreModule } from '@ngrx/router-store';
@@ -13,11 +15,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { reducer } from './store/reducer-config';
-import { ReactiveFormsModule } from '@angular/forms';
-/**
- * storeLogger is a metareducer that logs out each time we dispatch an action.
- */
-
 import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 
 import { AppComponent } from './app.component';
@@ -31,6 +28,17 @@ import 'hammerjs';
 import { HomeComponent } from './home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from 'angularfire2';
+
+export const firebaseConfig = {
+	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
+	authDomain: 'experiment-primeng.firebaseapp.com',
+	databaseURL: 'https://experiment-primeng.firebaseio.com',
+	projectId: 'experiment-primeng',
+	storageBucket: 'experiment-primeng.appspot.com',
+	messagingSenderId: '980944123988'
+};
+
 
 @NgModule({
 	declarations: [
@@ -47,12 +55,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		BrowserAnimationsModule,
 		FieldsetModule,
 		DataTableModule,
-		SharedModule,
 		DialogModule,
 		RouterModule.forRoot(routes),
 		StoreModule.provideStore(reducer),
 		MaterialModule,
 		FlexLayoutModule,
+
+		AngularFireModule.initializeApp(firebaseConfig),
 
 		/**
 		 * @ngrx/router-store keeps router state up-to-date in the store and uses

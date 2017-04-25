@@ -1,11 +1,11 @@
 import { sampleUsers } from './../store/sampleData';
 import { initialState, usersReducer } from 'app/user-list/user-list.reducer';
 import {
+	CloseUpdateUserDialogAction,
 	DeleteUserSuccessAction,
 	LoadUsersSuccessAction,
 	OpenUpdateUserDialogAction,
-	UpdateUserSuccessAction,
-	CloseUpdateUserDialogAction
+	UpdateUserSuccessAction
 } from './user-list.actions';
 import { User } from '../store/users';
 import * as deepFreeze from 'deep-freeze-strict';
@@ -28,17 +28,6 @@ describe('UserListReducer', () => {
 		});
 	});
 
-	describe('Delete User', () => {
-		it('should remove user from state', () => {
-			const userId = 1;
-			const initialState = deepFreeze({ users: [...sampleUsers] });
-			const action = new DeleteUserSuccessAction(userId);
-			const result = usersReducer(initialState, action);
-			const expectedUsers = sampleUsers.slice(1, sampleUsers.length)
-			expect(result).toEqual({ users: expectedUsers });
-		});
-	});
-
 	describe('Open User Dialog', () => {
 		it('should set selected user in state', () => {
 			const initialState = deepFreeze({ users: [...sampleUsers] });
@@ -50,38 +39,13 @@ describe('UserListReducer', () => {
 
 	describe('Close User Dialog', () => {
 		it('should remove selectedUser from state', () => {
-			const initialState = deepFreeze({ users: [...sampleUsers], selectedUser: Object.assign({}, sampleUsers[0]) });
+			const initialState = deepFreeze({
+				users: [...sampleUsers],
+				selectedUser: Object.assign({}, sampleUsers[0])
+			});
 			const action = new CloseUpdateUserDialogAction();
 			const result = usersReducer(initialState, action);
 			expect(result.selectedUser).toBeNull();
-		});
-	});
-
-	describe('Update User', () => {
-		it('should update user in state if updating existing user', () => {
-			const initialState = deepFreeze({ users: [...sampleUsers] });
-			const user: User = {
-				id: 1,
-				username: 'test-new',
-				email: 'mail@test.com'
-			};
-			const action = new UpdateUserSuccessAction(user);
-			const result = usersReducer(initialState, action);
-			const updatedUser = result.users[0];
-			expect(updatedUser).toEqual(user);
-		});
-
-		it('should add user in state if creating new user', () => {
-			const initialState = deepFreeze({ users: [...sampleUsers] });
-			const user: User = {
-				id: -1,
-				username: 'test-new',
-				email: 'mail@test.com'
-			};
-			const action = new UpdateUserSuccessAction(user);
-			const result = usersReducer(initialState, action);
-			const updatedUser = result.users[10];
-			expect(updatedUser).toEqual(jasmine.objectContaining({username: user.username, email: user.email}));
 		});
 	});
 });

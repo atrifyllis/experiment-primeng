@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 
-const title = 'PrimeNG/Ngrx/Material integrated';
+const title = 'PrimeNG/Ngrx/Firebase/Material integrated';
 
 describe('AppComponent', () => {
 	const config: Route[] = [];

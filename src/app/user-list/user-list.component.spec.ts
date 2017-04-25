@@ -1,4 +1,4 @@
-import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { DataTableModule, DialogModule } from 'primeng/primeng';
 
@@ -38,7 +38,7 @@ describe('UserListComponent', () => {
 		component = fixture.componentInstance;
 		component.users = sampleUsers;
 		component.userForm = new FormBuilder().group(<User>{
-			id: null,
+			$key: null,
 			username: '',
 			email: ''
 		});
@@ -74,7 +74,7 @@ describe('UserListComponent', () => {
 		let selectedUser: User;
 		component.remove.subscribe((user: User) => selectedUser = user);
 		buttons[1].click();
-		expect(selectedUser.id).toBe(1);
+		expect(selectedUser.$key).toBe('1');
 	});
 
 	it('should raise update event with correct user as argument', () => {
@@ -83,7 +83,7 @@ describe('UserListComponent', () => {
 		let selectedUser: User;
 		component.edit.subscribe((user: User) => selectedUser = user);
 		buttons[0].click();
-		expect(selectedUser.id).toBe(1);
+		expect(selectedUser.$key).toBe('1');
 	});
 
 	it('should raise create event', () => {
