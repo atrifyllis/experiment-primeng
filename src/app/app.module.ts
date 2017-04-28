@@ -20,7 +20,7 @@ import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { routes } from './app.routes';
-import { MaterialModule } from '@angular/material';
+import { MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdInputModule, MdListModule } from '@angular/material';
 /**
  * used by material
  */
@@ -58,7 +58,7 @@ export const firebaseConfig = {
 		DialogModule,
 		RouterModule.forRoot(routes),
 		StoreModule.provideStore(reducer),
-		MaterialModule,
+		MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdInputModule, MdListModule,
 		FlexLayoutModule,
 
 		AngularFireModule.initializeApp(firebaseConfig),
