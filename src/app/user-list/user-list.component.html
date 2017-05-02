@@ -17,7 +17,8 @@
 		</div>
 
 		<p-dataTable [value]="users" [responsive]="true" [globalFilter]="gb" rowHover="true"
-					 [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+					 [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+					 sortField="username">
 			<p-column field="$key" header="Id"></p-column>
 			<p-column field="username" header="Username" [sortable]="true"></p-column>
 			<p-column field="email" header="Email"></p-column>
