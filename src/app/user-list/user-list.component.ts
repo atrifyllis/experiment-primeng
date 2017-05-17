@@ -9,6 +9,24 @@ import { FormGroup } from '@angular/forms';
 })
 export class UserListComponent implements OnInit, OnChanges {
 
+
+	formErrors = {
+		'username': '',
+		'email': ''
+	};
+
+	validationMessages = {
+		'username': {
+			'required': 'Username is required.',
+			'minlength': 'Minimum length: 4',
+			'maxlength': 'Maximum length: 24'
+		},
+		'email': {
+			'required': 'Email is required.',
+			'email': 'Email is invalid.'
+		}
+	};
+
 	@Input()
 	users: any[] = [];
 
@@ -32,6 +50,8 @@ export class UserListComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
+		this.userForm.valueChanges.subscribe(data => this.onValueChanged(data));
+		this.onValueChanged(); // (re)set validation messages now
 	}
 
 	ngOnChanges() {
@@ -42,4 +62,19 @@ export class UserListComponent implements OnInit, OnChanges {
 		this.update.emit(this.userForm.value);
 	}
 
+	onValueChanged(data?: any) {
+		if (!this.userForm) { return; }
+		const form = this.userForm;
+		Object.keys(this.formErrors).map(field => {
+			// clear previous error message (if any)
+			this.formErrors[field] = '';
+			const control = form.get(field);
+			if (control && control.dirty && !control.valid) {
+				const messages = this.validationMessages[field];
+				Object.keys(control.errors).map(key => {
+					this.formErrors[field] += messages[key] + ' ';
+				});
+			}
+		});
+	}
 }

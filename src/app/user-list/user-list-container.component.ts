@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppState, getSelectedUserState, getUsersState } from './../store/reducer-config';
 import { User } from './../store/users';
 import { Component } from '@angular/core';
@@ -6,6 +6,12 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import * as fromUser from './user-list.actions';
 
+
+export const userFormInit = {
+	$key: null,
+	username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
+	email: ['', [Validators.required, Validators.email]]
+};
 
 @Component({
 	selector: 'user-list-container',
@@ -28,11 +34,7 @@ export class UserListContainerComponent {
 		this.users$ = store.select(getUsersState);
 		this.selectedUser$ = store.select(getSelectedUserState);
 
-		this.userForm = this.fb.group(<User>{
-			$key: null,
-			username: '',
-			email: ''
-		});
+		this.userForm = this.fb.group(userFormInit);
 	}
 
 	removeUser(user: User) {
@@ -63,5 +65,6 @@ export class UserListContainerComponent {
 		};
 	}
 }
+
 
 

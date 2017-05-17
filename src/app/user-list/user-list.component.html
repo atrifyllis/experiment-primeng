@@ -1,7 +1,7 @@
 <md-card>
 	<md-card-title>Users</md-card-title>
 
-	<div>
+	<div fxLayout="column" fxLayoutGap="10px">
 		<div fxLayout="row" id="filterRow">
 			<div fxFlex="1 1 auto">
 				<md-input-container>
@@ -42,13 +42,19 @@
 	<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 		<md-input-container>
 			<input mdInput placeholder="Username" formControlName="username">
+			<md-error *ngIf="formErrors.username">
+				{{ formErrors.username }}
+			</md-error>
 		</md-input-container>
 		<md-input-container>
 			<input mdInput placeholder="Email" formControlName="email">
+			<md-error *ngIf="formErrors.email">
+				{{ formErrors.email }}
+			</md-error>
 		</md-input-container>
 		<p-footer>
 			<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-				<button md-button type="submit">Save</button>
+				<button md-button type="submit" [disabled]="!userForm?.valid">Save</button>
 				<button type="reset" md-button (click)="close.emit()">Cancel</button>
 			</div>
 		</p-footer>
