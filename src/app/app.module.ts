@@ -29,6 +29,7 @@ import { HomeComponent } from './home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
+import { FormDialogComponent } from './user-list/form-dialog/form-dialog.component';
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
@@ -45,7 +46,8 @@ export const firebaseConfig = {
 		AppComponent,
 		UserListComponent,
 		UserListContainerComponent,
-		HomeComponent
+		HomeComponent,
+		FormDialogComponent
 	],
 	imports: [
 		BrowserModule,
