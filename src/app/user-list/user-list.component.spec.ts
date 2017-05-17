@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { DataTableModule, DialogModule } from 'primeng/primeng';
@@ -20,16 +21,11 @@ describe('UserListComponent', () => {
 		TestBed.configureTestingModule({
 			declarations: [UserListComponent],
 			imports: [
-				ReactiveFormsModule,
 				NoopAnimationsModule,
 				DataTableModule,
-				FieldsetModule,
-				DialogModule,
 				MaterialModule
 			],
-			providers: [
-				FormBuilder
-			]
+			schemas: [CUSTOM_ELEMENTS_SCHEMA]
 		})
 			.compileComponents();
 	}));
@@ -38,7 +34,6 @@ describe('UserListComponent', () => {
 		fixture = TestBed.createComponent(UserListComponent);
 		component = fixture.componentInstance;
 		component.users = sampleUsers;
-		component.userForm = new FormBuilder().group(userFormInit);
 		compiled = fixture.debugElement.nativeElement;
 		fixture.detectChanges();
 	});
@@ -94,45 +89,6 @@ describe('UserListComponent', () => {
 			expect(isEmitted).toBeTruthy();
 		});
 	});
-
-	describe('Form Validation', () => {
-		it('should mark form as valid', () => {
-			updateForm('valid-username', 'valid@email.com');
-
-			expect(component.userForm.get('username').valid).toBeTruthy();
-			expect(component.userForm.get('email').valid).toBeTruthy();
-		});
-
-		it('should mark form as invalid when missing required fields', () => {
-			updateForm('', '');
-
-			expect(component.userForm.get('username').valid).toBeFalsy();
-			expect(component.userForm.get('email').valid).toBeFalsy();
-		});
-
-		it('should mark form as invalid when username is too short', () => {
-			updateForm('a', 'valid@email.com');
-
-			expect(component.userForm.get('username').valid).toBeFalsy();
-			expect(component.userForm.get('email').valid).toBeTruthy();
-		});
-
-		it('should mark form as invalid when email is invalid', () => {
-			updateForm('valid-username', 'invalid-email');
-
-			expect(component.userForm.get('username').valid).toBeTruthy();
-			expect(component.userForm.get('email').valid).toBeFalsy();
-		});
-	});
-
-
-	function updateForm(username, email) {
-		component.userForm.setValue({
-			$key: null,
-			username,
-			email
-		});
-	}
 });
 
 export function getAllLastColumns(listOfRows: any[]): any[] {
