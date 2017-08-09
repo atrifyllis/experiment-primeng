@@ -30,6 +30,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
 import { FormDialogComponent } from './user-list/form-dialog/form-dialog.component';
+import {AngularFireDatabaseModule} from "angularfire2/database";
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
@@ -64,6 +65,7 @@ export const firebaseConfig = {
 		FlexLayoutModule,
 
 		AngularFireModule.initializeApp(firebaseConfig),
+		AngularFireDatabaseModule,
 
 		/**
 		 * @ngrx/router-store keeps router state up-to-date in the store and uses
