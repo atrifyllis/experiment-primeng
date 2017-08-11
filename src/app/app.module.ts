@@ -31,6 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
 import { FormDialogComponent } from './user-list/form-dialog/form-dialog.component';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {RedirectInterceptor} from './interceptor/interceptor-redirect-response';
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
@@ -54,7 +56,7 @@ export const firebaseConfig = {
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule,
-		HttpModule,
+		// HttpModule,
 		BrowserAnimationsModule,
 		FieldsetModule,
 		DataTableModule,
@@ -92,8 +94,13 @@ export const firebaseConfig = {
 		 * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
 		 */
 		EffectsModule.run(UserListEffects),
+		HttpClientModule,
 	],
-	providers: [UserService, UserListResolver],
+	providers: [
+		UserService,
+		UserListResolver,
+		{ provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true }
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
