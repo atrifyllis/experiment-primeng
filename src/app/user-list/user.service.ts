@@ -4,14 +4,18 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import {Http} from '@angular/http';
 
 
 @Injectable()
 export class UserService {
 
 	dbUsers: FirebaseListObservable<any[]>;
+	testUsers: any;
 
-	constructor(private db: AngularFireDatabase) {
+	constructor(private db: AngularFireDatabase, private http: Http) {
+		http.get('/api/users').map(res => res.json)
+			.subscribe(response => this.testUsers = response);
 		this.dbUsers = db.list('/users');
 		// TODO: uncomment if you need sample data
 		// this.insertUsers(af);
