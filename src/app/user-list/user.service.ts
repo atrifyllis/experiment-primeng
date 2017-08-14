@@ -1,29 +1,26 @@
-import { sampleUsers } from './../store/sampleData';
-import { User } from './../store/users';
-import { Observable } from 'rxjs/Observable';
-import { Injectable } from '@angular/core';
+import {sampleUsers} from './../store/sampleData';
+import {User} from './../store/users';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/observable/of';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import {Http} from '@angular/http';
-import {HttpClient} from "@angular/common/http";
+import {AngularFireDatabase} from 'angularfire2/database';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
 export class UserService {
 
-	dbUsers: FirebaseListObservable<any[]>;
-	testUsers: any;
+	testUsers: Observable<User[]>;
 
 	constructor(private db: AngularFireDatabase, private http: HttpClient) {
-		http.get('/api/users')
-			.subscribe(response => this.testUsers = response);
-		this.dbUsers = db.list('/users');
+		this.testUsers = http.get('/api/users')
+			.map((response: any) => response._embedded.users);
 		// TODO: uncomment if you need sample data
 		// this.insertUsers(af);
 	}
 
-	getUsers(): FirebaseListObservable<User[]> {
-		return this.dbUsers;
+	getUsers(): Observable<User[]> {
+		return this.testUsers;
 	}
 
 	deleteUser(userId: string): Observable<string> {
@@ -38,7 +35,7 @@ export class UserService {
 				username: user.username,
 				email: user.email
 			}).key;
-			newUser = Object.assign({}, user, { $key: id });
+			newUser = Object.assign({}, user, {$key: id});
 		} else {
 			this.db.list('/users').update(user.$key, {
 				username: user.username,
