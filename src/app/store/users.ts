@@ -3,8 +3,15 @@ export interface State {
 	selectedUser?: User;
 }
 
+// TODO improve structure
+interface Link {
+	self: {
+		href: string;
+	};
+}
+
 export interface User {
-	$key: string;
+	_links: Link;
 	username: string;
 	email: string;
 }

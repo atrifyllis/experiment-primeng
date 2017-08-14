@@ -8,7 +8,7 @@ import * as fromUser from './user-list.actions';
 
 
 export const userFormInit = {
-	$key: null,
+	_links: null,
 	username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
 	email: ['', [Validators.required, Validators.email]]
 };
@@ -38,7 +38,7 @@ export class UserListContainerComponent {
 	}
 
 	removeUser(user: User) {
-		this.store.dispatch(new fromUser.DeleteUserAction(user.$key));
+		this.store.dispatch(new fromUser.DeleteUserAction(user._links.self.href));
 	}
 
 	editUser(user: User) {
@@ -59,7 +59,7 @@ export class UserListContainerComponent {
 
 	newUser(): User {
 		return {
-			$key: null,
+			_links: null,
 			username: '',
 			email: ''
 		};
