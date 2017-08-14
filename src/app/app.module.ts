@@ -30,7 +30,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
 import { FormDialogComponent } from './user-list/form-dialog/form-dialog.component';
-import {AngularFireDatabaseModule} from "angularfire2/database";
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
