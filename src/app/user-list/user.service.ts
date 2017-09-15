@@ -14,7 +14,11 @@ export class UserService {
 
 	constructor(private db: AngularFireDatabase, private http: HttpClient) {
 		this.testUsers = http.get('/api/users')
-			.map((response: any) => response._embedded.users);
+			.map((response: any) => {
+				if (response !== null) {
+					return response._embedded.users;
+				}
+			});
 		// TODO: uncomment if you need sample data
 		// this.insertUsers(af);
 	}
