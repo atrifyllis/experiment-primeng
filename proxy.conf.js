@@ -4,7 +4,7 @@ const PROXY_CONFIG = [
 			"/api",
 			"/login"
 		],
-		target: "https://localhost:8443",
+		target: "http://localhost:8080",
 		secure: false
 	}
 ]
