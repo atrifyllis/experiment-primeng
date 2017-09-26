@@ -41,3 +41,7 @@ To create the jar you just need to run `mvn install`.
 You can also run the jar directly by running `mvn spring-boot:run`
 
 In both cases maven is used to run npm script for building the angular application and copies all static resources in the static folder of the spring boot app.
+
+## Production
+
+Running with spring profile 'prod' will run in HTTPS mode
