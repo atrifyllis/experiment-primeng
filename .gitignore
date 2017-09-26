@@ -41,4 +41,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
+#custom paths
 /experiment-primeng-boot/src/main/resources/static
+/node
