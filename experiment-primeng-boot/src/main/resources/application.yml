@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+zuul:
+  routes:
+    resource:
+      path: /api/**
+      url: http://localhost:8080/api
+      sensitiveHeaders:
+    login:
+      path: /login
+      url: http://localhost:8080/
+      sensitiveHeaders:
+logging:
+  level:
+    org:
+      springframework: debug
