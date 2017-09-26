@@ -2,6 +2,11 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
+## Before you begin
+
+* In INTELLIJ, Open Project Structure (`Ctrl+alt+Shift+F4`) and choose Import module -> experiment-primeng-boot -> import from maven
+* Run `npm i` to install all node dependencies
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
