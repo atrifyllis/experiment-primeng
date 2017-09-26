@@ -26,3 +26,13 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Experiment PrimeNg Boot
+
+This project is used to be able to deploy the UI application in production. It creates a spring boot jar which contains the static bundle files of the Angular CLI buld.
+A Zuul proxy is used to proxy all requests to the backend, including REST calls and login.
+
+To create the jar you just need to run `mvn install`.
+You can also run the jar directly by running `mvn spring-boot:run`
+
+In both cases maven is used to run npm script for building the angular application and copies all static resources in the static folder of the spring boot app.
