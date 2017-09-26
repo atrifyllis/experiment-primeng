@@ -24,9 +24,9 @@ export class UserListEffects {
 	deleteUser$: Observable<Action> = this.actions$
 		.ofType(fromUser.ActionTypes.DELETE_USER)
 		.map((action: fromUser.DeleteUserAction) => action.payload)
-		.mergeMap((userId: string) => this.userService.deleteUser(userId).first()
-			.map(() => new fromUser.DeleteUserSuccessAction(userId))
-			.catch(() => of(new fromUser.DeleteUserFailedAction(userId)))
+		.mergeMap((userHref: string) => this.userService.deleteUser(userHref).first()
+			.map(() => new fromUser.DeleteUserSuccessAction(userHref))
+			.catch(() => of(new fromUser.DeleteUserFailedAction(userHref)))
 		);
 
 	@Effect()

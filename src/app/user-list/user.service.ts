@@ -1,52 +1,62 @@
-import { sampleUsers } from './../store/sampleData';
-import { User } from './../store/users';
-import { Observable } from 'rxjs/Observable';
-import { Injectable } from '@angular/core';
+import {sampleUsers} from './../store/sampleData';
+import {User} from './../store/users';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/observable/of';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import {AngularFireDatabase} from 'angularfire2/database';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
 export class UserService {
 
-	dbUsers: FirebaseListObservable<any[]>;
+	testUsers: Observable<User[]>;
 
-	constructor(private db: AngularFireDatabase) {
-		this.dbUsers = db.list('/users');
+	constructor(private db: AngularFireDatabase, private http: HttpClient) {
+		this.testUsers = http.get('/api/users')
+			.map((response: any) => {
+				if (response !== null) {
+					return response._embedded.users;
+				}
+			});
 		// TODO: uncomment if you need sample data
 		// this.insertUsers(af);
 	}
 
-	getUsers(): FirebaseListObservable<User[]> {
-		return this.dbUsers;
+	getUsers(): Observable<User[]> {
+		return this.testUsers;
 	}
 
-	deleteUser(userId: string): Observable<string> {
-		this.db.object('/users/' + userId).remove();
-		return Observable.of(userId);
+	deleteUser(href: string): Observable<string> {
+		return this.http.delete(this.bypassProxyProtocolIssue(href));
 	}
 
 	updateUser(user: User): Observable<User> {
-		let newUser: User;
-		if (user.$key === null) {
-			const id = this.db.list('/users').push({
-				username: user.username,
-				email: user.email
-			}).key;
-			newUser = Object.assign({}, user, { $key: id });
+		const links = user._links;
+		if (links === null) {
+			return this.http.post('/api/users', user);
 		} else {
-			this.db.list('/users').update(user.$key, {
-				username: user.username,
-				email: user.email
-			});
-			newUser = Object.assign({}, user);
+			return this.http.patch(this.bypassProxyProtocolIssue(links.self.href), user);
 		}
-		return Observable.of(newUser);
+	}
+
+	/**
+	 * TODO
+	 * When using angular proxy the protocol returned inside links from spring data rest is https instead of http.
+	 * This has to do something with the headers of the request. This should not be an issue in production but more investigation is needed.
+	 * @param {string} url
+	 * @returns {string}
+	 */
+	private bypassProxyProtocolIssue(url: string) {
+		if (url.startsWith('https') && url.indexOf('4200') !== -1) {
+			url = url.replace('https', 'http');
+		}
+		return url;
 	}
 
 	private insertUsers(db: AngularFireDatabase) {
 		sampleUsers.forEach(user => {
-			const usersDb = db.object('/users/' + user.$key);
+			const usersDb = db.object('/users/' + user._links.self.href);
 			usersDb.set(user);
 		});
 	}
