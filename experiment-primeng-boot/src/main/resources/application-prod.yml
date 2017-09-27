@@ -15,7 +15,10 @@ zuul:
     login:
       path: /login
       url: https://localhost:8080/
+      # needed for all headers to be forwarded both in request & response
       sensitiveHeaders:
+      # needed for self-signed certificates to work
+  ssl-hostname-validation-enabled: false
 logging:
   level:
     org:
