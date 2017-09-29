@@ -33,6 +33,8 @@ import { FormDialogComponent } from './user-list/form-dialog/form-dialog.compone
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {RedirectInterceptor} from './interceptor/interceptor-redirect-response';
+import {OAuthModule} from 'angular-oauth2-oidc';
+import {AddBearerHeaderInterceptor} from './interceptor/interceptor-add-bearer-header-request';
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
@@ -56,7 +58,7 @@ export const firebaseConfig = {
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule,
-		// HttpModule,
+		HttpModule,
 		BrowserAnimationsModule,
 		FieldsetModule,
 		DataTableModule,
@@ -95,11 +97,13 @@ export const firebaseConfig = {
 		 */
 		EffectsModule.run(UserListEffects),
 		HttpClientModule,
+		OAuthModule.forRoot()
 	],
 	providers: [
 		UserService,
 		UserListResolver,
-		{ provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true }
+		// { provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: AddBearerHeaderInterceptor, multi: true }
 	],
 	bootstrap: [AppComponent]
 })

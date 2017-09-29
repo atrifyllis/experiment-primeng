@@ -29,6 +29,7 @@
 		"@ngrx/effects": "^2.0.0",
 		"@ngrx/router-store": "^1.1.0",
 		"@ngrx/store": "^2.0.0",
+		"angular-oauth2-oidc": "2.1.6",
 		"angularfire2": "4.0.0-rc.1",
 		"core-js": "^2.4.1",
 		"firebase": "^3.8.0",

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Component({
 	selector: 'home',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-	constructor() { }
+	constructor(private oauthService: OAuthService) { }
 
 	ngOnInit() {
 	}
 
+	login() {
+		this.oauthService.initImplicitFlow();
+	}
 }

@@ -23,7 +23,7 @@ export class RedirectInterceptor implements HttpInterceptor {
 						const queryStringIndex = response.url.indexOf('?');
 						const loginUrl = queryStringIndex && queryStringIndex > 0 ? response.url.substring(0, queryStringIndex) : response.url;
 						console.log('User logout detected, redirecting to login page: %s', loginUrl);
-						window.location.href = loginUrl;
+						// window.location.href = loginUrl;
 					}
 				}
 			});
