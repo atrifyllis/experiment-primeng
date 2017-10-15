@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
-import {JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
-import {authConfig} from './auth.config';
-
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import 'rxjs/add/observable/fromPromise';
 
 @Component({
-	selector: 'app-root',
+	selector: 'app-component',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css'
 	]
@@ -12,9 +10,12 @@ import {authConfig} from './auth.config';
 export class AppComponent {
 	title = 'PrimeNG/Ngrx/Material integrated';
 
-	constructor(private oauthService: OAuthService) {
-		this.oauthService.configure(authConfig);
-		// NOTE: for some reason if we don't call this at first then on login the access_token is not stored
-		this.oauthService.tryLogin();
+	@Input()
+	isAuthenticated: boolean;
+
+	@Output() login = new EventEmitter();
+
+	constructor() {
+
 	}
 }

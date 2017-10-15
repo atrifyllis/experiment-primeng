@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+import {environment} from './../../environments/environment';
 /**
  * combineReducers is another useful metareducer that takes a map of reducer
  * functions and creates a new reducer that gathers the values
@@ -7,10 +7,11 @@ import { environment } from './../../environments/environment';
  *
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
-import { ActionReducer, combineReducers } from '@ngrx/store';
-import { routerReducer } from '@ngrx/router-store';
-import { usersReducer } from '../user-list/user-list.reducer';
+import {ActionReducer, combineReducers} from '@ngrx/store';
+import {routerReducer} from '@ngrx/router-store';
+import {usersReducer} from '../user-list/user-list.reducer';
 import * as fromUsers from './users';
+import * as fromGlobal from './global';
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
  * it any number of functions and it returns a function. This new function
@@ -19,17 +20,18 @@ import * as fromUsers from './users';
  *
  * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
  */
-import { compose } from '@ngrx/core/compose';
+import {compose} from '@ngrx/core/compose';
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
  * exception will be thrown. This is useful during development mode to
  * ensure that none of the reducers accidentally mutates the state.
  */
-import { storeFreeze } from 'ngrx-store-freeze';
+import {storeFreeze} from 'ngrx-store-freeze';
 /**
  * storeLogger is a metareducer that logs out each time we dispatch an action.
  */
-import { storeLogger } from 'ngrx-store-logger';
+import {storeLogger} from 'ngrx-store-logger';
+import {appReducer} from '../app.reducer';
 
 
 /**
@@ -38,9 +40,11 @@ import { storeLogger } from 'ngrx-store-logger';
  */
 export interface AppState {
 	userState: fromUsers.State;
+	globalState: fromGlobal.State;
 }
 
 const reducers = {
+	globalState: appReducer,
 	userState: usersReducer,
 	router: routerReducer,
 };
@@ -74,3 +78,7 @@ export function reducer(state: any, action: any) {
 export const getUsersState = (state: AppState) => state.userState.users;
 
 export const getSelectedUserState = (state: AppState) => state.userState.selectedUser;
+
+export const getAuthenticatedState = (state: AppState) => {
+	return state.globalState.isAuthenticated;
+}

@@ -3,6 +3,7 @@
 	<md-toolbar-row>
 		<a md-button routerLink="/">Home</a>
 		<a md-button routerLink="/users/">Users</a>
+		<a md-button *ngIf="!isAuthenticated" (click)="login.emit()">Login</a>
 	</md-toolbar-row>
 </md-toolbar>
 
