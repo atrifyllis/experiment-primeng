@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponseBase} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {OAuthService} from 'angular-oauth2-oidc';
+import {Store} from '@ngrx/store';
+import {AppState} from '../store/reducer-config';
+import * as app from './../app.actions';
 
 /**
  * Check this issue:
@@ -14,6 +18,10 @@ export class RedirectInterceptor implements HttpInterceptor {
 
 	private readonly logoPartialUrl = '/login'.toLowerCase();
 
+	constructor(private oauthService: OAuthService, private store: Store<AppState>) {
+
+	}
+
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		return next.handle(req)
 			.do(event => {
@@ -26,6 +34,13 @@ export class RedirectInterceptor implements HttpInterceptor {
 						// window.location.href = loginUrl;
 					}
 				}
-			});
+			})
+			.catch(error => {
+				console.log(error);
+				this.oauthService.logOut();
+				this.store.dispatch(new app.LoginAction());
+				return Observable.throw(error);
+			})
+			;
 	}
 }

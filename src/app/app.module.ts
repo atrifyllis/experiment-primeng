@@ -42,7 +42,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {OAuthModule} from 'angular-oauth2-oidc';
 import {AddBearerHeaderInterceptor} from './interceptor/interceptor-add-bearer-header-request';
 import {AppEffects} from 'app/app.effects';
-import {AppContainerComponent} from "./app-container.component";
+import {AppContainerComponent} from './app-container.component';
+import {RedirectInterceptor} from './interceptor/interceptor-redirect-response';
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
@@ -113,7 +114,7 @@ export const firebaseConfig = {
 	providers: [
 		UserService,
 		UserListResolver,
-		// { provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true },
 		{provide: HTTP_INTERCEPTORS, useClass: AddBearerHeaderInterceptor, multi: true}
 	],
 	bootstrap: [AppContainerComponent]
