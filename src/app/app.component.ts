@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import 'rxjs/add/observable/fromPromise';
+import {User} from './store/users';
 
 @Component({
 	selector: 'app-component',
@@ -12,6 +13,9 @@ export class AppComponent {
 
 	@Input()
 	isAuthenticated: boolean;
+
+	@Input()
+	authenticatedUser: User;
 
 	@Output() login = new EventEmitter();
 

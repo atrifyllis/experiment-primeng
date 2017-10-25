@@ -79,6 +79,7 @@ export const getUsersState = (state: AppState) => state.userState.users;
 
 export const getSelectedUserState = (state: AppState) => state.userState.selectedUser;
 
-export const getAuthenticatedState = (state: AppState) => {
-	return state.globalState.isAuthenticated;
-}
+export const getAuthenticatedState = (state: AppState) => state.globalState.isAuthenticated;
+
+export const getAuthenticatedUserState = (state: AppState) => state.globalState.authenticatedUser;
+

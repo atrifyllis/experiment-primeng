@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import {promise} from "selenium-webdriver";
+import map = promise.map;
 
 @Injectable()
 export class UserService {
@@ -34,6 +36,10 @@ export class UserService {
 		} else {
 			return this.http.patch(this.bypassProxyProtocolIssue(links.self.href), user);
 		}
+	}
+
+	getUserInfo(): Observable<User> {
+		return this.http.get('/api/auth/me');
 	}
 
 	/**
