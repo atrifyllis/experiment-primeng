@@ -4,6 +4,7 @@
 						[resizable]="false" [draggable]="false" width="300">
 
 		<md-input-container>
+			<input type="hidden" formControlName="_links">
 			<input mdInput placeholder="Username" formControlName="username">
 			<md-error *ngIf="formErrors.username">
 				{{ formErrors.username }}

@@ -69,6 +69,7 @@ describe('FormDialogComponent', () => {
 
 	function updateForm(username, email) {
 		component.userForm.setValue({
+			_links: '',
 			username,
 			email
 		});
