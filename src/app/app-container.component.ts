@@ -12,7 +12,7 @@ import {User} from './store/users';
 	template: `
 		<app-component [isAuthenticated]="isAuthenticated$ | async"
 									 [authenticatedUser]="authenticatedUser$ | async"
-									 (login)="login($event)">
+									 (login)="login()">
 		</app-component>`
 })
 export class AppContainerComponent {
