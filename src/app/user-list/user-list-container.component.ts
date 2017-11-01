@@ -8,7 +8,6 @@ import * as fromUser from './user-list.actions';
 
 
 export const userFormInit = {
-	_links: null,
 	username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
 	email: ['', [Validators.required, Validators.email]]
 };

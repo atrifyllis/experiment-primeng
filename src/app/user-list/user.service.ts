@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import {promise} from "selenium-webdriver";
-import map = promise.map;
 
 @Injectable()
 export class UserService {

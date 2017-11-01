@@ -1,13 +1,6 @@
-import { sampleUsers } from './../store/sampleData';
-import { initialState, usersReducer } from 'app/user-list/user-list.reducer';
-import {
-	CloseUpdateUserDialogAction,
-	DeleteUserSuccessAction,
-	LoadUsersSuccessAction,
-	OpenUpdateUserDialogAction,
-	UpdateUserSuccessAction
-} from './user-list.actions';
-import { User } from '../store/users';
+import {sampleUsers} from './../store/sampleData';
+import {initialState, usersReducer} from 'app/user-list/user-list.reducer';
+import {CloseUpdateUserDialogAction, LoadUsersSuccessAction, OpenUpdateUserDialogAction} from './user-list.actions';
 import * as deepFreeze from 'deep-freeze-strict';
 
 

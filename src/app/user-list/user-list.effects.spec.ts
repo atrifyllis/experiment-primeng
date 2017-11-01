@@ -23,7 +23,7 @@ describe('User List Effects', () => {
 	let userService;
 	const userId = '1';
 	const user: User = {
-		$key: '1',
+		_links: null,
 		username: 'test-new',
 		email: 'test@test.com'
 	};

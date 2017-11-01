@@ -69,7 +69,6 @@ describe('FormDialogComponent', () => {
 
 	function updateForm(username, email) {
 		component.userForm.setValue({
-			$key: null,
 			username,
 			email
 		});

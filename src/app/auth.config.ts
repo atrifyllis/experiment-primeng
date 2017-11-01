@@ -13,7 +13,7 @@ export const authConfig: AuthConfig = {
 	// URL of the SPA to redirect the user to after login
 	redirectUri: BASE_URL,
 
-	// The SPA's id. The SPA is registerd with this id at the auth-server
+	// The SPA's id. The SPA is registered with this id at the auth-server
 	clientId: 'sampleClientId',
 
 	// set the scope for the permissions the client should request
@@ -23,4 +23,4 @@ export const authConfig: AuthConfig = {
 	showDebugInformation: true,
 
 	oidc: false
-}
+};
