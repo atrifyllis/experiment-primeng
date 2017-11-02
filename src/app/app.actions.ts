@@ -1,11 +1,13 @@
 import {type} from './util';
 import {Action} from '@ngrx/store';
 import {User} from './store/users';
+import {HttpErrorResponse} from '@angular/common/http';
 
 export const ActionTypes = {
 	LOGIN: type('[Login] Login'),
 	LOGIN_SUCCESS: type('[Login] Login success'),
-	GET_USER_INFO_SUCCESS: type('[Login] Get user info')
+	GET_USER_INFO_SUCCESS: type('[Login] Get user info'),
+	ERROR: type('[App] Error')
 };
 
 export class LoginAction implements Action {
@@ -29,4 +31,11 @@ export class GetUserInfoSuccessAction implements Action {
 	}
 }
 
-export type Actions = LoginAction | LoginSuccessAction | GetUserInfoSuccessAction;
+export class ErrorAction implements Action {
+	type = ActionTypes.ERROR;
+
+	constructor(public payload: HttpErrorResponse) {
+	}
+}
+
+export type Actions = LoginAction | LoginSuccessAction | GetUserInfoSuccessAction | ErrorAction;

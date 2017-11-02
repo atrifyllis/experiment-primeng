@@ -44,6 +44,7 @@ import {AddBearerHeaderInterceptor} from './interceptor/interceptor-add-bearer-h
 import {AppEffects} from 'app/app.effects';
 import {AppContainerComponent} from './app-container.component';
 import {RedirectInterceptor} from './interceptor/interceptor-redirect-response';
+import { ErrorComponent } from './error/error.component';
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
@@ -62,7 +63,8 @@ export const firebaseConfig = {
 		UserListComponent,
 		UserListContainerComponent,
 		HomeComponent,
-		FormDialogComponent
+		FormDialogComponent,
+		ErrorComponent,
 	],
 	imports: [
 		BrowserModule,

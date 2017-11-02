@@ -8,7 +8,7 @@ import {environment} from './../../environments/environment';
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
 import {ActionReducer, combineReducers} from '@ngrx/store';
-import {routerReducer} from '@ngrx/router-store';
+import {routerReducer, RouterState} from '@ngrx/router-store';
 import {usersReducer} from '../user-list/user-list.reducer';
 import * as fromUsers from './users';
 import * as fromGlobal from './global';
@@ -41,6 +41,7 @@ import {appReducer} from '../app.reducer';
 export interface AppState {
 	userState: fromUsers.State;
 	globalState: fromGlobal.State;
+	router: RouterState;
 }
 
 const reducers = {
@@ -82,4 +83,6 @@ export const getSelectedUserState = (state: AppState) => state.userState.selecte
 export const getAuthenticatedState = (state: AppState) => state.globalState.isAuthenticated;
 
 export const getAuthenticatedUserState = (state: AppState) => state.globalState.authenticatedUser;
+
+export const getErrorState = (state: AppState) => state.globalState.error;
 
