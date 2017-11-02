@@ -23,11 +23,11 @@ export class UserService {
 		return this.testUsers;
 	}
 
-	deleteUser(href: string): Observable<string> {
+	deleteUser(href: string): Observable<any> {
 		return this.http.delete(this.makeUrlRelative(href));
 	}
 
-	updateUser(user: User): Observable<User> {
+	updateUser(user: User): Observable<any> {
 		const links = user._links;
 		if (links === null) {
 			return this.http.post('/api/users', user);
@@ -36,7 +36,7 @@ export class UserService {
 		}
 	}
 
-	getUserInfo(): Observable<User> {
+	getUserInfo(): Observable<any> {
 		return this.http.get('/api/auth/me');
 	}
 

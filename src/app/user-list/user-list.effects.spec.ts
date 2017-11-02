@@ -25,7 +25,8 @@ describe('User List Effects', () => {
 	const user: User = {
 		_links: null,
 		username: 'test-new',
-		email: 'test@test.com'
+		email: 'test@test.com',
+		roles: []
 	};
 
 	beforeEach(() => TestBed.configureTestingModule({

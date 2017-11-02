@@ -1,17 +1,17 @@
-<md-card>
-	<md-card-title>Users</md-card-title>
+<mat-card>
+	<mat-card-title>Users</mat-card-title>
 
 	<div fxLayout="column" fxLayoutGap="10px">
 		<div fxLayout="row" id="filterRow">
 			<div fxFlex="1 1 auto">
-				<md-input-container>
-					<input #gb mdInput placeholder="Global Filter">
-					<md-icon mdPrefix>search</md-icon>
-				</md-input-container>
+				<mat-form-field>
+					<input #gb matInput placeholder="Global Filter">
+					<mat-icon mdPrefix>search</mat-icon>
+				</mat-form-field>
 			</div>
 			<div fxFlex="0 1 auto">
-				<button md-fab (click)="create.emit()">
-					<md-icon>add</md-icon>
+				<button mat-fab (click)="create.emit()">
+					<mat-icon>add</mat-icon>
 				</button>
 			</div>
 		</div>
@@ -22,19 +22,24 @@
 			<p-column field="_links.self.href" hidden="true"></p-column>
 			<p-column field="username" header="Username" [sortable]="true"></p-column>
 			<p-column field="email" header="Email"></p-column>
+			<p-column field="roles" header="Roles">
+				<ng-template let-user="rowData" pTemplate="body">
+					<span>{{rolesAsString(user.roles)}}</span>
+				</ng-template>
+			</p-column>
 			<p-column header="Action" styleClass="col-button">
 				<ng-template let-user="rowData" pTemplate="body">
-					<button md-mini-fab (click)="edit.emit(user)">
-						<md-icon>edit</md-icon>
+					<button mat-mini-fab (click)="edit.emit(user)">
+						<mat-icon>edit</mat-icon>
 					</button>
-					<button md-mini-fab color="warn" (click)="remove.emit(user)">
-						<md-icon>delete</md-icon>
+					<button mat-mini-fab color="warn" (click)="remove.emit(user)">
+						<mat-icon>delete</mat-icon>
 					</button>
 				</ng-template>
 			</p-column>
 		</p-dataTable>
 	</div>
-</md-card>
+</mat-card>
 
 <form-dialog [selectedUser]="selectedUser" [userForm]="userForm"
 			(update)=onSubmit() (close)="onClose()">

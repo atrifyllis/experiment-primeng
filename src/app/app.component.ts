@@ -15,7 +15,7 @@ export class AppComponent {
 	isAuthenticated: boolean;
 
 	@Input()
-	authenticatedUser: User;
+	authenticatedUser: User | null;
 
 	@Output() login = new EventEmitter();
 

@@ -16,7 +16,7 @@ export class AppEffects {
 	login$: Observable<Action> = this.actions$
 		.ofType(fromApp.ActionTypes.LOGIN)
 		.switchMap(() => Observable.of(this.oauthService.initImplicitFlow())
-			.switchMap((result) => Observable.of({}))
+			.switchMap((result) => Observable.of(<Action>{}))
 		);
 
 	@Effect()

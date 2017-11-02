@@ -15,13 +15,14 @@
 	"private": true,
 	"dependencies": {
 		"@angular/animations": "4.3.4",
+		"@angular/cdk": "^2.0.0-beta.12",
 		"@angular/common": "4.3.4",
 		"@angular/compiler": "4.3.4",
 		"@angular/core": "4.3.4",
 		"@angular/flex-layout": "^2.0.0-beta.7",
 		"@angular/forms": "4.3.4",
 		"@angular/http": "4.3.4",
-		"@angular/material": "2.0.0-beta.5",
+		"@angular/material": "2.0.0-beta.12",
 		"@angular/platform-browser": "4.3.4",
 		"@angular/platform-browser-dynamic": "4.3.4",
 		"@angular/platform-server": "4.3.4",
@@ -62,6 +63,6 @@
 		"protractor": "~5.1.0",
 		"ts-node": "~2.0.0",
 		"tslint": "~4.5.0",
-		"typescript": "2.2.2"
+		"typescript": "2.5.3"
 	}
 }

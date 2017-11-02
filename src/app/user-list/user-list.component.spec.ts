@@ -1,5 +1,14 @@
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {MaterialModule} from '@angular/material';
+// import {MaterialModule} from '@angular/material';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatToolbarModule,
+	MatCheckboxModule
+} from '@angular/material';
 import {DataTableModule} from 'primeng/primeng';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
@@ -19,7 +28,8 @@ describe('UserListComponent', () => {
 			imports: [
 				NoopAnimationsModule,
 				DataTableModule,
-				MaterialModule
+				// MaterialModule
+				MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule, MatListModule, MatCheckboxModule
 			],
 			schemas: [CUSTOM_ELEMENTS_SCHEMA]
 		})

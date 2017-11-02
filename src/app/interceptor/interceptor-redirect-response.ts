@@ -55,7 +55,7 @@ export class RedirectInterceptor implements HttpInterceptor {
 						return Observable.of(error);
 					}
 				}
-			})
+			}) as Observable<any>
 			;
 	}
 }

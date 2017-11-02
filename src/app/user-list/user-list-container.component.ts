@@ -1,26 +1,28 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppState, getSelectedUserState, getUsersState } from './../store/reducer-config';
-import { User } from './../store/users';
-import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AppState, getSelectedUserState, getUsersState} from './../store/reducer-config';
+import {User} from './../store/users';
+import {Component} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
 import * as fromUser from './user-list.actions';
+import {AtLeastOneCheckedValidator} from './form-dialog/at-least-one-checked.validator';
 
 
 export const userFormInit = {
 	_links: '',
 	username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
-	email: ['', [Validators.required, Validators.email]]
+	email: ['', [Validators.required, Validators.email]],
+	roles: new FormArray([], AtLeastOneCheckedValidator)
 };
 
 @Component({
 	selector: 'user-list-container',
 	template: `
 		<user-list [users]="users$ | async"
-				   [selectedUser]="selectedUser$ | async" [userForm]="userForm"
-				   (remove)="removeUser($event)" (edit)="editUser($event)"
-				   (update)="updateUser($event)" (close)="closeDialog()"
-				   (create)="createUser()">
+							 [selectedUser]="selectedUser$ | async" [userForm]="userForm"
+							 (remove)="removeUser($event)" (edit)="editUser($event)"
+							 (update)="updateUser($event)" (close)="closeDialog()"
+							 (create)="createUser()">
 		</user-list>`
 })
 export class UserListContainerComponent {
@@ -61,7 +63,8 @@ export class UserListContainerComponent {
 		return {
 			_links: null,
 			username: '',
-			email: ''
+			email: '',
+			roles: []
 		};
 	}
 }

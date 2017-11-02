@@ -1,6 +1,7 @@
-import {User} from './../store/users';
+import {RoleType, User} from './../store/users';
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 
 @Component({
 	selector: 'user-list',
@@ -16,7 +17,7 @@ export class UserListComponent {
 	userForm: FormGroup;
 
 	@Input()
-	selectedUser: User;
+	selectedUser: User | null;
 
 	@Output() remove = new EventEmitter<User>();
 
@@ -28,6 +29,8 @@ export class UserListComponent {
 
 	@Output() create = new EventEmitter();
 
+	roleTypeEnum = RoleType;
+
 	constructor() {
 	}
 
@@ -38,5 +41,11 @@ export class UserListComponent {
 
 	onClose() {
 		this.close.emit();
+	}
+
+	rolesAsString(roles: RoleType[]) {
+		if (roles !== null) {
+			return roles.map(role => this.roleTypeEnum[role]).join(', ');
+		}
 	}
 }

@@ -1,12 +1,14 @@
 import { User } from './../store/users';
 import { State } from '../store/users';
 import * as user from './user-list.actions';
+import * as app from './../app.actions';
 
 export const initialState: State = {
 	users: []
 };
 
-export function usersReducer(state: State = initialState, action: user.Actions): State {
+// this reducer needs to listen to app actions too, to handle the generic error action
+export function usersReducer(state: State = initialState, action: user.Actions | app.Actions): State {
 	switch (action.type) {
 		case user.ActionTypes.LOAD_USERS_SUCCESS: {
 			const users = action.payload;
@@ -46,6 +48,9 @@ export function usersReducer(state: State = initialState, action: user.Actions):
 				];
 			}
 			return Object.assign({}, state, { users });
+		}
+		case app.ActionTypes.ERROR: {
+			return initialState;
 		}
 		default: {
 			return state;

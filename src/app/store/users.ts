@@ -10,8 +10,15 @@ interface Link {
 	};
 }
 
+export enum RoleType {
+	ROLE_ADMIN = 'Administrator',
+	ROLE_USER = 'User',
+	ROLE_ACTUATOR = 'Actuator'
+}
+
 export interface User {
 	_links: Link;
 	username: string;
 	email: string;
+	roles: RoleType[];
 }

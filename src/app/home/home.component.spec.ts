@@ -1,7 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { MaterialModule } from '@angular/material';
+// import { MaterialModule } from '@angular/material';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatToolbarModule,
+	MatCheckboxModule
+} from '@angular/material';
 import {OAuthService} from 'angular-oauth2-oidc';
 
 describe('HomeComponent', () => {
@@ -14,7 +23,10 @@ describe('HomeComponent', () => {
 
 		TestBed.configureTestingModule({
 			declarations: [HomeComponent],
-			imports: [MaterialModule],
+			imports: [
+				// MaterialModule
+				MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule, MatListModule, MatCheckboxModule
+			],
 			providers:    [ {provide: OAuthService, useValue: oauthServiceStub } ]
 		})
 			.compileComponents();

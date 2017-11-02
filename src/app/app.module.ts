@@ -21,12 +21,13 @@ import {AppComponent} from './app.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {routes} from './app.routes';
 import {
-	MdButtonModule,
-	MdCardModule,
-	MdIconModule,
-	MdInputModule,
-	MdListModule,
-	MdToolbarModule
+	MatButtonModule,
+	MatCardModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatToolbarModule,
+	MatCheckboxModule, MatSlideToggleModule
 } from '@angular/material';
 /**
  * used by material
@@ -77,7 +78,7 @@ export const firebaseConfig = {
 		DialogModule,
 		RouterModule.forRoot(routes),
 		StoreModule.provideStore(reducer),
-		MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdInputModule, MdListModule,
+		MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule, MatListModule, MatCheckboxModule, MatSlideToggleModule,
 		FlexLayoutModule,
 
 		AngularFireModule.initializeApp(firebaseConfig),
