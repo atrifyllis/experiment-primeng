@@ -7,11 +7,9 @@ import {AppState} from '../store/reducer-config';
 import * as app from './../app.actions';
 
 /**
- * Check this issue:
- * https://github.com/angular/angular/issues/15165
- *
- * Found a way to hack the 302 redirect
- * TODO: better way should be possible
+ * This interceptor redirects to login page
+ * 1) in case of an invalid token (the do part) or
+ * 2) in case of any http error
  */
 @Injectable()
 export class RedirectInterceptor implements HttpInterceptor {
@@ -31,7 +29,8 @@ export class RedirectInterceptor implements HttpInterceptor {
 						const queryStringIndex = response.url.indexOf('?');
 						const loginUrl = queryStringIndex && queryStringIndex > 0 ? response.url.substring(0, queryStringIndex) : response.url;
 						console.log('User logout detected, redirecting to login page: %s', loginUrl);
-						// window.location.href = loginUrl;
+						this.oauthService.logOut();
+						this.store.dispatch(new app.LoginAction());
 					}
 				}
 			})
