@@ -51,7 +51,7 @@ export class UserService {
 	}
 	/**
 	 * @deprecated
-	 * When using angular proxy the protocol returned inside links from spring data rest is https instead of http.
+	 * When using angular proxy the protocol returned inside links from spring data rest is https instead of http (if the server is https).
 	 * This has to do something with the headers of the request. This should not be an issue in production but more investigation is needed.
 	 * @param {string} url
 	 * @returns {string}

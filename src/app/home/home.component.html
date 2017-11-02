@@ -2,6 +2,8 @@
 	<p>Welcome!</p>
 	<p>You can find the source for this app in github: </p>
 	<p><a href="https://github.com/otinanism/experiment-primeng">experiment-primeng</a></p>
+	<p>Also the source of the backend is here: </p>
+	<p><a href="https://github.com/otinanism/spring-boot-startup">spring-boot-startup</a></p>
 	This applications uses:
 	<md-list>
 		<md-list-item>ngrx/store for managing the application state</md-list-item>
@@ -9,9 +11,12 @@
 		</md-list-item>
 		<md-list-item>PrimeNG components where Angular Material is lacking (i.e. Datatable)
 		</md-list-item>
-		<md-list-item> Firebase integration for persistence and hosting! (TODO): integrate real-time
-			db features with ngrx/store
-		</md-list-item>
 		<md-list-item>(TODO) flex-layout to improve responsiveness of UI</md-list-item>
+	</md-list>
+	The backend is a Spring Boot application consisting of:
+	<md-list>
+		<md-list-item>A Resource Server (the REST layer)</md-list-item>
+		<md-list-item>An OAuth2 Authorization Server (simple oauth token authentication, user/roles in database)</md-list-item>
+		<md-list-item>(TODO)Convert to JWT token</md-list-item>
 	</md-list>
 </md-card>
