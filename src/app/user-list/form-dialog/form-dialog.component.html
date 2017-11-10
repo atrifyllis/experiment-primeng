@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form #userDialogForm [formGroup]="userForm" (ngSubmit)="onSubmit()">
 	<p-dialog header="User form" [visible]="!!selectedUser" [modal]="true"
 						[closable]="false" [responsive]="true" [closeOnEscape]="false"
 						[resizable]="false" [draggable]="false" width="300">

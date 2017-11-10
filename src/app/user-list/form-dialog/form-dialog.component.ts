@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 import {RoleType, User} from './../../store/users';
@@ -10,6 +10,8 @@ import {AtLeastOneCheckedValidator} from './at-least-one-checked.validator';
 	styleUrls: ['./form-dialog.component.css']
 })
 export class FormDialogComponent implements OnInit, OnChanges {
+
+	@ViewChild('userDialogForm') userDialogForm: ElementRef;
 
 	roleTypeEnum = RoleType;
 	roleTypes: any[];
@@ -64,6 +66,8 @@ export class FormDialogComponent implements OnInit, OnChanges {
 
 	onSubmit() {
 		this.update.emit(this.userForm.value);
+		// resetting the native element is needed because angular material does not reset the error classes on submit (Why God)
+		this.userDialogForm.nativeElement.reset();
 	}
 
 	onValueChanged(data?: any) {
