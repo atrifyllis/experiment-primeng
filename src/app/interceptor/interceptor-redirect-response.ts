@@ -12,7 +12,6 @@ import {OAuthService} from 'angular-oauth2-oidc';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store/reducer-config';
 import * as app from './../app.actions';
-import { go} from '@ngrx/router-store';
 
 /**
  * This interceptor redirects to login page

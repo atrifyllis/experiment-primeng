@@ -1,6 +1,6 @@
-import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
-import { inject, TestBed } from '@angular/core/testing';
-import { UserListEffects } from './user-list.effects';
+// import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
+import {inject, TestBed} from '@angular/core/testing';
+import {UserListEffects} from './user-list.effects';
 import {
 	CloseUpdateUserDialogAction,
 	DeleteUserAction,
@@ -10,16 +10,19 @@ import {
 	UpdateUserAction,
 	UpdateUserSuccessAction
 } from './user-list.actions';
-import { sampleUsers } from '../store/sampleData';
-import { UserService } from './user.service';
-import { Observable } from 'rxjs/Observable';
-import { User } from '../store/users';
+import {sampleUsers} from '../store/sampleData';
+import {UserService} from './user.service';
+import {Observable} from 'rxjs/Observable';
+import {User} from '../store/users';
+import {provideMockActions} from '@ngrx/effects/testing';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 
 describe('User List Effects', () => {
 
-	let runner: EffectsRunner;
+	// let runner: EffectsRunner;
 	let userListEffects: UserListEffects;
+	let actions: ReplaySubject<any>;
 	let userService;
 	const userId = '1';
 	const user: User = {
@@ -30,11 +33,12 @@ describe('User List Effects', () => {
 	};
 
 	beforeEach(() => TestBed.configureTestingModule({
-		imports: [
-			EffectsTestingModule
-		],
+		// imports: [
+		// 	EffectsTestingModule
+		// ],
 		providers: [
 			UserListEffects,
+			provideMockActions(() => actions),
 			{
 				provide: UserService,
 				useValue: jasmine.createSpyObj('userService', ['getUsers', 'deleteUser', 'updateUser'])
@@ -44,15 +48,17 @@ describe('User List Effects', () => {
 	}));
 
 	beforeEach(inject([
-			EffectsRunner, UserListEffects
+			// EffectsRunner,
+			UserListEffects
 		],
-		(_runner, _userListEffects) => {
-			runner = _runner;
+		(_userListEffects) => {
+			// runner = _runner;
 			userListEffects = _userListEffects;
 		}
 	));
 
 	beforeEach(() => {
+		actions = new ReplaySubject(1);
 		userService = TestBed.get(UserService);
 		userService.getUsers.and.returnValue(Observable.of(sampleUsers));
 		userService.deleteUser.and.returnValue(Observable.of(userId));
@@ -60,7 +66,7 @@ describe('User List Effects', () => {
 	});
 
 	it('should load a list of users', () => {
-		runner.queue(new LoadUsersAction());
+		actions.next(LoadUsersAction);
 
 		userListEffects.loadUsers$.subscribe(result => {
 			expect(result).toEqual(new LoadUsersSuccessAction(sampleUsers));
@@ -68,7 +74,8 @@ describe('User List Effects', () => {
 	});
 
 	it('should return a DeleteUserSuccessAction with specified user id, on success', () => {
-		runner.queue(new DeleteUserAction(userId));
+		actions.next(new DeleteUserAction(userId));
+
 		userListEffects.deleteUser$.subscribe(result => {
 			expect(result).toEqual(new DeleteUserSuccessAction(userId));
 			expect(userService.deleteUser).toHaveBeenCalledWith(userId);
@@ -76,7 +83,8 @@ describe('User List Effects', () => {
 	});
 
 	it('should return an UpdateUserSuccessAction with specified user, on success', () => {
-		runner.queue(new UpdateUserAction(user));
+		actions.next(new UpdateUserAction(user));
+
 		userListEffects.updateUser$.subscribe(result => {
 			expect(result).toEqual(new UpdateUserSuccessAction(user));
 			expect(userService.updateUser).toHaveBeenCalledWith(user);
@@ -84,7 +92,8 @@ describe('User List Effects', () => {
 	});
 
 	it('should return an CloseUpdateUserDialogAction when user is updated successfully', () => {
-		runner.queue(new UpdateUserSuccessAction(user));
+		actions.next(new UpdateUserSuccessAction(user));
+
 		userListEffects.closeDialog$.subscribe(result => {
 			expect(result).toEqual(new CloseUpdateUserDialogAction());
 		});

@@ -7,7 +7,7 @@ import {OAuthService} from 'angular-oauth2-oidc';
 import {UserService} from './user-list/user.service';
 import {User} from './store/users';
 import {Router} from '@angular/router';
-import {go} from '@ngrx/router-store';
+import * as RouterActions from './store/router.actions';
 
 @Injectable()
 export class AppEffects {
@@ -31,8 +31,8 @@ export class AppEffects {
 	@Effect()
 	error$: Observable<Action> = this.actions$
 		.ofType(fromApp.ActionTypes.ERROR)
-		.map(() => go(['/error']))
-			;
+		.map(() => new RouterActions.Go({path: ['/error']}))
+	;
 
 	constructor(private actions$: Actions, private oauthService: OAuthService, private userService: UserService, private router: Router) {
 	}

@@ -1,11 +1,10 @@
 <mat-toolbar color="primary">
 	<span>{{title}}</span>
-	<mat-toolbar-row>
+
 		<a mat-button routerLink="/">Home</a>
 		<a mat-button routerLink="/users/">Users</a>
 		<a mat-button *ngIf="!isAuthenticated" (click)="login.emit()">Login</a>
 		<a mat-button *ngIf="authenticatedUser">{{authenticatedUser.username}}</a>
-	</mat-toolbar-row>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

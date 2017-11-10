@@ -10,11 +10,11 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {StoreModule} from '@ngrx/store';
-import {RouterStoreModule} from '@ngrx/router-store';
+import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {RouterModule} from '@angular/router';
 import {EffectsModule} from '@ngrx/effects';
-import {reducer} from './store/reducer-config';
+import {reducers, metaReducers, CustomSerializer} from './store/reducer-config';
 import {FieldsetModule} from 'primeng/components/fieldset/fieldset';
 
 import {AppComponent} from './app.component';
@@ -77,7 +77,7 @@ export const firebaseConfig = {
 		DataTableModule,
 		DialogModule,
 		RouterModule.forRoot(routes),
-		StoreModule.provideStore(reducer),
+		StoreModule.forRoot(reducers, {metaReducers}),
 		MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule, MatListModule, MatCheckboxModule, MatSlideToggleModule,
 		FlexLayoutModule,
 
@@ -88,7 +88,7 @@ export const firebaseConfig = {
 		 * @ngrx/router-store keeps router state up-to-date in the store and uses
 		 * the store as the single source of truth for the router's state.
 		 */
-		RouterStoreModule.connectRouter(),
+		StoreRouterConnectingModule,
 
 		/**
 		 * Store devtools instrument the store retaining past versions of state
@@ -100,16 +100,9 @@ export const firebaseConfig = {
 		 *
 		 * See: https://github.com/zalmoxisus/redux-devtools-extension
 		 */
-		StoreDevtoolsModule.instrumentOnlyWithExtension(),
+		StoreDevtoolsModule.instrument(),
 
-		/**
-		 * EffectsModule.run() sets up the effects class to be initialized
-		 * immediately when the application starts.
-		 *
-		 * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
-		 */
-		EffectsModule.run(UserListEffects),
-		EffectsModule.run(AppEffects),
+		EffectsModule.forRoot([AppEffects, UserListEffects]),
 
 		HttpClientModule,
 		OAuthModule.forRoot()
@@ -118,7 +111,8 @@ export const firebaseConfig = {
 		UserService,
 		UserListResolver,
 		{ provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true },
-		{provide: HTTP_INTERCEPTORS, useClass: AddBearerHeaderInterceptor, multi: true}
+		{provide: HTTP_INTERCEPTORS, useClass: AddBearerHeaderInterceptor, multi: true},
+		{ provide: RouterStateSerializer, useClass: CustomSerializer }
 	],
 	bootstrap: [AppContainerComponent]
 })
