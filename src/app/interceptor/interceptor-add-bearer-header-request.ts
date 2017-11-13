@@ -12,13 +12,13 @@ export class AddBearerHeaderInterceptor implements HttpInterceptor {
 	}
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		// TODO this check is probably not needed here since we check this in the guard?
-		// if (!this.oauthService.hasValidAccessToken()) {
-		// 	this.oauthService.initImplicitFlow();
-		// } else {
-		const accessToken = 'Bearer ' + this.oauthService.getAccessToken();
-		const duplicateReq = req.clone({ headers: req.headers.set('Authorization', accessToken) });
-		return next.handle(duplicateReq);
-		// }
+		// this check is needed here for example if we try to delete or update a user when access token has expired
+		if (!this.oauthService.hasValidAccessToken()) {
+			this.oauthService.initImplicitFlow();
+		} else {
+			const accessToken = 'Bearer ' + this.oauthService.getAccessToken();
+			const duplicateReq = req.clone({ headers: req.headers.set('Authorization', accessToken) });
+			return next.handle(duplicateReq);
+		}
 	}
 }
