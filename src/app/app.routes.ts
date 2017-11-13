@@ -2,7 +2,7 @@ import { UserListResolver } from './user-list/user-list.resolver';
 import { UserListContainerComponent } from './user-list/user-list-container.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import {ErrorComponent} from "./error/error.component";
+import {ErrorComponent} from './error/error.component';
 
 export const routes: Routes = [
 	{
