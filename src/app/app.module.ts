@@ -1,38 +1,51 @@
-import { DataTableModule } from 'primeng/components/datatable/datatable';
-import { DialogModule } from 'primeng/components/dialog/dialog';
+import {DataTableModule} from 'primeng/components/datatable/datatable';
+import {DialogModule} from 'primeng/components/dialog/dialog';
 
-import { UserListResolver } from './user-list/user-list.resolver';
-import { UserService } from './user-list/user.service';
-import { UserListEffects } from './user-list/user-list.effects';
-import { UserListContainerComponent } from './user-list/user-list-container.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { StoreModule } from '@ngrx/store';
-import { RouterStoreModule } from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { RouterModule } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
-import { reducer } from './store/reducer-config';
-import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
+import {UserListResolver} from './user-list/user-list.resolver';
+import {UserService} from './user-list/user.service';
+import {UserListEffects} from './user-list/user-list.effects';
+import {UserListContainerComponent} from './user-list/user-list-container.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {StoreModule} from '@ngrx/store';
+import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {RouterModule} from '@angular/router';
+import {EffectsModule} from '@ngrx/effects';
+import {reducers, metaReducers, CustomSerializer} from './store/reducer-config';
+import {FieldsetModule} from 'primeng/components/fieldset/fieldset';
 
-import { AppComponent } from './app.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { routes } from './app.routes';
-import { MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdInputModule, MdListModule } from '@angular/material';
+import {AppComponent} from './app.component';
+import {UserListComponent} from './user-list/user-list.component';
+import {routes} from './app.routes';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatToolbarModule,
+	MatCheckboxModule, MatSlideToggleModule
+} from '@angular/material';
 /**
  * used by material
  */
 import 'hammerjs';
-import { HomeComponent } from './home/home.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularFireModule } from 'angularfire2';
-import { FormDialogComponent } from './user-list/form-dialog/form-dialog.component';
+import {HomeComponent} from './home/home.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AngularFireModule} from 'angularfire2';
+import {FormDialogComponent} from './user-list/form-dialog/form-dialog.component';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {OAuthModule} from 'angular-oauth2-oidc';
+import {AddBearerHeaderInterceptor} from './interceptor/interceptor-add-bearer-header-request';
+import {AppEffects} from 'app/app.effects';
+import {AppContainerComponent} from './app-container.component';
 import {RedirectInterceptor} from './interceptor/interceptor-redirect-response';
+import { ErrorComponent } from './error/error.component';
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
@@ -47,23 +60,25 @@ export const firebaseConfig = {
 @NgModule({
 	declarations: [
 		AppComponent,
+		AppContainerComponent,
 		UserListComponent,
 		UserListContainerComponent,
 		HomeComponent,
-		FormDialogComponent
+		FormDialogComponent,
+		ErrorComponent,
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule,
-		// HttpModule,
+		HttpModule,
 		BrowserAnimationsModule,
 		FieldsetModule,
 		DataTableModule,
 		DialogModule,
 		RouterModule.forRoot(routes),
-		StoreModule.provideStore(reducer),
-		MdButtonModule, MdCardModule, MdIconModule, MdToolbarModule, MdInputModule, MdListModule,
+		StoreModule.forRoot(reducers, {metaReducers}),
+		MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule, MatListModule, MatCheckboxModule, MatSlideToggleModule,
 		FlexLayoutModule,
 
 		AngularFireModule.initializeApp(firebaseConfig),
@@ -73,7 +88,7 @@ export const firebaseConfig = {
 		 * @ngrx/router-store keeps router state up-to-date in the store and uses
 		 * the store as the single source of truth for the router's state.
 		 */
-		RouterStoreModule.connectRouter(),
+		StoreRouterConnectingModule,
 
 		/**
 		 * Store devtools instrument the store retaining past versions of state
@@ -85,23 +100,21 @@ export const firebaseConfig = {
 		 *
 		 * See: https://github.com/zalmoxisus/redux-devtools-extension
 		 */
-		StoreDevtoolsModule.instrumentOnlyWithExtension(),
+		StoreDevtoolsModule.instrument(),
 
-		/**
-		 * EffectsModule.run() sets up the effects class to be initialized
-		 * immediately when the application starts.
-		 *
-		 * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
-		 */
-		EffectsModule.run(UserListEffects),
+		EffectsModule.forRoot([AppEffects, UserListEffects]),
+
 		HttpClientModule,
+		OAuthModule.forRoot()
 	],
 	providers: [
 		UserService,
 		UserListResolver,
-		{ provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true }
+		{ provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true },
+		{provide: HTTP_INTERCEPTORS, useClass: AddBearerHeaderInterceptor, multi: true},
+		{ provide: RouterStateSerializer, useClass: CustomSerializer }
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppContainerComponent]
 })
 export class AppModule {
 }

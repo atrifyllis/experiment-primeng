@@ -1,11 +1,20 @@
-import { MaterialModule } from '@angular/material';
+// import { MatB } from '@angular/material';
 import { async, TestBed } from '@angular/core/testing';
 import { Route } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatToolbarModule,
+	MatCheckboxModule
+} from '@angular/material';
 
-const title = 'PrimeNG/Ngrx/Firebase/Material integrated';
+const title = 'PrimeNG/Ngrx/Material integrated';
 
 describe('AppComponent', () => {
 	const config: Route[] = [];
@@ -17,7 +26,8 @@ describe('AppComponent', () => {
 			],
 			imports: [
 				RouterTestingModule.withRoutes(config),
-				MaterialModule
+				MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule, MatListModule, MatCheckboxModule
+				// MaterialModule
 			]
 		}).compileComponents();
 	}));

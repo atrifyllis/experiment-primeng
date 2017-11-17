@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+import {environment} from './../../environments/environment';
 /**
  * combineReducers is another useful metareducer that takes a map of reducer
  * functions and creates a new reducer that gathers the values
@@ -7,10 +7,6 @@ import { environment } from './../../environments/environment';
  *
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
-import { ActionReducer, combineReducers } from '@ngrx/store';
-import { routerReducer } from '@ngrx/router-store';
-import { usersReducer } from '../user-list/user-list.reducer';
-import * as fromUsers from './users';
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
  * it any number of functions and it returns a function. This new function
@@ -19,17 +15,23 @@ import * as fromUsers from './users';
  *
  * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
  */
-import { compose } from '@ngrx/core/compose';
+import {ActionReducer, ActionReducerMap, MetaReducer} from '@ngrx/store';
+import * as fromRouter from '@ngrx/router-store';
+import {usersReducer} from '../user-list/user-list.reducer';
+import * as fromUsers from './users';
+import * as fromGlobal from './global';
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
  * exception will be thrown. This is useful during development mode to
  * ensure that none of the reducers accidentally mutates the state.
  */
-import { storeFreeze } from 'ngrx-store-freeze';
+import {storeFreeze} from 'ngrx-store-freeze';
 /**
  * storeLogger is a metareducer that logs out each time we dispatch an action.
  */
-import { storeLogger } from 'ngrx-store-logger';
+import {appReducer} from '../app.reducer';
+import {RouterStateSerializer} from '@ngrx/router-store';
+import {Params, RouterStateSnapshot} from '@angular/router';
 
 
 /**
@@ -38,21 +40,41 @@ import { storeLogger } from 'ngrx-store-logger';
  */
 export interface AppState {
 	userState: fromUsers.State;
+	globalState: fromGlobal.State;
+	routerReducer: fromRouter.RouterReducerState;
 }
 
-const reducers = {
+export const reducers: ActionReducerMap<AppState> = {
+	globalState: appReducer,
 	userState: usersReducer,
-	router: routerReducer,
+	routerReducer: fromRouter.routerReducer,
 };
 
-const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, storeLogger(), combineReducers)(reducers);
-const productionReducer: ActionReducer<AppState> = combineReducers(reducers);
+// console.log all actions
+export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
+	return function(state, action) {
+		console.log('state', state);
+		console.log('action', action);
 
-export function reducer(state: any, action: any) {
-	if (environment.production) {
-		return productionReducer(state, action);
-	} else {
-		return developmentReducer(state, action);
+		return reducer(state, action);
+	}
+}
+
+export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [storeFreeze, debug] : [];
+
+export interface RouterStateUrl {
+	url: string;
+	queryParams: Params;
+}
+
+export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
+	serialize(routerState: RouterStateSnapshot): RouterStateUrl {
+		const { url } = routerState;
+		const queryParams = routerState.root.queryParams;
+
+		// Only return an object including the URL and query params
+		// instead of the entire snapshot
+		return { url, queryParams };
 	}
 }
 
@@ -74,3 +96,10 @@ export function reducer(state: any, action: any) {
 export const getUsersState = (state: AppState) => state.userState.users;
 
 export const getSelectedUserState = (state: AppState) => state.userState.selectedUser;
+
+export const getAuthenticatedState = (state: AppState) => state.globalState.isAuthenticated;
+
+export const getAuthenticatedUserState = (state: AppState) => state.globalState.authenticatedUser;
+
+export const getErrorState = (state: AppState) => state.globalState.error;
+

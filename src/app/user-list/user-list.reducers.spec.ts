@@ -1,13 +1,6 @@
-import { sampleUsers } from './../store/sampleData';
-import { initialState, usersReducer } from 'app/user-list/user-list.reducer';
-import {
-	CloseUpdateUserDialogAction,
-	DeleteUserSuccessAction,
-	LoadUsersSuccessAction,
-	OpenUpdateUserDialogAction,
-	UpdateUserSuccessAction
-} from './user-list.actions';
-import { User } from '../store/users';
+import {sampleUsers} from './../store/sampleData';
+import {initialState, usersReducer} from 'app/user-list/user-list.reducer';
+import {CloseUpdateUserDialogAction, LoadUsersSuccessAction, OpenUpdateUserDialogAction} from './user-list.actions';
 import * as deepFreeze from 'deep-freeze-strict';
 
 
@@ -30,21 +23,21 @@ describe('UserListReducer', () => {
 
 	describe('Open User Dialog', () => {
 		it('should set selected user in state', () => {
-			const initialState = deepFreeze({ users: [...sampleUsers] });
+			const newState = deepFreeze({ users: [...sampleUsers] });
 			const action = new OpenUpdateUserDialogAction(initialState.users[0]);
-			const result = usersReducer(initialState, action);
-			expect(result.selectedUser).toBeGreaterThanOrEqual(initialState.users[0]);
+			const result = usersReducer(newState, action);
+			expect(result.selectedUser).toBeGreaterThanOrEqual(newState.users[0]);
 		});
 	});
 
 	describe('Close User Dialog', () => {
 		it('should remove selectedUser from state', () => {
-			const initialState = deepFreeze({
+			const newState = deepFreeze({
 				users: [...sampleUsers],
 				selectedUser: Object.assign({}, sampleUsers[0])
 			});
 			const action = new CloseUpdateUserDialogAction();
-			const result = usersReducer(initialState, action);
+			const result = usersReducer(newState, action);
 			expect(result.selectedUser).toBeNull();
 		});
 	});

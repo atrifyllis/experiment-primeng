@@ -1,25 +1,39 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form #userDialogForm [formGroup]="userForm" (ngSubmit)="onSubmit()">
 	<p-dialog header="User form" [visible]="!!selectedUser" [modal]="true"
 						[closable]="false" [responsive]="true" [closeOnEscape]="false"
 						[resizable]="false" [draggable]="false" width="300">
 
-		<md-input-container>
-			<input mdInput placeholder="Username" formControlName="username">
-			<md-error *ngIf="formErrors.username">
+		<input type="hidden" formControlName="_links">
+		<mat-form-field>
+			<input matInput placeholder="Username" formControlName="username">
+			<mat-error *ngIf="formErrors.username">
 				{{ formErrors.username }}
-			</md-error>
-		</md-input-container>
-		<md-input-container>
-			<input mdInput placeholder="Email" formControlName="email">
-			<md-error *ngIf="formErrors.email">
+			</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput placeholder="Email" formControlName="email">
+			<mat-error *ngIf="formErrors.email">
 				{{ formErrors.email }}
-			</md-error>
-		</md-input-container>
+			</mat-error>
+		</mat-form-field>
+		<div>
+			<label for="roles">Roles</label>
+			<mat-list id="roles">
+				<mat-list-item *ngFor="let roleType of roleTypes">
+					<mat-slide-toggle [checked]="isChecked(roleType)" (change)="updateRoles(roleType, event)">
+						{{roleTypeEnum[roleType]}}
+					</mat-slide-toggle>
+				</mat-list-item>
+			</mat-list>
+			<mat-error *ngIf="formErrors.roles">
+				{{ formErrors.roles }}
+			</mat-error>
 
-		<p-footer>
-			<button md-button type="submit" [disabled]="!userForm?.valid">Save</button>
-			<button type="reset" md-button (click)="close.emit()">Cancel</button>
-		</p-footer>
+		</div>
+			<p-footer>
+				<button mat-button [disabled]="!userForm?.valid">Save</button>
+				<button type="reset" mat-button (click)="close.emit()">Cancel</button>
+			</p-footer>
 
 	</p-dialog>
 </form>

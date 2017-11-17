@@ -1,9 +1,10 @@
-<md-toolbar color="primary">
+<mat-toolbar color="primary">
 	<span>{{title}}</span>
-	<md-toolbar-row>
-		<a md-button routerLink="/">Home</a>
-		<a md-button routerLink="/users/">Users</a>
-	</md-toolbar-row>
-</md-toolbar>
+
+		<a mat-button routerLink="/">Home</a>
+		<a mat-button routerLink="/users/">Users</a>
+		<a mat-button *ngIf="!isAuthenticated" (click)="login.emit()">Login</a>
+		<a mat-button *ngIf="authenticatedUser">{{authenticatedUser.username}}</a>
+</mat-toolbar>
 
 <router-outlet></router-outlet>

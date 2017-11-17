@@ -1,16 +1,21 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MaterialModule } from '@angular/material';
-import { DataTableModule, DialogModule } from 'primeng/primeng';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+// import {MaterialModule} from '@angular/material';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatToolbarModule,
+	MatCheckboxModule
+} from '@angular/material';
+import {DataTableModule} from 'primeng/primeng';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FieldsetModule } from 'primeng/components/fieldset/fieldset';
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-
-import { UserListComponent } from './user-list.component';
-import { userFormInit } from './user-list-container.component';
-import { sampleUsers } from '../store/sampleData';
-import { User } from '../store/users';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {UserListComponent} from './user-list.component';
+import {sampleUsers} from '../store/sampleData';
+import {User} from '../store/users';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('UserListComponent', () => {
 	let component: UserListComponent;
@@ -23,7 +28,8 @@ describe('UserListComponent', () => {
 			imports: [
 				NoopAnimationsModule,
 				DataTableModule,
-				MaterialModule
+				// MaterialModule
+				MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule, MatListModule, MatCheckboxModule
 			],
 			schemas: [CUSTOM_ELEMENTS_SCHEMA]
 		})
@@ -38,7 +44,7 @@ describe('UserListComponent', () => {
 		fixture.detectChanges();
 	});
 
-	describe('Visibile elements', () => {
+	describe('Visible elements', () => {
 		it('should create component', () => {
 			expect(component).toBeTruthy();
 		});
@@ -69,7 +75,7 @@ describe('UserListComponent', () => {
 			let selectedUser: User;
 			component.remove.subscribe((user: User) => selectedUser = user);
 			buttons[1].click();
-			expect(selectedUser.$key).toBe('1');
+			expect(selectedUser.username).toBe('user1');
 		});
 
 		it('should raise update event with correct user as argument', () => {
@@ -78,7 +84,7 @@ describe('UserListComponent', () => {
 			let selectedUser: User;
 			component.edit.subscribe((user: User) => selectedUser = user);
 			buttons[0].click();
-			expect(selectedUser.$key).toBe('1');
+			expect(selectedUser.username).toBe('user1');
 		});
 
 		it('should raise create event', () => {

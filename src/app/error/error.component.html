@@ -1,0 +1,9 @@
+<mat-card>
+	<mat-card-title>Unexpected Error. Please contact your system administrator</mat-card-title>
+	<mat-card-content>
+		<p>Error Message: {{(error$ | async)?.message}}</p>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-raised-button color="primary" routerLink="/">Take Me Home</button>
+	</mat-card-actions>
+</mat-card>

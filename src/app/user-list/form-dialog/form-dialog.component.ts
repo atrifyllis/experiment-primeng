@@ -1,19 +1,25 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
-import { User } from './../../store/users';
+import {RoleType, User} from './../../store/users';
+import {AtLeastOneCheckedValidator} from './at-least-one-checked.validator';
 
 @Component({
 	selector: 'form-dialog',
 	templateUrl: './form-dialog.component.html',
 	styleUrls: ['./form-dialog.component.css']
 })
-export class FormDialogComponent implements OnInit, OnChanges  {
+export class FormDialogComponent implements OnInit, OnChanges {
 
+	@ViewChild('userDialogForm') userDialogForm: ElementRef;
+
+	roleTypeEnum = RoleType;
+	roleTypes: any[];
 
 	formErrors = {
 		'username': '',
-		'email': ''
+		'email': '',
+		'roles': ''
 	};
 
 	validationMessages = {
@@ -25,11 +31,14 @@ export class FormDialogComponent implements OnInit, OnChanges  {
 		'email': {
 			'required': 'Email is required.',
 			'email': 'Email is invalid.'
+		},
+		'roles': {
+			'checkboxes': 'At least one role is required.'
 		}
 	};
 
 	@Input()
-	selectedUser: User;
+	selectedUser: User | null;
 
 	@Input()
 	userForm: FormGroup;
@@ -38,23 +47,33 @@ export class FormDialogComponent implements OnInit, OnChanges  {
 
 	@Output() close = new EventEmitter();
 
-	constructor() { }
+
+	constructor(private fb: FormBuilder) {
+	}
 
 	ngOnInit() {
+		this.roleTypes = Object.keys(this.roleTypeEnum);
 		this.userForm.valueChanges.subscribe(data => this.onValueChanged(data));
 		this.onValueChanged(); // (re)set validation messages now
 	}
 
 	ngOnChanges() {
 		this.userForm.reset(this.selectedUser !== null ? this.selectedUser : {});
+		if (this.selectedUser != null) {
+			this.userForm.setControl('roles', this.fb.array(this.selectedUser.roles, AtLeastOneCheckedValidator()));
+		}
 	}
 
 	onSubmit() {
 		this.update.emit(this.userForm.value);
+		// resetting the native element is needed because angular material does not reset the error classes on submit (Why God)
+		this.userDialogForm.nativeElement.reset();
 	}
 
 	onValueChanged(data?: any) {
-		if (!this.userForm) { return; }
+		if (!this.userForm) {
+			return;
+		}
 		const form = this.userForm;
 		Object.keys(this.formErrors).map(field => {
 			// clear previous error message (if any)
@@ -69,4 +88,20 @@ export class FormDialogComponent implements OnInit, OnChanges  {
 		});
 	}
 
+	isChecked(roleType) {
+		const selectedRoles = this.userForm.controls.roles as FormArray;
+		return selectedRoles.controls.find(role => role.value !== null && role.value === roleType);
+	}
+
+	updateRoles(roleType: RoleType, $event: Event) {
+		const selectedRoles = this.userForm.controls.roles as FormArray;
+		// must manually mark dirty because the form array is not considered dirty if one of its controls is dirty....... why angular???
+		selectedRoles.markAsDirty();
+		if (event.target['checked']) {
+			selectedRoles.push(new FormControl(roleType));
+		} else {
+			const indexOfSelected = selectedRoles.controls.findIndex(role => role.value === roleType);
+			selectedRoles.removeAt(indexOfSelected);
+		}
+	}
 }
