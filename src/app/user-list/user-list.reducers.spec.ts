@@ -21,12 +21,12 @@ describe('UserListReducer', () => {
 		});
 	});
 
-	describe('Open User Dialog', () => {
+	fdescribe('Open User Dialog', () => {
 		it('should set selected user in state', () => {
 			const newState = deepFreeze({ users: [...sampleUsers] });
-			const action = new OpenUpdateUserDialogAction(initialState.users[0]);
+			const action = new OpenUpdateUserDialogAction(newState.users[0]);
 			const result = usersReducer(newState, action);
-			expect(result.selectedUser).toBeGreaterThanOrEqual(newState.users[0]);
+			expect(result.selectedUser).toEqual(newState.users[0]);
 		});
 	});
 
