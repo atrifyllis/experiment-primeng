@@ -34,6 +34,11 @@ export class AppEffects {
 		.map(() => new RouterActions.Go({path: ['/error']}))
 	;
 
+	@Effect({ dispatch: false })
+	navigate$ = this.actions$.ofType(RouterActions.GO)
+		.map((action: RouterActions.Go) => action.payload)
+		.do(({ path, query: queryParams, extras}) => this.router.navigate(path, { queryParams, ...extras }));
+
 	constructor(private actions$: Actions, private oauthService: OAuthService, private userService: UserService, private router: Router) {
 	}
 }
