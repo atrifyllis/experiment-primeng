@@ -21,7 +21,7 @@ describe('UserListReducer', () => {
 		});
 	});
 
-	fdescribe('Open User Dialog', () => {
+	describe('Open User Dialog', () => {
 		it('should set selected user in state', () => {
 			const newState = deepFreeze({ users: [...sampleUsers] });
 			const action = new OpenUpdateUserDialogAction(newState.users[0]);
