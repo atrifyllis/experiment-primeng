@@ -21,4 +21,6 @@ export interface User {
 	username: string;
 	email: string;
 	roles: RoleType[];
+	password?: string;
+	confirmPassword?: string;
 }

@@ -3,6 +3,6 @@ import {AbstractControl, FormArray, ValidationErrors, ValidatorFn} from '@angula
 export function AtLeastOneCheckedValidator(): ValidatorFn {
 	return (control: AbstractControl): ValidationErrors => {
 		const checkedCheckboxes = (control as FormArray).controls.length;
-		return checkedCheckboxes <= 0 ? {'checkboxes': {value: 'at least one'}} : null;
+		return checkedCheckboxes <= 0 ? {'checkboxes': true} : null;
 	};
 }

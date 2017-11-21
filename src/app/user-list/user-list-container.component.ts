@@ -6,13 +6,16 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import * as fromUser from './user-list.actions';
 import {AtLeastOneCheckedValidator} from './form-dialog/at-least-one-checked.validator';
+import {FieldValuesMatchValidator} from 'app/user-list/form-dialog/field-values-match.validator';
 
 
 export const userFormInit = {
 	_links: '',
 	username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
 	email: ['', [Validators.required, Validators.email]],
-	roles: new FormArray([], AtLeastOneCheckedValidator)
+	roles: new FormArray([], AtLeastOneCheckedValidator),
+	password: '',
+	confirmPassword: ''
 };
 
 @Component({
@@ -36,7 +39,7 @@ export class UserListContainerComponent {
 		this.users$ = store.select(getUsersState);
 		this.selectedUser$ = store.select(getSelectedUserState);
 
-		this.userForm = this.fb.group(userFormInit);
+		this.userForm = this.fb.group(userFormInit, {validator: FieldValuesMatchValidator()});
 	}
 
 	removeUser(user: User) {

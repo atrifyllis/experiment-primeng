@@ -28,12 +28,26 @@
 			<mat-error *ngIf="formErrors.roles">
 				{{ formErrors.roles }}
 			</mat-error>
-
 		</div>
-			<p-footer>
-				<button mat-button [disabled]="!userForm?.valid">Save</button>
-				<button type="reset" mat-button (click)="close.emit()">Cancel</button>
-			</p-footer>
+
+		<mat-form-field>
+			<input matInput placeholder="Password" formControlName="password">
+			<mat-error *ngIf="formErrors.password">
+				{{ formErrors.password }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field>
+			<input matInput placeholder="Confirm Password" formControlName="confirmPassword">
+		</mat-form-field>
+		<mat-error *ngIf="formErrors.password">
+			{{ formErrors.password }}
+		</mat-error>
+
+		<p-footer>
+			<button mat-button [disabled]="!userForm?.valid">Save</button>
+			<button type="reset" mat-button (click)="close.emit()">Cancel</button>
+		</p-footer>
 
 	</p-dialog>
 </form>

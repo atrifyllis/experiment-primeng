@@ -19,7 +19,9 @@ export class FormDialogComponent implements OnInit, OnChanges {
 	formErrors = {
 		'username': '',
 		'email': '',
-		'roles': ''
+		'roles': '',
+		'password': '',
+		'confirmPassword': ''
 	};
 
 	validationMessages = {
@@ -34,6 +36,9 @@ export class FormDialogComponent implements OnInit, OnChanges {
 		},
 		'roles': {
 			'checkboxes': 'At least one role is required.'
+		},
+		'password': {
+			'match': 'Passwords must match'
 		}
 	};
 
@@ -81,11 +86,22 @@ export class FormDialogComponent implements OnInit, OnChanges {
 			const control = form.get(field);
 			if (control && control.dirty && !control.valid) {
 				const messages = this.validationMessages[field];
+				console.log(control.errors);
 				Object.keys(control.errors).map(key => {
 					this.formErrors[field] += messages[key] + ' ';
 				});
 			}
+
 		});
+
+		// form (not field) errors
+		if (form && form.dirty && !form.valid && form.errors) {
+			Object.keys(form.errors).map(key => {
+				const messages = this.validationMessages[key];
+				this.formErrors[key] += messages[form.errors[key]] + ' ';
+			});
+		}
+		console.log(this.formErrors);
 	}
 
 	isChecked(roleType) {
