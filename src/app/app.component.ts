@@ -19,6 +19,8 @@ export class AppComponent {
 
 	@Output() login = new EventEmitter();
 
+	@Output() logout = new EventEmitter();
+
 	constructor() {
 
 	}

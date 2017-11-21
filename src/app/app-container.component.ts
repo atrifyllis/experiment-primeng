@@ -12,7 +12,7 @@ import {User} from './store/users';
 	template: `
 		<app-component [isAuthenticated]="isAuthenticated$ | async"
 									 [authenticatedUser]="authenticatedUser$ | async"
-									 (login)="login()">
+									 (login)="login()" (logout)="logout()">
 		</app-component>`
 })
 export class AppContainerComponent {
@@ -43,5 +43,9 @@ export class AppContainerComponent {
 
 	login() {
 		this.store.dispatch(new app.LoginAction());
+	}
+
+	logout() {
+		this.store.dispatch(new app.LogoutAction());
 	}
 }

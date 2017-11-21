@@ -20,6 +20,19 @@ export class AppEffects {
 		);
 
 	@Effect()
+	logout$: Observable<Action> = this.actions$
+		.ofType(fromApp.ActionTypes.LOGOUT)
+		.switchMap(() => Observable.of(this.oauthService.logOut())
+			.map(() => new fromApp.LogoutSuccessAction())
+		);
+
+	@Effect()
+	logoutSuccess$: Observable<Action> = this.actions$
+		.ofType(fromApp.ActionTypes.LOGOUT_SUCCESS)
+		.map(() => new RouterActions.Go({path: ['/']}))
+	;
+
+	@Effect()
 	loadAuthenticatedUser$: Observable<Action> = this.actions$
 		.ofType(fromApp.ActionTypes.LOGIN_SUCCESS)
 		.switchMap(() => this.userService.getUserInfo()

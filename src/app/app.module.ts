@@ -14,7 +14,7 @@ import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-s
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {RouterModule} from '@angular/router';
 import {EffectsModule} from '@ngrx/effects';
-import {reducers, metaReducers, CustomSerializer} from './store/reducer-config';
+import {CustomSerializer, metaReducers, reducers} from './store/reducer-config';
 import {FieldsetModule} from 'primeng/components/fieldset/fieldset';
 
 import {AppComponent} from './app.component';
@@ -23,11 +23,13 @@ import {routes} from './app.routes';
 import {
 	MatButtonModule,
 	MatCardModule,
+	MatCheckboxModule,
 	MatIconModule,
 	MatInputModule,
 	MatListModule,
-	MatToolbarModule,
-	MatCheckboxModule, MatSlideToggleModule
+	MatMenuModule,
+	MatSlideToggleModule,
+	MatToolbarModule
 } from '@angular/material';
 /**
  * used by material
@@ -45,7 +47,7 @@ import {AddBearerHeaderInterceptor} from './interceptor/interceptor-add-bearer-h
 import {AppEffects} from 'app/app.effects';
 import {AppContainerComponent} from './app-container.component';
 import {RedirectInterceptor} from './interceptor/interceptor-redirect-response';
-import { ErrorComponent } from './error/error.component';
+import {ErrorComponent} from './error/error.component';
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
@@ -78,7 +80,9 @@ export const firebaseConfig = {
 		DialogModule,
 		RouterModule.forRoot(routes),
 		StoreModule.forRoot(reducers, {metaReducers}),
-		MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule, MatListModule, MatCheckboxModule, MatSlideToggleModule,
+		MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule,
+		MatListModule, MatCheckboxModule, MatSlideToggleModule, MatMenuModule,
+
 		FlexLayoutModule,
 
 		AngularFireModule.initializeApp(firebaseConfig),
@@ -110,9 +114,9 @@ export const firebaseConfig = {
 	providers: [
 		UserService,
 		UserListResolver,
-		{ provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true },
+		{provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true},
 		{provide: HTTP_INTERCEPTORS, useClass: AddBearerHeaderInterceptor, multi: true},
-		{ provide: RouterStateSerializer, useClass: CustomSerializer }
+		{provide: RouterStateSerializer, useClass: CustomSerializer}
 	],
 	bootstrap: [AppContainerComponent]
 })

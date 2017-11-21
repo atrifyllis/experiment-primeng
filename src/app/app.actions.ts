@@ -5,7 +5,9 @@ import {HttpErrorResponse} from '@angular/common/http';
 
 export const ActionTypes = {
 	LOGIN: type('[Login] Login'),
+	LOGOUT: type('[Login] Logout'),
 	LOGIN_SUCCESS: type('[Login] Login success'),
+	LOGOUT_SUCCESS: type('[Login] Logout success'),
 	GET_USER_INFO_SUCCESS: type('[Login] Get user info'),
 	ERROR: type('[App] Error')
 };
@@ -19,6 +21,20 @@ export class LoginAction implements Action {
 
 export class LoginSuccessAction implements Action {
 	type = ActionTypes.LOGIN_SUCCESS;
+
+	constructor(public payload?: any) {
+	}
+}
+
+export class LogoutAction implements Action {
+	type = ActionTypes.LOGOUT;
+
+	constructor(public payload?: any) {
+	}
+}
+
+export class LogoutSuccessAction implements Action {
+	type = ActionTypes.LOGOUT_SUCCESS;
 
 	constructor(public payload?: any) {
 	}
@@ -38,4 +54,4 @@ export class ErrorAction implements Action {
 	}
 }
 
-export type Actions = LoginAction | LoginSuccessAction | GetUserInfoSuccessAction | ErrorAction;
+export type Actions = LoginAction | LogoutAction | LoginSuccessAction | LogoutSuccessAction | GetUserInfoSuccessAction | ErrorAction;

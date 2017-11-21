@@ -12,6 +12,9 @@ export function appReducer(state: State = initialState, action: app.Actions): St
 		case app.ActionTypes.LOGIN_SUCCESS: {
 			return Object.assign({}, state, {isAuthenticated: true});
 		}
+		case app.ActionTypes.LOGOUT_SUCCESS: {
+			return Object.assign({}, state, {isAuthenticated: false, authenticatedUser: null })
+		}
 		case app.ActionTypes.GET_USER_INFO_SUCCESS: {
 			const authenticatedUser = action.payload;
 			return Object.assign({}, state, {authenticatedUser});

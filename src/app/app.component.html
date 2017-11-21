@@ -6,7 +6,10 @@
 		<a mat-button routerLink="/">Home</a>
 		<a mat-button routerLink="/users/">Users</a>
 		<a mat-button *ngIf="!isAuthenticated" (click)="login.emit()">Login</a>
-		<a mat-button *ngIf="authenticatedUser">{{authenticatedUser.username}}</a>
+		<button mat-button *ngIf="authenticatedUser" [matMenuTriggerFor]="userMenu">{{authenticatedUser.username}}<mat-icon color="accent">perm_identity</mat-icon></button>
+		<mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+			<button mat-menu-item (click)="logout.emit()">Logout<mat-icon>power_settings_new</mat-icon></button>
+		</mat-menu>
 	</mat-toolbar-row>
 </mat-toolbar>
 
