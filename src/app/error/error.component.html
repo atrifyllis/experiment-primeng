@@ -2,6 +2,10 @@
 	<mat-card-title>Unexpected Error. Please contact your system administrator</mat-card-title>
 	<mat-card-content>
 		<p>Error Message: {{(error$ | async)?.message}}</p>
+		<p *ngIf="(error$ | async)?.error.errors">Error details:</p>
+		<ul *ngFor="let errorDetail of (error$ | async)?.error.errors">
+			<li>{{printDetails(errorDetail)}}</li>
+		</ul>
 	</mat-card-content>
 	<mat-card-actions>
 		<button mat-raised-button color="primary" routerLink="/">Take Me Home</button>

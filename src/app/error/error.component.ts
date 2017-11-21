@@ -20,4 +20,7 @@ export class ErrorComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	printDetails(errorDetail) {
+		return Object.keys(errorDetail).map(key => key + ': ' + errorDetail[key]).join(', ');
+	}
 }
