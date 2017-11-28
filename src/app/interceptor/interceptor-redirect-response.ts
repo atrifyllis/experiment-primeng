@@ -49,7 +49,8 @@ export class RedirectInterceptor implements HttpInterceptor {
 					if (error.status === this.UNAUTHORIZED) {
 						return this.reLogin(error);
 					} else if (error.status === this.NOT_FOUND && error.url.indexOf('login') !== -1) {
-						// this is for the case that a redirect occurs after a non-GET http request. The browser tries to redirect to login page with a non-GET verb which returns a 404.
+						// this is for the case that a redirect occurs after a non-GET http request.
+						// The browser tries to redirect to login page with a non-GET verb which returns a 404.
 						// So we manually redirect to login....
 						return this.reLogin(error);
 					} else {

@@ -2,7 +2,7 @@
 		<span>{{title}}</span>
 	<mat-toolbar-row>
 		<a mat-button routerLink="/">Home</a>
-		<a mat-button routerLink="/users/">Users</a>
+		<a mat-button *ngIf="permissionService.hasPermission('ROLE_ADMIN') | async" routerLink="/users/">Users</a>
 		<a mat-button *ngIf="!isAuthenticated" (click)="login.emit()">Login</a>
 		<button mat-button *ngIf="authenticatedUser" [matMenuTriggerFor]="userMenu">{{authenticatedUser.username}}<mat-icon color="accent">perm_identity</mat-icon></button>
 		<mat-menu #userMenu="matMenu" [overlapTrigger]="false">

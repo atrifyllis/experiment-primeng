@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import 'rxjs/add/observable/fromPromise';
 import {User} from './store/users';
+import {PermissionService} from './permission.service';
 
 @Component({
 	selector: 'app-component',
@@ -21,7 +22,7 @@ export class AppComponent {
 
 	@Output() logout = new EventEmitter();
 
-	constructor() {
+	constructor(public permissionService: PermissionService) {
 
 	}
 }

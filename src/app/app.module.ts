@@ -48,6 +48,7 @@ import {AppEffects} from 'app/app.effects';
 import {AppContainerComponent} from './app-container.component';
 import {RedirectInterceptor} from './interceptor/interceptor-redirect-response';
 import {ErrorComponent} from './error/error.component';
+import {PermissionService} from './permission.service';
 
 export const firebaseConfig = {
 	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
@@ -113,6 +114,7 @@ export const firebaseConfig = {
 	],
 	providers: [
 		UserService,
+		PermissionService,
 		UserListResolver,
 		{provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true},
 		{provide: HTTP_INTERCEPTORS, useClass: AddBearerHeaderInterceptor, multi: true},
