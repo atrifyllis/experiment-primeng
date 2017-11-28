@@ -23,6 +23,7 @@ export class RedirectInterceptor implements HttpInterceptor {
 
 	private readonly logoPartialUrl = '/login'.toLowerCase();
 	private readonly UNAUTHORIZED = 401;
+	private readonly NOT_FOUND = 404;
 
 	constructor(private oauthService: OAuthService, private store: Store<AppState>) {
 
@@ -46,9 +47,11 @@ export class RedirectInterceptor implements HttpInterceptor {
 				// console.log(error);
 				if (error instanceof HttpErrorResponse) {
 					if (error.status === this.UNAUTHORIZED) {
-						this.oauthService.logOut();
-						this.store.dispatch(new app.LoginAction());
-						return Observable.of(error);
+						return this.reLogin(error);
+					} else if (error.status === this.NOT_FOUND && error.url.indexOf('login') !== -1) {
+						// this is for the case that a redirect occurs after a non-GET http request. The browser tries to redirect to login page with a non-GET verb which returns a 404.
+						// So we manually redirect to login....
+						return this.reLogin(error);
 					} else {
 						this.store.dispatch(new app.ErrorAction(error));
 						return Observable.of(error);
@@ -56,5 +59,11 @@ export class RedirectInterceptor implements HttpInterceptor {
 				}
 			}) as Observable<any>
 			;
+	}
+
+	private reLogin(error) {
+		this.oauthService.logOut();
+		this.store.dispatch(new app.LoginAction());
+		return Observable.of(error);
 	}
 }
