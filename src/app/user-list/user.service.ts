@@ -1,16 +1,19 @@
-import { User } from './../store/users';
-import { Injectable } from '@angular/core';
+import {User} from './../store/users';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/observable/of';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Injectable()
 export class UserService {
 
 	testUsers: Observable<User[]>;
+	jwtHelper: JwtHelperService;
 
-	constructor(private http: HttpClient) {
-
+	constructor(private http: HttpClient, private oauthService: OAuthService) {
+		this.jwtHelper = new JwtHelperService({});
 	}
 
 	getUsers(): Observable<User[]> {
@@ -36,8 +39,14 @@ export class UserService {
 		}
 	}
 
-	getUserInfo(): Observable<any> {
-		return this.http.get('/api/auth/me');
+	getUserInfo(): Observable<User> {
+		const jwtToken = this.jwtHelper.decodeToken(this.oauthService.getAccessToken());
+		console.log(jwtToken);
+		const user: User = {
+			username: jwtToken.user_name,
+			roles: jwtToken.authorities
+		}
+		return Observable.of(user);
 	}
 
 	/**
@@ -49,6 +58,7 @@ export class UserService {
 	makeUrlRelative(url: string) {
 		return url.substring(url.indexOf('/api'));
 	}
+
 	/**
 	 * @deprecated
 	 * When using angular proxy the protocol returned inside links from spring data rest is https instead of http (if the server is https).

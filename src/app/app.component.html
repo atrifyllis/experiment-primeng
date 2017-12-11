@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
+	<mat-toolbar-row>
 		<span>{{title}}</span>
+	</mat-toolbar-row>
 	<mat-toolbar-row>
 		<a mat-button routerLink="/">Home</a>
 		<a mat-button *ngIf="permissionService.hasPermission('ROLE_ADMIN') | async" routerLink="/users/">Users</a>
