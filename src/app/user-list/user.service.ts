@@ -44,7 +44,8 @@ export class UserService {
 		console.log(jwtToken);
 		const user: User = {
 			username: jwtToken.user_name,
-			roles: jwtToken.authorities
+			roles: jwtToken.authorities,
+			email: jwtToken.email
 		}
 		return Observable.of(user);
 	}
