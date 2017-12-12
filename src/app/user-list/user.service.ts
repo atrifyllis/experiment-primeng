@@ -17,7 +17,7 @@ export class UserService {
 	}
 
 	getUsers(): Observable<User[]> {
-		this.testUsers = this.http.get('/api/users')
+		this.testUsers = this.http.get('/api/users/search/findAllEnabled')
 			.map((response: any) => {
 				if (response !== null) {
 					return response._embedded.users;
@@ -26,8 +26,9 @@ export class UserService {
 		return this.testUsers;
 	}
 
-	deleteUser(href: string): Observable<any> {
-		return this.http.delete(this.makeUrlRelative(href));
+	deleteUser(user: User): Observable<any> {
+		// reset password to empty or else it retrieves the password in the backend somehow....
+		return this.updateUser(Object.assign({}, user, {enabled: false, password: null, confirmPassword: null}));
 	}
 
 	updateUser(user: User): Observable<any> {

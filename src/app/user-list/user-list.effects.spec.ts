@@ -74,11 +74,11 @@ describe('User List Effects', () => {
 	});
 
 	it('should return a DeleteUserSuccessAction with specified user id, on success', () => {
-		actions.next(new DeleteUserAction(userId));
+		actions.next(new DeleteUserAction(user));
 
 		userListEffects.deleteUser$.subscribe(result => {
-			expect(result).toEqual(new DeleteUserSuccessAction(userId));
-			expect(userService.deleteUser).toHaveBeenCalledWith(userId);
+			expect(result).toEqual(new DeleteUserSuccessAction(user));
+			expect(userService.deleteUser).toHaveBeenCalledWith(user);
 		});
 	});
 

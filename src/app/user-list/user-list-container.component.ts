@@ -43,7 +43,7 @@ export class UserListContainerComponent {
 	}
 
 	removeUser(user: User) {
-		this.store.dispatch(new fromUser.DeleteUserAction(user._links.self.href));
+		this.store.dispatch(new fromUser.DeleteUserAction(user));
 	}
 
 	editUser(user: User) {
