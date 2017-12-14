@@ -5,19 +5,23 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {OAuthService} from 'angular-oauth2-oidc';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class UserService {
 
+	// TODO maybe add the prefix using an interceptor?
+	API_PREFIX: String;
 	testUsers: Observable<User[]>;
 	jwtHelper: JwtHelperService;
 
 	constructor(private http: HttpClient, private oauthService: OAuthService) {
 		this.jwtHelper = new JwtHelperService({});
+		this.API_PREFIX = environment.apiPrefix;
 	}
 
 	getUsers(): Observable<User[]> {
-		this.testUsers = this.http.get('/api/users/search/findAllEnabled')
+		this.testUsers = this.http.get(this.API_PREFIX + '/users/search/findAllEnabled')
 			.map((response: any) => {
 				if (response !== null) {
 					return response._embedded.users;
@@ -34,8 +38,11 @@ export class UserService {
 	updateUser(user: User): Observable<any> {
 		const links = user._links;
 		if (links === null) {
-			return this.http.post('/api/users', user);
+			return this.http.post(this.API_PREFIX + '/users', user);
 		} else {
+			if (!user.password && !user.confirmPassword) {
+				user = Object.assign({}, user, {password: undefined, confirmPassword: undefined})
+			}
 			return this.http.patch(this.makeUrlRelative(links.self.href), user);
 		}
 	}
