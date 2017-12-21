@@ -10,14 +10,14 @@ zuul:
   routes:
     resource:
       path: /api/**
-      url: https://localhost:8080/api
+      url: https://localhost:8443/api
       sensitiveHeaders:
     login:
       path: /login
-      url: https://localhost:8080/
+      url: https://localhost:8443/
     oath:
       path: /oauth/**
-      url: https://localhost:8080/oauth
+      url: https://localhost:8443/oauth
       # needed for all headers to be forwarded both in request & response
       sensitiveHeaders:
       # needed for self-signed certificates to work
