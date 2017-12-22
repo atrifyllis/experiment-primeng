@@ -54,7 +54,7 @@ export class UserService {
 			username: jwtToken.user_name,
 			roles: jwtToken.authorities,
 			email: jwtToken.email
-		}
+		};
 		return Observable.of(user);
 	}
 

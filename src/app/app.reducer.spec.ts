@@ -42,7 +42,7 @@ describe('AppReducer', () => {
 		});
 	});
 
-	describe('Error occured', () => {
+	describe('Error occurred', () => {
 		it('should set error in state', () => {
 			const error = deepFreeze({error: 'error message'});
 			const newState = deepFreeze(initialState);
