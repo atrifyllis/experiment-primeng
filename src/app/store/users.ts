@@ -17,9 +17,9 @@ export enum RoleType {
 }
 
 export interface User {
-	_links: Link;
+	_links?: Link;
 	username: string;
-	email: string;
+	email?: string;
 	roles: RoleType[];
 	password?: string;
 	confirmPassword?: string;

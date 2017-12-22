@@ -15,8 +15,8 @@ export function usersReducer(state: State = initialState, action: userActions.Ac
 			return Object.assign({}, state, { users });
 		}
 		case userActions.ActionTypes.DELETE_USER_SUCCESS: {
-			const userHref: string = action.payload;
-			const index = state.users.findIndex((user: User) => user._links.self.href === userHref);
+			const user: User = action.payload;
+			const index = state.users.findIndex((u: User) => u._links.self.href === user._links.self.href);
 			const users = [
 				...state.users.slice(0, index),
 				...state.users.slice(index + 1)
