@@ -10,21 +10,39 @@ zuul:
   routes:
     resource:
       path: /api/**
-      url: https://localhost:8443/api
+#      url: https://localhost:8080/api
+      service-id: user-service
       sensitiveHeaders:
     login:
       path: /login
-      url: https://localhost:8443/
+#      url: https://localhost:8080/
+      service-id: user-service
+      sensitiveHeaders:
     oath:
       path: /oauth/**
-      url: https://localhost:8443/oauth
+#      url: https://localhost:8080/oauth
+      service-id: user-service
       # needed for all headers to be forwarded both in request & response
       sensitiveHeaders:
       # needed for self-signed certificates to work
   ssl-hostname-validation-enabled: false
-  # fix the url returned inside HATEOAS links (otherwise it's: ..../api/api/....)
-  add-proxy-headers: false
+  strip-prefix: false
 logging:
   level:
     org:
       springframework: debug
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    registerWithEureka: false
+#not sure if needed
+ribbon:
+  IsSecure: true
+# zull might timeout in case of debug breakpoint
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: false
