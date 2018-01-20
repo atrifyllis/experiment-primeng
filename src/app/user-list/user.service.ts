@@ -49,7 +49,6 @@ export class UserService {
 
 	getUserInfo(): Observable<User> {
 		const jwtToken = this.jwtHelper.decodeToken(this.oauthService.getAccessToken());
-		console.log(jwtToken);
 		const user: User = {
 			username: jwtToken.user_name,
 			roles: jwtToken.authorities,

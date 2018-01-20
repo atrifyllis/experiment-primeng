@@ -1,7 +1,7 @@
 <form #userDialogForm [formGroup]="userForm" (ngSubmit)="onSubmit()">
 	<p-dialog header="User form" [visible]="!!selectedUser" [modal]="true"
 						[closable]="false" [responsive]="true" [closeOnEscape]="false"
-						[resizable]="false" [draggable]="false" width="300">
+						[resizable]="false" [draggable]="false" width="300" (onHide)="reset()">
 
 		<input type="hidden" formControlName="_links">
 		<mat-form-field>

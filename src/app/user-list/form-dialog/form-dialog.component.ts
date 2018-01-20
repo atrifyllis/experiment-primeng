@@ -71,6 +71,9 @@ export class FormDialogComponent implements OnInit, OnChanges {
 
 	onSubmit() {
 		this.update.emit(this.userForm.value);
+	}
+
+	reset() {
 		// resetting the native element is needed because angular material does not reset the error classes on submit (Why God)
 		this.userDialogForm.nativeElement.reset();
 	}
@@ -86,7 +89,6 @@ export class FormDialogComponent implements OnInit, OnChanges {
 			const control = form.get(field);
 			if (control && control.dirty && !control.valid) {
 				const messages = this.validationMessages[field];
-				console.log(control.errors);
 				Object.keys(control.errors).map(key => {
 					this.formErrors[field] += messages[key] + ' ';
 				});
@@ -101,7 +103,6 @@ export class FormDialogComponent implements OnInit, OnChanges {
 				this.formErrors[key] += messages[form.errors[key]] + ' ';
 			});
 		}
-		console.log(this.formErrors);
 	}
 
 	isChecked(roleType) {
