@@ -1,26 +1,26 @@
-server:
-  port: 8081
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-password: tomcat
-    key-store-type: PKCS12
-    key-alias: tomcat
+#server:
+#  port: 8081
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: tomcat
+#    key-store-type: PKCS12
+#    key-alias: tomcat
 
 zuul:
   routes:
     resource:
       path: /api/**
-      url: https://localhost:8443/
+      serviceId: spring-boot-startup
       sensitiveHeaders:
       strip-prefix: false
     login:
       path: /login
-      url: https://localhost:8443/
+      serviceId: spring-boot-startup
       sensitiveHeaders:
       strip-prefix: false
     oath:
       path: /oauth/**
-      url: https://localhost:8443/
+      serviceId: spring-boot-startup
       # needed for all headers to be forwarded both in request & response
       sensitiveHeaders:
       strip-prefix: false
@@ -28,19 +28,26 @@ zuul:
   ssl-hostname-validation-enabled: true
   # fix the url returned inside HATEOAS links (otherwise it's: ..../api/api/....)
   add-proxy-headers: false
-  include-debug-header: true
+
 logging:
   level:
     org:
       springframework: debug
-eureka:
-  client:
-    enabled: false
+spring:
+  application:
+    name: experiment-primeng
 security:
   basic:
     enabled: false
-    # TODO blocking issue with zuul:
-    # https://github.com/spring-cloud/spring-cloud-netflix/issues/1295
-    # we cannot disable zuul from following redirects
+eureka:
+  client:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
 ribbon:
-  FollowRedirects: false
+  ConnectTimeout: 120000
+  ReadTimeout: 120000

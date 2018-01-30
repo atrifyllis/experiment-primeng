@@ -11,7 +11,8 @@ export const authConfig: AuthConfig = {
 	loginUrl: BASE_URL + '/oauth/authorize',
 
 	// URL of the SPA to redirect the user to after login
-	redirectUri: BASE_URL,
+	// NOTE: if you don't add the trailing slash Zuul server breaks down miserably... it redirects to host:port/null#access_token....
+	redirectUri: BASE_URL + '/',
 
 	// The SPA's id. The SPA is registered with this id at the auth-server
 	clientId: 'sampleClientId',
