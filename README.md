@@ -32,6 +32,13 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+
+# Backend
+The backend for this project is a Spring Boot application:
+https://github.com/atrifyllis/spring-boot-startup
+
+For development purposes you can run the backend as any spring application (run the Main class SpringBootStartupApplication.class)
+
 # Experiment PrimeNg Boot
 
 This project is used to be able to deploy the UI application in production. It creates a spring boot jar which contains the static bundle files of the Angular CLI buld.
@@ -45,3 +52,7 @@ In both cases maven is used to run npm script for building the angular applicati
 ## Production
 
 Running with spring profile 'prod' will run in HTTPS mode
+
+###Backend production
+
+The backend can be used in production mode (see README file of backend project).
