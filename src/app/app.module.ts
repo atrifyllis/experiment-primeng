@@ -38,9 +38,9 @@ import 'hammerjs';
 import {HomeComponent} from './home/home.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AngularFireModule} from 'angularfire2';
+
 import {FormDialogComponent} from './user-list/form-dialog/form-dialog.component';
-import {AngularFireDatabaseModule} from 'angularfire2/database';
+
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {OAuthModule} from 'angular-oauth2-oidc';
 import {AddBearerHeaderInterceptor} from './interceptor/interceptor-add-bearer-header-request';
@@ -49,15 +49,6 @@ import {AppContainerComponent} from './app-container.component';
 import {RedirectInterceptor} from './interceptor/interceptor-redirect-response';
 import {ErrorComponent} from './error/error.component';
 import {PermissionService} from './permission.service';
-
-export const firebaseConfig = {
-	apiKey: 'AIzaSyDwm6InT6RSSJ9eeU4jn0ARiYs7AMTFbO4',
-	authDomain: 'experiment-primeng.firebaseapp.com',
-	databaseURL: 'https://experiment-primeng.firebaseio.com',
-	projectId: 'experiment-primeng',
-	storageBucket: 'experiment-primeng.appspot.com',
-	messagingSenderId: '980944123988'
-};
 
 
 @NgModule({
@@ -85,10 +76,6 @@ export const firebaseConfig = {
 		MatListModule, MatCheckboxModule, MatSlideToggleModule, MatMenuModule,
 
 		FlexLayoutModule,
-
-		AngularFireModule.initializeApp(firebaseConfig),
-		AngularFireDatabaseModule,
-
 		/**
 		 * @ngrx/router-store keeps router state up-to-date in the store and uses
 		 * the store as the single source of truth for the router's state.
