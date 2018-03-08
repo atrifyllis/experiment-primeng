@@ -3,7 +3,8 @@ const PROXY_CONFIG = [
 		context: [
 			"/api",
 			"/login",
-			"/oauth"
+			"/oauth",
+			"/assets"
 		],
 		target: "http://localhost:8080",
 		secure: false,
