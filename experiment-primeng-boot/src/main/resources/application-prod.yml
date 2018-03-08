@@ -21,11 +21,14 @@ zuul:
     oath:
       path: /oauth/**
       url: https://localhost:8443/
+    assets:
+      path: /assets/**
+      url: https://localhost:8443/
       # needed for all headers to be forwarded both in request & response
       sensitiveHeaders:
       strip-prefix: false
-  # needed for self-signed certificates to work. due to a bug true must be passed to the flag instead of false...
-  ssl-hostname-validation-enabled: true
+  # needed for self-signed certificates to work.
+  ssl-hostname-validation-enabled: false
   # fix the url returned inside HATEOAS links (otherwise it's: ..../api/api/....)
   add-proxy-headers: false
   include-debug-header: true
