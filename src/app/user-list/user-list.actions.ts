@@ -1,6 +1,6 @@
-import { User } from './../store/users';
-import { Action } from '@ngrx/store';
-import { type } from '../util';
+import {User} from './../store/users';
+import {type} from '../util';
+import {action, payload, union} from 'ts-action';
 
 /**
  * For each action type in an action group, make a simple
@@ -23,87 +23,20 @@ export const ActionTypes = {
 	UPDATE_USER_FAILED: type('[User] Update User Failed'),
 };
 
-/**
- * Every action is comprised of at least a type and an optional
- * payload. Expressing actions as classes enables powerful
- * type checking in reducer functions.
- *
- * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
- */
-export class LoadUsersAction implements Action {
-	type = ActionTypes.LOAD_USERS;
 
-	constructor(public payload?: any) { }
-}
+export const LoadUsersAction = action('[User] Load', payload<any>());
+export const LoadUsersSuccessAction = action('[User] Load Success', payload<User[]>());
+export const DeleteUserAction = action('[User] Delete', payload<User>());
+export const DeleteUserSuccessAction = action('[User] Delete Success', payload<User>());
+export const DeleteUserFailedAction = action('[User] Delete Failed', payload<User>());
+export const OpenUpdateUserDialogAction = action('[User] Open Update User Dialog', payload<User>());
+export const CloseUpdateUserDialogAction = action('[User] Close Update User Dialog', payload<any>());
+export const UpdateUserAction = action('[User] Update User', payload<User>());
+export const UpdateUserSuccessAction = action('[User] Update User Success', payload<User>());
+export const UpdateUserFailedAction = action('[User] Update User Failed', payload<User>());
 
-
-export class DeleteUserAction implements Action {
-	type = ActionTypes.DELETE_USER;
-
-	constructor(public payload: User) { }
-}
-
-export class DeleteUserSuccessAction implements Action {
-	type = ActionTypes.DELETE_USER_SUCCESS;
-
-	constructor(public payload: User) { }
-}
-
-export class DeleteUserFailedAction implements Action {
-	type = ActionTypes.DELETE_USER_FAILED;
-
-	constructor(public payload: User) { }
-}
-
-export class LoadUsersSuccessAction implements Action {
-	type = ActionTypes.LOAD_USERS_SUCCESS;
-
-	constructor(public payload: User[]) { }
-}
-
-export class OpenUpdateUserDialogAction implements Action {
-	type = ActionTypes.OPEN_UPDATE_USER_DIALOG;
-
-	constructor(public payload: User) { }
-}
-
-export class CloseUpdateUserDialogAction implements Action {
-	type = ActionTypes.CLOSE_UPDATE_USER_DIALOG;
-
-	constructor(public payload?: any) { }
-}
-
-export class UpdateUserAction implements Action {
-	type = ActionTypes.UPDATE_USER;
-
-	constructor(public payload: User) {}
-}
-
-export class UpdateUserSuccessAction implements Action {
-	type = ActionTypes.UPDATE_USER_SUCCESS;
-
-	constructor(public payload: User) {}
-}
-
-export class UpdateUserFailedAction implements Action {
-	type = ActionTypes.UPDATE_USER_FAILED;
-
-	constructor(public payload: User) {}
-}
-
-/**
- * Export a type alias of all actions in this action group
- * so that reducers can easily compose action types
- */
-export type Actions
-	= LoadUsersAction
-	| LoadUsersSuccessAction
-	| DeleteUserAction
-	| DeleteUserSuccessAction
-	| DeleteUserFailedAction
-	| OpenUpdateUserDialogAction
-	| CloseUpdateUserDialogAction
-	| UpdateUserAction
-	| UpdateUserSuccessAction
-	| UpdateUserFailedAction
-	;
+export const Actions = union({
+	LoadUsersAction, LoadUsersSuccessAction, DeleteUserAction, DeleteUserSuccessAction,
+	DeleteUserFailedAction, OpenUpdateUserDialogAction, CloseUpdateUserDialogAction,
+	UpdateUserAction, UpdateUserSuccessAction, UpdateUserFailedAction
+});

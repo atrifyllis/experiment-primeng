@@ -40,7 +40,10 @@
 		"primeng": "5.2.3",
 		"reselect": "3.0.1",
 		"rxjs": "5.5.7",
-		"zone.js": "0.8.20"
+		"ts-action": "6.0.2",
+		"ts-action-operators": "6.0.0",
+		// TODO due to this issue until is fixed https://github.com/pact-foundation/pact-js/issues/155
+		"zone.js": "git://github.com/JiaLiPassion/zone.js#jasmine-dist"
 	},
 	"devDependencies": {
 		"@angular/cli": "1.7.3",
@@ -51,7 +54,8 @@
 		"codelyzer": "4.2.1",
 		"deep-freeze-strict": "1.1.1",
 		"deepfreeze": "2.0.0",
-		"jasmine-core": "3.1.0",
+		// TODO do not use jasmine 3 yet it breaks the tests https://github.com/karma-runner/karma-jasmine/pull/192
+		"jasmine-core": "2.99.1",
 		"jasmine-spec-reporter": "4.2.1",
 		"karma": "2.0.0",
 		"karma-chrome-launcher": "2.2.0",

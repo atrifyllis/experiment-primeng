@@ -1,6 +1,6 @@
 import {appReducer, initialState} from './app.reducer';
 import {ErrorAction, GetUserInfoSuccessAction, LoginSuccessAction, LogoutSuccessAction} from './app.actions';
-import {sampleUsers} from './store/sampleData';
+import {sampleUsers, sampleUsersArray} from './store/sampleData';
 import * as deepFreeze from 'deep-freeze-strict';
 
 describe('AppReducer', () => {
@@ -17,7 +17,7 @@ describe('AppReducer', () => {
 	describe('Successful login', () => {
 		it('should change the state to authenticated', () => {
 			const newState = deepFreeze(initialState);
-			const action = new LoginSuccessAction();
+			const action = new LoginSuccessAction({});
 			const result = appReducer(newState, action);
 			expect(result.isAuthenticated).toBeTruthy();
 		});
@@ -26,7 +26,7 @@ describe('AppReducer', () => {
 	describe('Successful logout', () => {
 		it('should change the state to unauthenticated', () => {
 			const newState = deepFreeze(initialState);
-			const action = new LogoutSuccessAction();
+			const action = new LogoutSuccessAction({});
 			const result = appReducer(newState, action);
 			expect(result.isAuthenticated).toBeFalsy();
 		});
@@ -34,7 +34,7 @@ describe('AppReducer', () => {
 
 	describe('Retrieve user info', () => {
 		it('should set user info in state', () => {
-			const sampleUser = deepFreeze(sampleUsers[0]);
+			const sampleUser = deepFreeze(sampleUsersArray[0]);
 			const newState = deepFreeze(initialState);
 			const action = new GetUserInfoSuccessAction(sampleUser);
 			const result = appReducer(newState, action);

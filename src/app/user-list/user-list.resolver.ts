@@ -18,10 +18,10 @@ export class UserListResolver implements CanActivate {
 		// check if user is logged-in and if not do not navigate
 		if (!this.oauthService.hasValidAccessToken()) {
 			this.oauthService.logOut();
-			this.store.dispatch(new app.LoginAction());
+			this.store.dispatch(new app.LoginAction({}));
 			return false;
 		}
-		this.store.dispatch(new user.LoadUsersAction());
+		this.store.dispatch(new user.LoadUsersAction({}));
 		return true;
 	}
 }

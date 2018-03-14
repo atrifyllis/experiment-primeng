@@ -59,7 +59,7 @@ export class UserListContainerComponent {
 	}
 
 	closeDialog() {
-		this.store.dispatch(new fromUser.CloseUpdateUserDialogAction());
+		this.store.dispatch(new fromUser.CloseUpdateUserDialogAction({}));
 	}
 
 	newUser(): User {

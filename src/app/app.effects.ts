@@ -8,49 +8,46 @@ import {UserService} from './user-list/user.service';
 import {User} from './store/users';
 import {Router} from '@angular/router';
 import * as RouterActions from './store/router.actions';
+import {ofType} from 'ts-action-operators';
+import {map, switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class AppEffects {
 
+
 	@Effect({dispatch: false})
-	login$: Observable<Action> = this.actions$
-		.ofType(fromApp.ActionTypes.LOGIN)
-		.switchMap(() => Observable.of(this.oauthService.initImplicitFlow())
-			.switchMap((result) => Observable.of(<Action>{}))
-		);
+	login$: Observable<Action> = this.actions$.pipe(
+		ofType(fromApp.LoginAction),
+		switchMap(() => Observable.of(this.oauthService.initImplicitFlow())
+			.switchMap((result) => Observable.of(<Action>{})))
+	);
 
 	@Effect()
-	logout$: Observable<Action> = this.actions$
-		.ofType(fromApp.ActionTypes.LOGOUT)
-		.switchMap(() => Observable.of(this.oauthService.logOut())
-			.map(() => new fromApp.LogoutSuccessAction())
-		);
+	logout$: Observable<Action> = this.actions$.pipe(
+		ofType(fromApp.LogoutAction),
+		switchMap(() => Observable.of(this.oauthService.logOut())
+			.map(() => new fromApp.LogoutSuccessAction({})))
+	);
 
 	@Effect()
-	logoutSuccess$: Observable<Action> = this.actions$
-		.ofType(fromApp.ActionTypes.LOGOUT_SUCCESS)
-		.map(() => new RouterActions.Go({path: ['/']}))
-	;
-
-	@Effect()
-	loadAuthenticatedUser$: Observable<Action> = this.actions$
-		.ofType(fromApp.ActionTypes.LOGIN_SUCCESS)
-		.switchMap(() => this.userService.getUserInfo()
+	loadAuthenticatedUser$: Observable<Action> = this.actions$.pipe(
+		ofType(fromApp.LoginSuccessAction),
+		switchMap(() => this.userService.getUserInfo()
 			.map((user: User) => {
 				return new fromApp.GetUserInfoSuccessAction(user);
-			})
-		);
+			}))
+	);
 
 	@Effect()
-	error$: Observable<Action> = this.actions$
-		.ofType(fromApp.ActionTypes.ERROR)
-		.map(() => new RouterActions.Go({path: ['/error']}))
-	;
+	error$: Observable<Action> = this.actions$.pipe(
+		ofType(fromApp.ErrorAction),
+		map(() => new RouterActions.Go({path: ['/error']}))
+	);
 
-	@Effect({ dispatch: false })
+	@Effect({dispatch: false})
 	navigate$ = this.actions$.ofType(RouterActions.GO)
 		.map((action: RouterActions.Go) => action.payload)
-		.do(({ path, query: queryParams, extras}) => this.router.navigate(path, { queryParams, ...extras }));
+		.do(({path, query: queryParams, extras}) => this.router.navigate(path, {queryParams, ...extras}));
 
 	constructor(private actions$: Actions, private oauthService: OAuthService, private userService: UserService, private router: Router) {
 	}

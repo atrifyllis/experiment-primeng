@@ -27,7 +27,7 @@ export class AppContainerComponent {
 		this.oauthService.configure(authConfig);
 
 		if (this.oauthService.hasValidAccessToken()) {
-			this.store.dispatch(new app.LoginSuccessAction());
+			this.store.dispatch(new app.LoginSuccessAction({}));
 		} else {
 			// NOTE: the call to tryLogin here is required from the library to retrieve the token after the redirect from the auth server.
 			// Also, because the library seems to have no events or callbacks that work for non-oidc authentication,
@@ -35,17 +35,17 @@ export class AppContainerComponent {
 			Observable.fromPromise(this.oauthService.tryLogin())
 				.subscribe(() => {
 					if (this.oauthService.getAccessToken() !== null) {
-						this.store.dispatch(new app.LoginSuccessAction());
+						this.store.dispatch(new app.LoginSuccessAction({}));
 					}
 				});
 		}
 	}
 
 	login() {
-		this.store.dispatch(new app.LoginAction());
+		this.store.dispatch(new app.LoginAction({}));
 	}
 
 	logout() {
-		this.store.dispatch(new app.LogoutAction());
+		this.store.dispatch(new app.LogoutAction({}));
 	}
 }

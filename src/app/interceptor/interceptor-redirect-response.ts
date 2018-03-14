@@ -39,7 +39,7 @@ export class RedirectInterceptor implements HttpInterceptor {
 						// const loginUrl = queryStringIndex && queryStringIndex > 0 ? response.url.substring(0, queryStringIndex) : response.url;
 						// console.log('User logout detected, redirecting to login page: %s', loginUrl);
 						this.oauthService.logOut();
-						this.store.dispatch(new app.LoginAction());
+						this.store.dispatch(new app.LoginAction({}));
 					}
 				}
 			})
@@ -64,7 +64,7 @@ export class RedirectInterceptor implements HttpInterceptor {
 
 	private reLogin(error) {
 		this.oauthService.logOut();
-		this.store.dispatch(new app.LoginAction());
+		this.store.dispatch(new app.LoginAction({}));
 		return Observable.of(error);
 	}
 }

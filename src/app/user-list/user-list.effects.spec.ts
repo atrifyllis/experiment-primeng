@@ -95,7 +95,7 @@ describe('User List Effects', () => {
 		actions.next(new UpdateUserSuccessAction(user));
 
 		userListEffects.closeDialog$.subscribe(result => {
-			expect(result).toEqual(new CloseUpdateUserDialogAction());
+			expect(result).toEqual(new CloseUpdateUserDialogAction({}));
 		});
 	});
 });
