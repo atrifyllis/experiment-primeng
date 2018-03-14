@@ -56,3 +56,10 @@ Running with spring profile 'prod' will run in HTTPS mode
 ###Backend production
 
 The backend can be used in production mode (see README file of backend project).
+
+
+#Notes
+Udpate package.json:
+npm install -g npm-check-updates
+ncu -u
+npm install
