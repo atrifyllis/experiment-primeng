@@ -71,7 +71,16 @@ import {PermissionService} from './permission.service';
 		DataTableModule,
 		DialogModule,
 		RouterModule.forRoot(routes),
+
+		/**
+		 * StoreModule.forRoot is imported once in the root module, accepting a reducer
+		 * function or object map of reducer functions. If passed an object of
+		 * reducers, combineReducers will be run creating your application
+		 * meta-reducer. This returns all providers for an @ngrx/store
+		 * based application.
+		 */
 		StoreModule.forRoot(reducers, {metaReducers}),
+
 		MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatInputModule,
 		MatListModule, MatCheckboxModule, MatSlideToggleModule, MatMenuModule,
 
@@ -94,6 +103,13 @@ import {PermissionService} from './permission.service';
 		 */
 		StoreDevtoolsModule.instrument(),
 
+		/**
+		 * EffectsModule.forRoot() is imported once in the root module and
+		 * sets up the effects class to be initialized immediately when the
+		 * application starts.
+		 *
+		 * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
+		 */
 		EffectsModule.forRoot([AppEffects, UserListEffects]),
 
 		HttpClientModule,
@@ -105,6 +121,11 @@ import {PermissionService} from './permission.service';
 		UserListResolver,
 		{provide: HTTP_INTERCEPTORS, useClass: RedirectInterceptor, multi: true},
 		{provide: HTTP_INTERCEPTORS, useClass: AddBearerHeaderInterceptor, multi: true},
+		/**
+		 * The `RouterStateSnapshot` provided by the `Router` is a large complex structure.
+		 * A custom RouterStateSerializer is used to parse the `RouterStateSnapshot` provided
+		 * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
+		 */
 		{provide: RouterStateSerializer, useClass: CustomSerializer}
 	],
 	bootstrap: [AppContainerComponent]

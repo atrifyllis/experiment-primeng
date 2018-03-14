@@ -15,7 +15,7 @@ import {environment} from './../../environments/environment';
  *
  * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
  */
-import {ActionReducer, ActionReducerMap, MetaReducer} from '@ngrx/store';
+import {ActionReducer, ActionReducerMap, createSelector, MetaReducer} from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
 import {usersReducer} from '../user-list/user-list.reducer';
 import * as fromUsers from './users';
@@ -32,6 +32,8 @@ import {storeFreeze} from 'ngrx-store-freeze';
 import {appReducer} from '../app.reducer';
 import {RouterStateSerializer} from '@ngrx/router-store';
 import {Params, RouterStateSnapshot} from '@angular/router';
+import {State} from './users';
+import {GlobalState} from './global';
 
 
 /**
@@ -40,7 +42,7 @@ import {Params, RouterStateSnapshot} from '@angular/router';
  */
 export interface AppState {
 	userState: fromUsers.State;
-	globalState: fromGlobal.State;
+	globalState: fromGlobal.GlobalState;
 	routerReducer: fromRouter.RouterReducerState;
 }
 
@@ -93,13 +95,17 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
  * }
  * ```
  */
-export const getUsersState = (state: AppState) => state.userState.users;
+export const getUsersState = (state: AppState) => state.userState;
 
-export const getSelectedUserState = (state: AppState) => state.userState.selectedUser;
+export const selectAllUsers = createSelector(getUsersState, fromUsers.selectAllUsers);
 
-export const getAuthenticatedState = (state: AppState) => state.globalState.isAuthenticated;
+export const getSelectedUserState = createSelector(getUsersState, (state: State) => state.selectedUser);
 
-export const getAuthenticatedUserState = (state: AppState) => state.globalState.authenticatedUser;
+export const getGlobalState = (state: AppState) => state.globalState;
 
-export const getErrorState = (state: AppState) => state.globalState.error;
+export const getAuthenticatedState = createSelector(getGlobalState, (state: GlobalState) => state.isAuthenticated);
+
+export const getAuthenticatedUserState = createSelector(getGlobalState, (state: GlobalState) => state.authenticatedUser);
+
+export const getErrorState = createSelector(getGlobalState, (state: GlobalState) => state.error);
 

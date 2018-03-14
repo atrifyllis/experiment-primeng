@@ -1,13 +1,13 @@
-import {State} from './store/global';
+import {GlobalState} from './store/global';
 import * as app from './app.actions';
 
-export const initialState: State = {
+export const initialState: GlobalState = {
 	isAuthenticated: false,
 	authenticatedUser: null,
 	error: null
 };
 
-export function appReducer(state: State = initialState, action: app.Actions): State {
+export function appReducer(state: GlobalState = initialState, action: app.Actions): GlobalState {
 	switch (action.type) {
 		case app.ActionTypes.LOGIN_SUCCESS: {
 			return Object.assign({}, state, {isAuthenticated: true});
