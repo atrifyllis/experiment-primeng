@@ -1,5 +1,5 @@
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AppState, getSelectedUserState, getUsersState} from './../store/reducer-config';
+import {AppState, getSelectedUserState, selectAllUsers} from './../store/reducer-config';
 import {User} from './../store/users';
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
@@ -36,7 +36,7 @@ export class UserListContainerComponent {
 	userForm: FormGroup;
 
 	constructor(private store: Store<AppState>, private fb: FormBuilder) {
-		this.users$ = store.select(getUsersState);
+		this.users$ = store.select(selectAllUsers);
 		this.selectedUser$ = store.select(getSelectedUserState);
 
 		this.userForm = this.fb.group(userFormInit, {validator: FieldValuesMatchValidator()});
