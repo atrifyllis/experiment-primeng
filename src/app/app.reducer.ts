@@ -1,5 +1,6 @@
 import {GlobalState} from './store/global';
 import * as app from './app.actions';
+import {ErrorAction, GetUserInfoSuccessAction, LoginSuccessAction, LogoutSuccessAction} from './app.actions';
 
 export const initialState: GlobalState = {
 	isAuthenticated: false,
@@ -7,19 +8,19 @@ export const initialState: GlobalState = {
 	error: null
 };
 
-export function appReducer(state: GlobalState = initialState, action: app.Actions): GlobalState {
+export function appReducer(state: GlobalState = initialState, action: typeof app.Actions): GlobalState {
 	switch (action.type) {
-		case app.ActionTypes.LOGIN_SUCCESS: {
+		case LoginSuccessAction.type: {
 			return Object.assign({}, state, {isAuthenticated: true});
 		}
-		case app.ActionTypes.LOGOUT_SUCCESS: {
-			return Object.assign({}, state, {isAuthenticated: false, authenticatedUser: null })
+		case LogoutSuccessAction.type: {
+			return Object.assign({}, state, {isAuthenticated: false, authenticatedUser: null})
 		}
-		case app.ActionTypes.GET_USER_INFO_SUCCESS: {
+		case GetUserInfoSuccessAction.type: {
 			const authenticatedUser = action.payload;
 			return Object.assign({}, state, {authenticatedUser});
 		}
-		case app.ActionTypes.ERROR: {
+		case ErrorAction.type: {
 			return Object.assign({}, state, {error: action.payload});
 		}
 		default: {

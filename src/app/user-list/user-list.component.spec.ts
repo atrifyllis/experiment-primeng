@@ -13,7 +13,7 @@ import {DataTableModule} from 'primeng/primeng';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {UserListComponent} from './user-list.component';
-import {sampleUsers} from '../store/sampleData';
+import {sampleUsers, sampleUsersArray} from '../store/sampleData';
 import {User} from '../store/users';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -39,7 +39,7 @@ describe('UserListComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(UserListComponent);
 		component = fixture.componentInstance;
-		component.users = sampleUsers;
+		component.users = sampleUsersArray;
 		compiled = fixture.debugElement.nativeElement;
 		fixture.detectChanges();
 	});
