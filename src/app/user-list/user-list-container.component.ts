@@ -3,7 +3,7 @@ import {AppState, getSelectedUserState, selectAllUsers} from './../store/reducer
 import {User} from './../store/users';
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import * as fromUser from './user-list.actions';
 import {AtLeastOneCheckedValidator} from './form-dialog/at-least-one-checked.validator';
 import {FieldValuesMatchValidator} from 'app/user-list/form-dialog/field-values-match.validator';

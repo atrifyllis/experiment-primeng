@@ -8,7 +8,7 @@ import {UserListContainerComponent} from './user-list/user-list-container.compon
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+// import {HttpModule} from '@angular/http';
 import {StoreModule} from '@ngrx/store';
 import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
@@ -65,7 +65,7 @@ import {PermissionService} from './permission.service';
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule,
-		HttpModule,
+		// HttpModule,
 		BrowserAnimationsModule,
 		FieldsetModule,
 		DataTableModule,

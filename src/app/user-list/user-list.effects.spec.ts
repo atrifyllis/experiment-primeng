@@ -12,10 +12,12 @@ import {
 } from './user-list.actions';
 import {sampleUsers} from '../store/sampleData';
 import {UserService} from './user.service';
-import {Observable} from 'rxjs/Observable';
+
 import {User} from '../store/users';
 import {provideMockActions} from '@ngrx/effects/testing';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
+
+import {of} from 'rxjs/internal/observable/of';
+import {ReplaySubject} from 'rxjs/internal/ReplaySubject';
 
 
 describe('User List Effects', () => {
@@ -60,9 +62,9 @@ describe('User List Effects', () => {
 	beforeEach(() => {
 		actions = new ReplaySubject(1);
 		userService = TestBed.get(UserService);
-		userService.getUsers.and.returnValue(Observable.of(sampleUsers));
-		userService.deleteUser.and.returnValue(Observable.of(userId));
-		userService.updateUser.and.returnValue(Observable.of(user));
+		userService.getUsers.and.returnValue(of(sampleUsers));
+		userService.deleteUser.and.returnValue(of(userId));
+		userService.updateUser.and.returnValue(of(user));
 	});
 
 	it('should load a list of users', () => {

@@ -33,14 +33,7 @@ export function usersReducer(state: State = initialState, action: typeof userAct
 			return Object.assign({}, state, {selectedUser: null});
 		}
 		case UpdateUserSuccessAction.type: {
-			// the way upsert works we must re-specify the id if it is not called id (this will be fixed in later version of ngrx-entity)
-			// and also it needs a field called changes which is the actual entity
-			return userEntityAdapter.upsertOne(
-				Object.assign(
-					{},
-					{id: action.payload._links.self.href},
-					{changes: action.payload}),
-				state);
+			return userEntityAdapter.upsertOne(action.payload, state);
 		}
 		case ErrorAction.type: {
 			return initialState;

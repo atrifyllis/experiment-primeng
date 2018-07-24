@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState, getErrorState} from '../store/reducer-config';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({

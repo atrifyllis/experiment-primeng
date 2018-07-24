@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import 'rxjs/add/observable/fromPromise';
+
 import {User} from './store/users';
 import {PermissionService} from './permission.service';
 
