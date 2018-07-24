@@ -1,11 +1,13 @@
 import {User} from './../store/users';
 import {Injectable} from '@angular/core';
-import 'rxjs/add/observable/of';
+
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {environment} from '../../environments/environment';
+import {map} from 'rxjs/operators';
+import {of} from 'rxjs/internal/observable/of';
 
 @Injectable()
 export class UserService {
@@ -21,12 +23,14 @@ export class UserService {
 	}
 
 	getUsers(): Observable<User[]> {
-		this.testUsers = this.http.get(this.API_PREFIX + '/users/search/findAllEnabled')
-			.map((response: any) => {
+		this.testUsers = this.http.get(this.API_PREFIX + '/users/search/findAllEnabled').pipe(
+			map((response: any) => {
 				if (response !== null) {
 					return response._embedded.users;
 				}
-			});
+			})
+		)
+		;
 		return this.testUsers;
 	}
 
@@ -54,7 +58,7 @@ export class UserService {
 			roles: jwtToken.authorities,
 			email: jwtToken.email
 		};
-		return Observable.of(user);
+		return of(user);
 	}
 
 	/**

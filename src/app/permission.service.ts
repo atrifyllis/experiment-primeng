@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState, getAuthenticatedUserState} from './store/reducer-config';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {User} from './store/users';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class PermissionService {
@@ -14,6 +15,8 @@ export class PermissionService {
 	}
 
 	hasPermission(role: String): Observable<boolean> {
-		return this.authenticatedUser$.map(user => user ? user.roles.some(roleType => roleType === role) : false);
+		return this.authenticatedUser$.pipe(
+			map(user => user ? user.roles.some(roleType => roleType === role) : false)
+		);
 	}
 }

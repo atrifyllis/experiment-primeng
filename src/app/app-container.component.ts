@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState, getAuthenticatedState, getAuthenticatedUserState} from './store/reducer-config';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {authConfig} from './auth.config';
 import * as app from './app.actions';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {User} from './store/users';
+import {from} from 'rxjs/internal/observable/from';
 
 @Component({
 	selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppContainerComponent {
 			// NOTE: the call to tryLogin here is required from the library to retrieve the token after the redirect from the auth server.
 			// Also, because the library seems to have no events or callbacks that work for non-oidc authentication,
 			// we need to manually check if the authentication was successful (by calling getAccessToken)
-			Observable.fromPromise(this.oauthService.tryLogin())
+			from(this.oauthService.tryLogin())
 				.subscribe(() => {
 					if (this.oauthService.getAccessToken() !== null) {
 						this.store.dispatch(new app.LoginSuccessAction({}));
