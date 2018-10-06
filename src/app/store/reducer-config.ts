@@ -103,3 +103,5 @@ export const getAuthenticatedUserState = (state: AppState) => state.globalState.
 
 export const getErrorState = (state: AppState) => state.globalState.error;
 
+export const getTreeDataState = (state: AppState) => state.globalState.treeData;
+

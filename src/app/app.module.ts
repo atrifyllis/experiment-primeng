@@ -49,6 +49,7 @@ import {AppContainerComponent} from './app-container.component';
 import {RedirectInterceptor} from './interceptor/interceptor-redirect-response';
 import {ErrorComponent} from './error/error.component';
 import {PermissionService} from './permission.service';
+import {TreeModule} from 'primeng/primeng';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import {PermissionService} from './permission.service';
 		BrowserAnimationsModule,
 		FieldsetModule,
 		DataTableModule,
+		TreeModule,
 		DialogModule,
 		RouterModule.forRoot(routes),
 		StoreModule.forRoot(reducers, {metaReducers}),

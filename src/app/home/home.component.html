@@ -19,4 +19,6 @@
 		<mat-list-item>An OAuth2 Authorization Server (simple oauth token authentication, user/roles in database)</mat-list-item>
 		<mat-list-item>(TODO)Convert to JWT token</mat-list-item>
 	</mat-list>
+	<p-tree [value]="treeData$ | async" selectionMode="checkbox"  [(selection)]="selectedTreeData"></p-tree>
+
 </mat-card>
